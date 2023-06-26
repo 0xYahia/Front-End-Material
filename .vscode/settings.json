@@ -1,0 +1,30 @@
+{
+  "cSpell.words": [
+    "alink",
+    "axios",
+    "fname",
+    "lptr",
+    "moamen",
+    "navbars",
+    "tarr",
+    "Yahia"
+  ],
+  "C_Cpp.errorSquiggles": "disabled",
+  "files.associations": {
+    "functional": "cpp",
+    "array": "cpp",
+    "deque": "cpp",
+    "string": "cpp",
+    "unordered_map": "cpp",
+    "vector": "cpp",
+    "string_view": "cpp",
+    "initializer_list": "cpp",
+    "ostream": "cpp",
+    "chrono": "cpp",
+    "istream": "cpp",
+    "ratio": "cpp",
+    "tuple": "cpp",
+    "type_traits": "cpp",
+    "utility": "cpp"
+  }
+}

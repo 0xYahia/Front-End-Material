@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <table>
+      <caption>
+        text before table
+      </caption>
+      <thead>
+        <tr>
+          <th></th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+      </tbody>
+      <tfooter>
+        <tr>
+          <td></td>
+          <td></td>
+        </tr>
+      </tfooter>
+    </table>
+  </body>
+  <div>
+    <a href="https://www.google.com" target="_parent">Parent</a> <br />
+    <a href="https://www.google.com" target="_top">Top</a><br />
+    <a href="https://www.google.com" target="_self">Self</a><br />
+    <a href="https://www.google.com" target="_blank">Blank</a>
+    <!-- <iframe src="https//www.youtube.com"></iframe> -->
+    <span><h1>Yahia</h1></span>
+    <span>aa</span>
+    <img src="circle.PNG" alt="circle" srcset="circle.svg" />
+    <!-- Write HTML5 code to demonstrate the use of Geolocation API. -->
+    <p>Click "try it" button to get your coordinates.</p>
+    <button onclick="getLocation()">Try It</button>
+    <p id="demo"></p>
+    <script>
+      var x = document.getElementById("demo");
+
+      function getLocation() {
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(showPosition);
+        } else {
+          x.innerHTML =
+            "Geolocation functionality is not supported by this browser.";
+        }
+      }
+
+      function showPosition(position) {
+        x.innerHTML =
+          "Latitude: " +
+          position.coords.latitude +
+          "<br>Longitude: " +
+          position.coords.longitude;
+      }
+    </script>
+  </div>
+</html>

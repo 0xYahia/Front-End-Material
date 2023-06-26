@@ -1,0 +1,38 @@
+/* span {
+  background-color: red;
+  color: white;
+  border: 5px solid black;
+  padding: 5px;
+  margin: 10px;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+}
+
+div {
+  background-color: red;
+  color: white;
+  border: 5px solid black;
+  padding: 5px;
+  margin: 10px;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+} */
+
+/* div {
+  font-size: 20px;
+}
+
+.span1 {
+  font-size: 2em;
+}
+.span2 {
+  font-size: 40px;
+} */
+
+@supports (display: grid) {
+  div {
+    display: grid;
+  }
+}
