@@ -91,3 +91,13 @@ const input2 = document.getElementById("num2")! as HTMLInputElement;
   add2(num1, num2, printResult, resultPhrase);
 }
 //! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 15- Type Assignment & Type Inference
+//! Type inference:
+//is a built-in feature in typescript TypeScript will try to infer the type for you, if you don't set it explicitly.
+
+//! Note => We don't need to write the type of const variable Because you'll not be able to assign a new number, or a new value to a const value anyways.
+
+// and if you hover on the const variable the IDE doesn't write the type of this variable
+// but in var or let variable when we assign value in this variables IDE write type of this variables implicitly
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 16- Object Types:
