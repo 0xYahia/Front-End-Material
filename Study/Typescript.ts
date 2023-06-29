@@ -98,6 +98,11 @@ const input2 = document.getElementById("num2")! as HTMLInputElement;
 //! Note => we don't need to write the type of const variable Because you'll not be able to assign a new number, or a new value to a const value anyways.
 
 // and if you hover on the const variable the IDE doesn't write type of this variable
+//is a built-in feature in typescript TypeScript will try to infer the type for you, if you don't set it explicitly.
+
+//! Note => We don't need to write the type of const variable Because you'll not be able to assign a new number, or a new value to a const value anyways.
+
+// and if you hover on the const variable the IDE doesn't write the type of this variable
 // but in var or let variable when we assign value in this variables IDE write type of this variables implicitly
 //! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! 16- Object Types:
@@ -125,6 +130,25 @@ const product = {
     description: "A great carpet - almost brand-new!",
   },
 };
+// This would be the type of such an object:
+
+// {
+//   id: string;
+//   price: number;
+//   tags: string[];
+//   details: {
+//     title: string;
+//     description: string;
+//   }
+// }
+//   id: 'abc1',
+//   price: 12.99,
+//   tags: ['great-offer', 'hot-and-new'],
+//   details: {
+//     title: 'Red Carpet',
+//     description: 'A great carpet - almost brand-new!'
+//   }
+// }
 // This would be the type of such an object:
 
 // {
