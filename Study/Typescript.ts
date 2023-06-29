@@ -137,3 +137,26 @@ const product = {
   }
 }
 // So you have an object type in an object type so to say.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 17- Arrays Types:
+
+// const person2: {
+//   name: string;
+//   age: number;
+// } = {
+const person2 = {
+  name: "Yahia",
+  age: 25,
+  hobbies: ["Sports", "Cooking"],
+};
+
+let favoriteActivities: string[];
+favoriteActivities = ["Sports"];
+
+console.log(person2.name);
+
+for (const hobby of person2.hobbies) {
+  console.log(hobby.toUpperCase());
+  // So hobby, on the upper hand, is correctly identified as being a string, because since we go through an array of strings, well the individual values have to be just strings.
+  // console.log(hobby.map()); // !!! ERROR !!! The map method is available on arrays, but not on strings.
+}
