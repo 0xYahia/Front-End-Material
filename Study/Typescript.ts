@@ -209,3 +209,7 @@ const person3: {
   hobbies: ["Sports", "Cooking"],
   role: [2, "author"], //! Tuple Type Definition Syntax
 };
+
+// if you have a scenario where you need exactly X amount of values in an array and  you know the type of each value in advance,
+// then you might want to consider a tuple instead of an array to get even more strictness into your app to be even clearer about the type of data
+// you're working with and the type of data you're expecting.
