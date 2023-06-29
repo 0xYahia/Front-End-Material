@@ -84,10 +84,104 @@ const input2 = document.getElementById("num2")! as HTMLInputElement;
     }
   }
 
-  const num1 = 10; // 5.0
+  let num1 = 10; // 5.0
   const num2 = 2.8;
   const printResult = true;
   const resultPhrase = "Result is: ";
   add2(num1, num2, printResult, resultPhrase);
 }
 //! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 15- Type Assignment & Type Inference
+//! Type inference:
+// it a built in feature in typescript TypeScript will try to infer the type for you, if you don't set it explicitly.
+
+//! Note => we don't need to write the type of const variable Because you'll not be able to assign a new number, or a new value to a const value anyways.
+
+// and if you hover on the const variable the IDE doesn't write type of this variable
+// but in var or let variable when we assign value in this variables IDE write type of this variables implicitly
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 16- Object Types:
+// const person: {
+//   name: string;
+//   age: number;
+// } = {
+const person = {
+  name: "Yahia",
+  age: 25,
+};
+
+console.log(person.name);
+
+// Of course object types can also be created for nested objects.
+
+//! Let's say you have this JavaScript object:
+
+const product = {
+  id: "abc1",
+  price: 12.99,
+  tags: ["great-offer", "hot-and-new"],
+  details: {
+    title: "Red Carpet",
+    description: "A great carpet - almost brand-new!",
+  },
+};
+// This would be the type of such an object:
+
+// {
+//   id: string;
+//   price: number;
+//   tags: string[];
+//   details: {
+//     title: string;
+//     description: string;
+//   }
+// }
+// So you have an object type in an object type so to say.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 17- Arrays Types:
+
+// const person2: {
+//   name: string;
+//   age: number;
+// } = {
+const person2 = {
+  name: "Yahia",
+  age: 25,
+  hobbies: ["Sports", "Cooking"],
+};
+
+let favoriteActivities: string[];
+favoriteActivities = ["Sports"];
+
+console.log(person2.name);
+
+for (const hobby of person2.hobbies) {
+  console.log(hobby.toUpperCase());
+  // So hobby, on the upper hand, is correctly identified as being a string, because since we go through an array of strings, well the individual values have to be just strings.
+  // console.log(hobby.map()); // !!! ERROR !!! The map method is available on arrays, but not on strings.
+}
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 18- Working with Tuples
+// Tuples are basically fixed-length arrays with fixed types. (but we can add and using push and pop)
+// Push and pop actually is an exception which is allowed in tuples So unfortunately TypeScript can't catch this error,
+// but at least it ensures that we're not assigning a wrong value here, and outside of push
+
+// But you can access elements based on their index and you can also access multiple elements in a row.
+type Coordinates = [number, number]; //! Tuple Type Definition Syntax
+let coordinates: Coordinates = [10, 20]; //! Tuple Type Definition Syntax
+coordinates[0] += 3; //! Index Access Operator
+
+//! Example
+
+const person3: {
+  name: string;
+  age: number;
+  hobbies: string[];
+  role: [number, string]; //! Tuple Type Definition Syntax
+} = {
+  // const person2 = {
+  name: "Yahia",
+  age: 25,
+  hobbies: ["Sports", "Cooking"],
+  role: [2, "author"], //! Tuple Type Definition Syntax
+};
