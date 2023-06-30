@@ -185,7 +185,7 @@ for (const hobby of person2.hobbies) {
   // console.log(hobby.map()); // !!! ERROR !!! The map method is available on arrays, but not on strings.
 }
 //! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//! 18- Working with Tuples
+//! 19- Working with Tuples
 // Tuples are basically fixed-length arrays with fixed types. (but we can add and using push and pop)
 // Push and pop actually is an exception which is allowed in tuples So unfortunately TypeScript can't catch this error,
 // but at least it ensures that we're not assigning a wrong value here, and outside of push
@@ -213,3 +213,35 @@ const person3: {
 // if you have a scenario where you need exactly X amount of values in an array and  you know the type of each value in advance,
 // then you might want to consider a tuple instead of an array to get even more strictness into your app to be even clearer about the type of data
 // you're working with and the type of data you're expecting.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 20- Working with Enums:
+// Enums allow us to define a set of named constants. Using enums can make it easier to document intent, or create a set of distinct cases.
+// TypeScript provides both numeric and string-based enums.
+// Enums are one of the few features TypeScript has which is not a type-level extension of JavaScript.
+// Enum => added by typescript: Automatically enumerated global constant identifiers
+//! NOTE =>> I can give default value for element in enum types
+
+//! Example:
+
+enum Role {
+  ADMIN = "ADMIN",
+  USER = 100,
+  AUTHOR = 200,
+}
+
+const person4 = {
+  name: "Yahia",
+  age: 25,
+  hobbies: ["Sports", "Cooking"],
+  role: Role.USER,
+};
+
+if (person4.role === Role.ADMIN) {
+  console.log("is admin");
+} else if (person4.role === Role.USER) {
+  console.log("is user");
+} else {
+  console.log("is author");
+}
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 21- The Any Type
