@@ -1,39 +1,15 @@
-var person1: {
-  name: string;
-  age: number;
-  hobbies: string[];
-  role: [number, string]; //! Tuple Type Definition Syntax
-} = {
-  // const person2 = {
-  name: "Yahia",
-  age: 25,
-  hobbies: ["Sports", "Cooking"],
-  role: [2, "author"], //! Tuple Type Definition Syntax
-};
+// function combine(input1: number | string, input2: number | string) {
+//   let result;
 
-person1.role.push("Yahia");
-// console.log(person1);
-// person1.role.pop();
-// console.log(person1);
-/////////////////////////////////////////////////
+//   if (typeof input1 === "number" && typeof input2 === "number")
+//     result = input1 + input2;
+//   else result = input1.toString() + " " + input2.toString();
 
-// enum Role {
-//   ADMIN = "ADMIN",
-//   USER = 100,
-//   AUTHOR = 200,
+//   return result;
 // }
 
-// const person4 = {
-//   name: "Yahia",
-//   age: 25,
-//   hobbies: ["Sports", "Cooking"],
-//   role: Role.USER,
-// };
+// const combinedAges = combine(30, 26);
+// console.log(combinedAges);
 
-// if (person4.role === Role.ADMIN) {
-//   console.log("is admin");
-// } else if (person4.role === Role.USER) {
-//   console.log("is user");
-// } else {
-//   console.log("is author");
-// }
+// const combinedNames = combine("Mohamed", "Yahia");
+// console.log(combinedNames);
