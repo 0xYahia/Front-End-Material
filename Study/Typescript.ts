@@ -482,4 +482,6 @@ function generateError(message: string, code: number): never {
 const result = generateError("An error occurred!", 500);
 console.log(result);
 //! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//! Section 3: The Typescript Compiler (and its configuration)
+//! Section 3: The Typescript Compiler (and its configuration):
+//! 34- Using Watch Mode
+//! 35- Compiling the entire project / multiple files
