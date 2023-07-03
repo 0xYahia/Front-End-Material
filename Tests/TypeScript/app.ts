@@ -7,4 +7,13 @@
 // }
 
 // console.log(printResult(add(5, 12)));
+// // let combineValues: Function
+// let combineValues: (n1: number, n2: number) => number;
+
+// combineValues = add;
+// // combineValues = 8;
+// // combineValues = printResult;
+
+// console.log(combineValues(8, 8));
+
 ///////////////////////////////////////////////////////////////////////////////////////
