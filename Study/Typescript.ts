@@ -244,4 +244,136 @@ if (person4.role === Role.ADMIN) {
   console.log("is author");
 }
 //! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//! 21- The Any Type
+//! 21- The Any Type:
+// The any type is the most flexible type in TypeScript and basically allows you to assign any value to that variable.
+// You can basically turn off TypeScript's type checking for that variable.
+// You can use it if you don't know what the type of a variable will be yet.
+// But you should use it with caution because you lose all the benefits of TypeScript's type system.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 22- Union Type:
+// Union types allow you to combine multiple types into one type.
+// You can use the pipe | symbol to separate the types.
+// Union types are useful if you want a variable or parameter to hold more than one type.
+// Union types are a powerful way to express a value that can be one of the several types.
+
+//! Example:
+
+function combine(input1: number | string, input2: number | string) {
+  let result;
+
+  if (typeof input1 === "number" && typeof input2 === "number")
+    result = input1 + input2;
+  else result = input1.toString() + " " + input2.toString();
+
+  return result;
+}
+
+const combinedAges = combine(30, 26);
+console.log(combinedAges);
+
+const combinedNames = combine("Mohamed", "Yahia");
+console.log(combinedNames);
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 23- Literal Types:
+// Literal types allow you to specify exact values a string, number, or boolean must have.
+// In practice, union types are much more common than literal types.
+// Literal types combine nicely with union types, type guards, and type aliases.
+// A string literal type can be used to allow a string to have exactly one value.
+
+//! Example:
+function combine1(
+  input1: number | string,
+  input2: number | string,
+  // resultConversion: string,
+  resultConversion: "as-number" | "as-text" // union types with literal types
+) {
+  let result;
+
+  if (
+    (typeof input1 === "number" && typeof input2 === "number") ||
+    resultConversion === "as-number"
+  )
+    result = +input1 + +input2;
+  else result = input1.toString() + input2.toString();
+
+  // if (resultConversion === "as-number") return +result;
+  // else return result.toString();
+
+  return result;
+}
+
+const combinedAges1 = combine1(30, 26, "as-number");
+console.log(combinedAges1);
+
+const combinedStringAges1 = combine1("30", "26", "as-number");
+console.log(combinedStringAges1);
+
+const combinedNames1 = combine1("Mohamed", "Yahia", "as-text");
+console.log(combinedNames1);
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 24- Type Aliases / Custom Types:
+// Type aliases create a new name for a type. Type aliases are sometimes similar to interfaces,
+// but can name primitives, unions, tuples, and any other types that you’d otherwise have to write by hand.
+// Type aliases are exactly the same as their original types; they are simply alternative names.
+// Type aliases are sometimes similar to interfaces, but can name primitives, unions, tuples, and any other types that you’d otherwise have to write by hand.
+
+//! Example:
+
+type Combinable = number | string;
+type ConversionDescriptor = "as-number" | "as-text";
+
+function combine2(
+  input1: Combinable,
+  input2: Combinable,
+  // resultConversion: string,
+  resultConversion: ConversionDescriptor // union types with literal types
+) {
+  let result;
+
+  if (
+    (typeof input1 === "number" && typeof input2 === "number") ||
+    resultConversion === "as-number"
+  )
+    result = +input1 + +input2;
+  else result = input1.toString() + input2.toString();
+
+  // if (resultConversion === "as-number") return +result;
+  // else return result.toString();
+
+  return result;
+}
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 24- Type Aliases & Object Types
+
+// Type aliases can be used to "create" your own types. You're not limited to storing union types though - you can also provide
+//  an alias to a (possibly complex) object type.
+
+//! Example:
+
+type User = { name: string; age: number };
+const u1: User = { name: "Max", age: 30 }; // this works!
+
+// This allows you to avoid unnecessary repetition and manage types centrally.
+
+//! For example, you can simplify this code:
+
+function greet(user: { name: string; age: number }) {
+  console.log("Hi, I am " + user.name);
+}
+
+function isOlder(user: { name: string; age: number }, checkAge: number) {
+  return checkAge > user.age;
+}
+
+//! To:
+type User1 = { name: string; age: number };
+
+function greet1(user: User1) {
+  console.log("Hi, I am " + user.name);
+}
+
+function isOlder1(user: User1, checkAge: number) {
+  return checkAge > user.age;
+}
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 26- Function Return Types & "Void"

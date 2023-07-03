@@ -7,7 +7,7 @@ body {
 body: => selector
 background-color: => property
 lightblue: => value
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Simple Selectors:
 (1) Element Selector: Selects all elements with the given tag name.
 Syntax:
@@ -44,7 +44,7 @@ Specificity priority:
 (2) ID: 100
 (3) Class: 10
 (4) Element: 1
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Inline and External Style:
 (1) Inline Style: An inline style is a style that is applied directly to the element to be styled.
 Syntax:
@@ -59,14 +59,14 @@ h1 {
 OR:
 
 <h1 style="color:blue;">This is a Blue Heading</h1>
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 (2) External Style: An external style sheet is used to define the style for many HTML pages.
 Syntax:
 
 <head>
 =><link rel="stylesheet" href="styles.css">
 </head>
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Multiple and combinator selectors:
 Multiple Selectors: Selects all the elements with the given tag name, class name, or id name.
 (1) comma (,): Selects all the elements with the given tag name, class name, or id name.
@@ -103,7 +103,7 @@ div ~ p { // all the p tags that are placed after the div tag
 => text-align: center;
 => color: red;
 }
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Attribute Selectors:
 (1) [attribute]: Selects all the elements with the given attribute.
 Syntax:
@@ -150,7 +150,7 @@ Syntax:
 div[title|="ccc"] { // all the div elements with the title attribute and value that contains "ccc" (e.g. "ccc-aaa") ccc must be a whole word or start with ccc and then a dash like "ccc-aaa"
 => color: red;
 }
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Pseudo elements selectors:
 (1) ::after: Adds something after the content of each selected element.
 Syntax:
@@ -183,7 +183,7 @@ Syntax:
 p::selection { // all the p elements select the portion of the p element that is selected by a user and make it red
 => color: red;
 }
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Pseudo classes selectors:
 (1) :active: Selects the active link.
 Syntax:
@@ -238,11 +238,11 @@ Syntax:
 input:invalid { // all the input elements select all input elements with an invalid value and make it red
 => color: red;
 }
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Properties introduction:
 NOTE: hover will work with the same selector or selector with lower specificity.
 and hover not work if the same selector have value for the same property by another selector but it higher specificity
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 BOX MODEL:
 (1) content: The content of the box, where text and images appear.
 (2) padding: Clears an area around the content. The padding is transparent.
@@ -265,12 +265,12 @@ Syntax:
 (6) border-right: 10px solid red;
 (7) border-bottom: 10px solid red;
 (8) border-left: 10px solid red;
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Box width and height:
 We used the percentage % to make the width and height of the box responsive. because it will be relative to the parent element.
 NOTE: The percentage % will not work with height if the parent element does not have a height. it takes the height of the content.
 but if parent element for example have height 100px and the child element have height 50% it will be 50px.
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 BOX Sixing:
 NOTE: The box-sizing property allows us to include the padding and border in an element's total width and height. but it will not work with margin.
 but still place barrier between the elements.
@@ -278,24 +278,24 @@ The reason of this because box-sizing property know the width and height of the 
 
 (1) box-sizing: content-box; // default value
 (2) box-sizing: border-box;
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Box margin collapsing and display property:
 Horizontal margin collapsing:
 When two elements with margins are next to each other, the margin of the element with the sum of the two margins.
 Vertical margin collapsing:
 When two elements with margins are one above the other, the margin of the element with the largest margin. and this called margin collapsing.
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Hide elements:
 (1) display: none; // hide the element and remove it from the page
 (2) visibility: hidden; // hide the element but still take place in the page
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 NOTE: we used margin: auto; to center the element horizontally.
 border-radius: 50%; // to make the element circle
 border-radius: 20px / 100px 50px 70px 10px; // 20/100 20/50 20/70 20/10
 border-radius: 100%; // to make the element circle like border-radius: 50%;
 border-radius: 50%; // to make the element circle like border-radius: 100%; because 50% from each corner is 100%
 border-radius: 99% 0; // to make the element certain shape
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Border Image:
 (1) border-image-source: url("border.png"); // the image that will be the border
 (2) border-image-slice: 30; // the size of the border image
@@ -310,7 +310,7 @@ Border Image:
 (6) border-image: url("border.png") 30 round 30px 30px; // the shorthand property
 
 NOTE: Whether the size of image is smaller or larger than the size of the border, still the width of border constant and take size of it.
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Border Gradient Color
 border image is not supported in all browsers so we can use border gradient color instead of it.
 (1) border-image: linear-gradient(to right, red, blue); // the shorthand property
@@ -319,11 +319,11 @@ border image is not supported in all browsers so we can use border gradient colo
 (4) border-image-repeat: round; // the image will be repeated to fill the area and the last image will be stretched to fill the area
 (5) border-image-width: 30px; // the width of the border
 (6) border-image-outset: 30px; // the distance between the border and the element by default it is 0
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Box Shadow:
 (1) box-shadow: inset 10px 10px 10px 10px rgb(2,2,2,)
 ............... in or out offset-x offset-y blur-radius spread-radius color
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Positioning:
 (1) position: static; // default value
 (2) position: relative; // relative to its normal position (save its position in the page)
@@ -336,14 +336,14 @@ or absolute or fixed or the viewport and fixed be fixed in the page.
 if i give it 50px it will be sticky in the top of the page after 50px and if i give it bottom 0 it will be sticky in the bottom of the page
 
 NOTE: position sticky must have top or bottom or left or right to work but if don't have any of them it will be static.
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Absolute Positioning:
 Case 1 : if the parent element have position static the child element or don't there parent will be relative to the viewport.
 Case 2 : if the parent element have position not static the child element will be relative to its parent element.
 Case 3 : if child take position fixed it will be relative to the viewport until the parent element have position not static.
 Case 4 : if child take position sticky and i give it top 30px it will be sticky in the top of the page after 30px but sticky will die
 with the end of the parent element.
-#------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Z index in CSS:
 Z index is a property that allows us to control the order in which the elements are stacked on top of each other.
 So the higher the z index, the more on top the element will be. And the lower the z index, the more at the bottom the element will be.
@@ -351,7 +351,7 @@ And the default value of the z index is zero. And the z index only works on posi
 If element has not been positioned (static), then the z index will have no effect. (like top, left, right, bottom)
 NOTE: If more than element has the same z index, then the order in which they appear in the HTML will determine which one is on top.
 NOTE: Z index will between elements that are on the same level of the DOM tree.
-#----------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Floats: Floats are a legacy way of creating layouts. And they are still used today, but only in very specific situations.
 float make elements floating, and this means that they are taken out of the normal flow of the document.
 NOTE: If i give element float default behavior of the element will be changed. and will take the width of its content. if has not content will be hidden.
@@ -363,11 +363,11 @@ clear: right; => will clear the float from the right side.
 clear: both; => will clear the float from both sides.
 
 NOTE: in case header take position fixed, the content will be hidden behind the header. so we can give the content margin-top equal to the height of the header.
-#----------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Layouts: Modern layout techniques:
 display: list-item; => will make the element behave like a list item.
 list-style-position: inside; => will make the bullet inside the element.
-#----------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 display: table; => will make the element behave like a table. and don't take the full width of the page.
 display: table-caption; => will make the element behave like a table caption.
 display: table-header-group; => will make the element behave like a table header.
@@ -375,7 +375,7 @@ display: table-row-group; => will make the element behave like a table row group
 display: table-footer-group; => will make the element behave like a table footer group.
 display: table-row; => will make the element behave like a table row.
 display: table-cell; => will make the element behave like a table cell.
-#----------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Flexbox: Flexbox is a one-dimensional layout model. And this means that it deals with layout in one dimension at a time.
 Property for the parent element:
 display: flex; => will make the element behave like a flex container.
@@ -433,7 +433,16 @@ flex-grow: 1; => will make the element grow if the content is smaller than the w
 
 short hand for flex-grow, flex-shrink and flex-basis:
 flex: 0 1 auto; => will make the element not grow, shrink and take the width of its content. (default)
-#----------------------------------------------------------------------------------------------------------------------------------------------------#
+
+NOTE:
+flex-direction: row;
+justify-content: will move in width
+align-items: will move in height
+
+flex-direction: column;
+justify-content: will move in height
+align-items: will move in width
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Grid: Grid is a two-dimensional layout model. And this means that it deals with layout in two dimensions at a time.
 NOTE: if any item take any position from will item floating in the page, it will out of the grid. and grid decrease column.
 Property for the parent element:
@@ -463,7 +472,7 @@ grid-auto-columns: 100px; => will make the element take 100px width for each col
 row-gap: 10px; => will make the element take 10px space between each row.
 column-gap: 10px; => will make the element take 10px space between each column.
 gap: 10px; => will make the element take 10px space between each row and column.
-#----------------------------------------------------------------------------------------------------------------------------------------------------#
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 justify-items: stretch; => will make the element stretch to fill the width of the column. (default)
 justify-items: start; => will make the element start from the left. (Consider the language)
 justify-items: end; => will make the element end at the right. (Consider the language)
@@ -485,5 +494,65 @@ all of the above properties take the same values.
 
 grid-template-columns: repeat(auto-fill, 100px); => will make the element take 100px width for each column and if the container is bigger will create new column, until there not items.
 grid-template-columns: repeat(auto-fit, 100px); => will make the element take 100px width for each column and if the container is bigger will not create new column, unless there is items.
-#----------------------------------------------------------------------------------------------------------------------------------------------------#
-grid-template-areas:
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+NOTE: لتسميه منطقه معينه / لتسميه الخطوط اللي قبل الصف او العمود بكتب اسم الخط في سكوير براكيتس قبل النسبه او الوحده
+
+Example:
+grid-template-columns: [col-1-start] 50% [col-1-end col-2-start] 50% [col-2-end];
+grid-template-rows: [row-1-start] 50% [row-1-end row-2-start] 50% [row-2-end];
+
+grid-template-columns: [first-start] 100px [first-end second-start] 100px [second-end third-start] 100px [third-end];
+grid-template-rows: [first-start] 100px [first-end second-start] 100px [second-end third-start] 100px [third-end];
+
+but if i want use repeat i write:
+grid-template-columns: repeat(2, [col-start] 50% [col-end])
+it's like grid-template-columns: [col-start] 50% [col-end col-start] 50% [col-end];
+
+NOTE: one of disadvantage when we use repeat all lines take the same name
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+grid-template-areas: will make the element take the area that we want.
+Example:
+grid-template-areas: "area-1 area-1" ". area-2"
+
+NOTE: every "" represent one column and i can give more one are the same name and if i want give area name i write . dot
+grid-template: it's shorthand it represent row and column and can represent area, row and column
+if use it to represent row and column only we write row first then column
+Example:
+grid-template: 200px 300px / repeat(2, 50%)
+if we use it to represent area, row and column we write the area before the row
+Example:
+grid-template: "area-1 area-1" 200px ". area-2" 300px / 50% 50%
+
+NOTE: We can't use repeat if we use grid-template to represent area, row and column like we use it with row and column
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+If i want merge to items or cells:
+grid-column-start: 1;
+grid-column-end: 3;
+OR:
+grid-column-end: span 2
+
+grid-column: 1 / 3; => will make the element take the first and second column.
+=> This is a shorthand for grid-column-start and grid-column-end
+
+and we can use row like this:
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+Body: is a special element it give some property to his parent (html) like the height
+If want prevent this behavior we give html height in this case body can't give html value because already it has own value
+
+NOTE: If body element don't have property height will take the height of content and if not there any content will hidden
+
+NOTE: If body take height: 100% will take the height of content but if html take height 100% body will take height 100% (strange unexpected behavior)
+
+NOTE: If body take height: 50px will take 50px (ordinary) but not percentage
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+CSS Images:
+best practice: images should be 1.5x or 2x the size i want it
+if i want size 500px image should be 750px or 1000px
+
+width: 50% it will be relative with parent this be useful with responsive.
+height: 50% no recommended use this because body will extend to to match the size And therefore should give height to html element.
+max-width: 500px => width not increment of 500px until i give it value above 500px and so on with height
+min-width: 300px => width not decrement of 300px until i give it value under 300px and so on with height
+#------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+CSS SVG:
+svg: is a vector image it standard for Scalable Vector Graphic
