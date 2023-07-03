@@ -46,6 +46,7 @@ const input2 = document.getElementById("num2")! as HTMLInputElement;
 
 //! This instead of i check if funded input element do this and else do this
 //! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Section 2: Typescript Basics & Basic Types
 //! 5- TypeScript Advantages - Overview
 //! TypeScript adds:
 // 1- Types
@@ -244,7 +245,14 @@ if (person4.role === Role.ADMIN) {
   console.log("is author");
 }
 //! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//! 21- The Any Type:
+//! 21- The Any Type:function generateError(message: string, code: number): never {
+//   throw { message, errorCode: code };
+//   // while(true){} // infinite loop
+// }
+
+// const result = generateError("An error occurred!", 500);
+// console.log(result);
+
 // The any type is the most flexible type in TypeScript and basically allows you to assign any value to that variable.
 // You can basically turn off TypeScript's type checking for that variable.
 // You can use it if you don't know what the type of a variable will be yet.
@@ -376,4 +384,102 @@ function isOlder1(user: User1, checkAge: number) {
   return checkAge > user.age;
 }
 //! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//! 26- Function Return Types & "Void"
+//! 26- Function Return Types & "Void":
+// In TypeScript, you can specify what type of value a function returns.
+// You can specify a return type by adding a colon (:) after the parameters.
+// If a function doesn't return a value, you can specify void as the return type.
+// Void is a little like the opposite of any: the absence of having any type at all.
+// You may commonly see this as the return type of functions that do not return a value:
+
+//! The different between void and undefined?
+// The void type, in TypeScript, represents the absence of a value.
+// It is used as the return type of functions that do not return a value.
+// The undefined type is a sub-type of void type that represents the value undefined.
+// It is used when a variable has not been assigned a value.
+
+//! Example:
+
+// function add(n1: number, n2: number): number {
+//   return n1 + n2;
+// }
+
+// function printResult(num: number): void {
+//   console.log("Result: " + num);
+// }
+
+// function printResult2(num: number): undefined {
+//   console.log("Result: " + num);
+//   return;
+// }
+
+// console.log(printResult(add(5, 12)));
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 27- Functions as Types:
+
+function add(n1: number, n2: number): number {
+  return n1 + n2;
+}
+
+function printResult(num: number): void {
+  console.log("Result: " + num);
+}
+
+console.log(printResult(add(5, 12)));
+// let combineValues: Function //! here the variable type of any function take any parameter and return any type
+let combineValues: (n1: number, n2: number) => number; //! here function should take two parameter type of number and return type of number
+
+combineValues = add;
+// combineValues = 8;
+// combineValues = printResult;
+
+console.log(combineValues(8, 8));
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 28- Function Types & Callbacks:
+// In typescript We can pass parameter type of function
+// and return type of function
+
+//! Example:
+
+function addAndHandle(n1: number, n2: number, cb: (num: number) => void) {
+  const result = n1 + n2;
+  cb(result);
+}
+
+addAndHandle(10, 20, (result): void => {
+  console.log(result);
+});
+
+//! NOTE => callback functions can return something, even if the argument on which they're passed does NOT expect a returned value (void).
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 29- The "unknown" Type:
+
+let userInput: unknown;
+let userName: string;
+
+userInput = 5;
+userInput = "Yahia";
+
+if (typeof userInput === "string") {
+  userName = userInput;
+}
+
+//! The different between unknown and any?
+// We can't assign any value to unknown type without type checking
+// userName = userInput; // Error
+// But we can assign any value to any type
+// userName = userInput; // True (Work)
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 30- The "never" Type:
+// The never type represents the type of values that never occur.
+// For instance, never is the return type for a function expression or an arrow function expression that always throws an exception
+//  or one that never returns for example function has infinite loop before return.
+
+function generateError(message: string, code: number): never {
+  throw { message, errorCode: code };
+  // while(true){} // infinite loop
+}
+
+const result = generateError("An error occurred!", 500);
+console.log(result);
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Section 3: The Typescript Compiler (and its configuration)
