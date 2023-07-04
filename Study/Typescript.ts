@@ -559,3 +559,29 @@ console.log(result);
 
 //! downlevelIteration: true;
 // "downlevelIteration": true, => Emit more compliant, but verbose and less performant JavaScript for iteration.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 42- Stop Emitting files on compilation errors:
+//! noEmitOnError:
+// "noEmitOnError": true, => Do not emit outputs if any errors were reported.
+// it will be false by default
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 43- Strict Compilation
+//! strict: true;
+// "strict": true, => Enable all strict type checking options.
+
+//! NOTE => If i user strict: true; We don't need the rest of the settings in this lesson
+
+//! noImplicitAny: true;
+// "noImplicitAny": true, => Raise error on expressions and declarations with an implied 'any' type.
+// For variables this is okay will work with 'any' type. but For parameters it's not okay.
+
+//! strictNullChecks: true;
+// "strictNullChecks": true, => When type checking, take into account 'null' and 'undefined'.
+
+//! strictFunctionTypes: true;
+// "strictFunctionTypes": true, => When assigning functions, check to ensure parameters and the return values are subtype-compatible.
+
+//! strictBindCallApply: true;
+// "strictBindCallApply": true, => Check that the arguments for 'bind', 'call', and 'apply' methods match the original function.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 44- Code Quality Options
