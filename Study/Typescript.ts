@@ -485,3 +485,77 @@ console.log(result);
 //! Section 3: The Typescript Compiler (and its configuration):
 //! 34- Using Watch Mode
 //! 35- Compiling the entire project / multiple files
+//! 36- Including and Excluding Files
+//! If i want ignore any files to compile from ts to js:
+// 1- Create tsconfig.json file
+// 2- Add exclude property and add the files that you want to ignore it
+// 3- Run tsc command to compile all files
+
+//! We use include:
+// 1- Create tsconfig.json file
+// 2- Add include property and add the files or folders that you want to compile it
+
+//! We use files:
+// 1- Create tsconfig.json file
+// 2- Add files property and add the files only that you want to compile it
+
+//! NOTE => So basically we compile include minus exclude
+
+//! Example:
+// {
+//   "compilerOptions": {
+//     "target": "es5",
+//     "module": "commonjs",
+//     "outDir": "dist",
+//     "rootDir": "src",
+//     "strict": true,
+//     "noImplicitAny": true,
+//     "strictNullChecks": true,
+//     "strictFunctionTypes": true,
+//     "noImplicitThis": true,
+//     "noUnusedLocals": true,
+//     "noUnusedParameters": true,
+//     "noImplicitReturns": true,
+//     "noFallthroughCasesInSwitch": true,
+//     "inlineSourceMap": true,
+//     "inlineSources": true
+//   },
+//   "exclude": ["node_modules", "dist"],
+//   "include": [
+//     // "src/**/*" // would be the default
+//     "app.ts",
+//     "analytics.ts"
+// ]
+// }
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 37- Setting a Compilation Target
+// We use Target:
+// Add target property and add the version of javascript that you want to compile to it
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 38- Understanding TypeScript Libs and Configuration Options
+// "allowJs": true, => Allow JavaScript files to be a part of your program. Use the 'checkJS' option to get errors from these files.
+// "checkJs": true, => Enable error reporting in type-checked JavaScript files.
+// "declaration": true,    => Generate .d.ts files from TypeScript and JavaScript files in your project.
+// "declarationMap": true, => Create sourcemaps for d.ts files.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 40- Working with source maps
+// "sourceMap": true, => Create source map files for emitted JavaScript files.
+
+// SourceMap helps us with debugging and development. So to show what this does let me compile everything without that sourceMap setting.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 41- rootDir and outDir
+//! outDir:
+// "outDir": "dist", => Specify an output folder for all emitted files.
+//! rootDir:
+// "rootDir": "src", => Specify the root directory of input files. Use to control the output directory structure with --outDir.
+//! removeComments: true;
+// "removeComments": true, => Do not emit comments to output.
+//! noEmit: true;
+// "noEmit": true, => Do not emit outputs.
+
+// if you don't want to generate any JavaScript files. Now this might sound strange because that's the idea of TypeScript,
+// but if you just want to check whether your files are correct but you don't want to write all these output files,
+// to save some time, for example, in a bigger project, then you could set this to "true"
+
+//! downlevelIteration: true;
+// "downlevelIteration": true, => Emit more compliant, but verbose and less performant JavaScript for iteration.
