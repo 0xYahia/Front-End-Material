@@ -780,7 +780,7 @@ abstract class Department4 {
 // Now, important, you have to call super first in your constructor before you do anything with the "this" keyword.
 // So if you plan on assigning any other special properties here you have to do that after calling super.
 
-class ITDepartment extends Department1 {
+class ITDepartment extends Department4 {
   admins: string[];
   constructor(id: string, admins: string[]) {
     super(id, "IT");
@@ -1010,7 +1010,7 @@ class AccountingDepartment4 extends Department5 {
 
 class AccountingDepartment5 extends Department5 {
   private lastReport: string;
-  private static instance: AccountingDepartment5;
+  private static instance: AccountingDepartment5; //! Must be static
   get mostRecentReport() {
     if (this.lastReport) {
       return this.lastReport;
@@ -1058,3 +1058,101 @@ class AccountingDepartment5 extends Department5 {
 
 const accounting7 = AccountingDepartment5.getInstance(); // The object because it the same instance.
 const accounting8 = AccountingDepartment5.getInstance(); // The object because it the same instance.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 72- A First Interface
+// Interfaces are a very powerful tool in TypeScript and they're used to basically define a structure of an object.
+// So how an object should look like, what properties it should have, what methods it should have.
+// Interfaces are not compiled to JavaScript, they're only used during development to basically check your code for errors.
+// that an interface cannot have an initializer.
+
+// we'll not use this as a blueprint, however. Just as a custom type, we could say. Here, you could say a person could have a name,
+// which is of type string, and an age which is of type number.
+
+//! What is the idea behind interfaces?
+// The idea is that you can then use this interface as a type. So you can use it as a custom type, as a type for a property,
+// It allows us to define the structure of an object. We can use it as a type to type check for objects that must have this structure.
+
+interface Person {
+  name: string;
+  age: number;
+
+  great(phrase: string): void;
+}
+
+let user1: Person;
+
+user1 = {
+  name: "Yahia",
+  age: 26,
+  great(phrase: string) {
+    console.log(`${phrase} - I am ${this.name}`);
+  },
+};
+
+user1.great("Hi There");
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 73- Using Interfaces with Classes
+
+//! what different between interface and custome type?
+
+//! Interfaces:
+// 1) Interfaces are primarily used to describe the structure of objects and define contracts for classes to follow.
+// 2) They can define properties, methods, and index signatures.
+// 3) Interfaces can be extended using the extends keyword to inherit properties and methods from other interfaces.
+// 4) Interfaces support declaration merging, meaning you can declare multiple interfaces with the same name, and their declarations will be merged into a single interface.
+// 5) class can be implement from interface using implements keyword
+//!  Here's an example of an interface declaration:
+interface Person1 {
+  name: string;
+  age: number;
+  greet(): void;
+}
+
+//! Custom Types (Type Aliases):
+// 1) Custom types, or type aliases, allow you to create a new name for a type. They are useful when you want to create complex types or combine existing types.
+// 2) Type aliases can represent any valid type, including primitive types, union types, intersection types, and more.
+// 3) Type aliases are flexible and can be used to create complex types that are not possible with interfaces alone.
+// 4) Type aliases do not support declaration merging like interfaces do.
+//! Here's an example of a type alias declaration:
+
+type Point = {
+  x: number;
+  y: number;
+};
+
+//! In general, when deciding whether to use an interface or a custom type alias, you can consider the following guidelines:
+
+// If you need to define the shape of an object or describe the contract for a class, interfaces are often the preferred choice.
+// If you need to create a complex type, such as a union type or an intersection type, or if you want to give a name to an existing type for better readability, type aliases can be more suitable.
+
+interface Greetable {
+  name: string;
+
+  great(phrase: string): void;
+}
+
+class Person implements Greetable {
+  name: string;
+  age = 26;
+  constructor(n: string) {
+    this.name = n;
+  }
+
+  great(phrase: string): void {
+    console.log(` ${phrase} ${this.name}`);
+  }
+}
+
+let user2: Greetable;
+
+user2 = new Person("Yahia");
+
+user2.great("Hi There - I am");
+
+console.log(user2);
+
+//! what different between interface and abstract class?
+// You can't have implementation or values inside of interfaces but regarding the structure, regarding the features a class should have.
+// It's a bit like working with abstract classes, therefore, the difference being that an interface has no implementation details at all,
+// whereas abstract classes can be a mixture of you have to overwrite these parts and I have a concrete implementation parts.
+// That's an important difference between interfaces and abstract classes.
