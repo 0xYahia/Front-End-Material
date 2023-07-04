@@ -745,17 +745,21 @@ class Department3 {
 // readonly make can access any property and methods inside or outside class but can't change it
 // i can give the same property private with readonly this mean we can access this property inside class only but we can't change it
 
-class Department4 {
+abstract class Department4 {
+  static fiscalYear = 2023;
   // public name: string;
   // private id: string;
   protected employees: string[];
-  constructor(private readonly id: string, public name: string) {
+
+  constructor(protected readonly id: string, public name: string) {
     // this.name = name;
     // this.id = id;
   }
 
-  describe(this: Department4) {
-    console.log(`Department (${this.id}): ${this.name}`);
+  abstract describe(): void;
+
+  static createEmployee(name: string) {
+    return { name };
   }
 
   addEmploys(employee) {
@@ -782,6 +786,10 @@ class ITDepartment extends Department1 {
     super(id, "IT");
     this.admins = admins;
   }
+
+  describe() {
+    console.log("IT Department - ID: " + this.id);
+  }
 }
 
 const it1 = new ITDepartment("d1", ["Yahia"]);
@@ -798,6 +806,10 @@ console.log(it1);
 class AccountingDepartment extends Department4 {
   constructor(id: string, private reports: string[]) {
     super(id, "Accounting");
+  }
+
+  describe(): void {
+    console.log("Accounting Department - ID: " + this.id);
   }
 
   addReport(text: string) {
@@ -826,6 +838,10 @@ console.log(accounting4);
 class AccountingDepartment2 extends Department4 {
   constructor(id: string, private reports: string[]) {
     super(id, "Accounting");
+  }
+
+  describe(): void {
+    console.log("Accounting Department - ID: " + this.id);
   }
 
   addEmploys(name: string): void {
@@ -876,6 +892,10 @@ class AccountingDepartment3 extends Department4 {
     super(id, "Accounting");
   }
 
+  describe(): void {
+    console.log("Accounting Department - ID: " + this.id);
+  }
+
   addEmploys(name: string): void {
     if (name === " Yahia") {
       return;
@@ -902,3 +922,139 @@ accounting6.printReports();
 console.log(accounting6);
 //! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! 68- Static Methods & Properties:
+// Static properties and methods allow you to add properties and methods to classes which are not accessed on an instance of the class,
+// so where you don't need to call new class name first, but which you access directly on the class.
+// This is often used for utility functions that you want to group or map to a class logically,
+// or global constants which you also wanna store in a class.An example built into JavaScript,
+
+const emp1 = Department4.createEmployee("Yahia");
+console.log(emp1, Department4.fiscalYear); // {name: 'Yahia} 2023
+
+//! NOTE => We can't access static property or method inside class because this does refer to the instance created based on the class
+//!  while the static property is not available on instance because the whole idea behind static properties and static methods is that they're detached from instances.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 69- Abstract Classes:
+// To create abstract method we put abstract keyword after the method and mus abstract method inside abstract class
+// To create abstract class we put abstract keyword after the class
+// Abstract class can't be instantiated
+
+//! Example
+
+abstract class Department5 {
+  static fiscalYear = 2023;
+  protected employees: string[];
+
+  constructor(protected readonly id: string, public name: string) {}
+
+  abstract describe(): void;
+
+  static createEmployee(name: string) {
+    return { name };
+  }
+
+  addEmploys(employee) {
+    this.employees.push(employee);
+  }
+
+  printEmployeeInformation() {
+    console.log(this.employees.length);
+    console.log(this.employees);
+  }
+}
+
+class AccountingDepartment4 extends Department5 {
+  private lastReport: string;
+  get mostRecentReport() {
+    if (this.lastReport) {
+      return this.lastReport;
+    }
+    throw new Error("Not report found!");
+  }
+
+  set mostRecentReport(value: string) {
+    if (!value) {
+      throw new Error("Please pass in a valid value!");
+    }
+    this.addReport(value);
+  }
+  constructor(id: string, private reports: string[]) {
+    super(id, "Accounting");
+  }
+
+  describe(): void {
+    console.log("Accounting Department - ID: " + this.id);
+  }
+
+  addEmploys(name: string): void {
+    if (name === " Yahia") {
+      return;
+    }
+
+    this.employees.push(name);
+  }
+  addReport(text: string): void {
+    this.reports.push(text);
+  }
+
+  printReports(): void {
+    console.log(this.reports);
+  }
+}
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 70- Singletons & private Constructors:
+// The singleton pattern is about ensuring that you always only have exactly one instance of a certain class.
+
+// This can be useful in scenarios where you somehow can't use static methods or properties or you don't want to,
+// but at the same time you want to make sure that you can't create multiple objects based on a class
+// but that you always have exactly one object based on a class.
+
+class AccountingDepartment5 extends Department5 {
+  private lastReport: string;
+  private static instance: AccountingDepartment5;
+  get mostRecentReport() {
+    if (this.lastReport) {
+      return this.lastReport;
+    }
+    throw new Error("Not report found!");
+  }
+
+  set mostRecentReport(value: string) {
+    if (!value) {
+      throw new Error("Please pass in a valid value!");
+    }
+    this.addReport(value);
+  }
+  constructor(id: string, private reports: string[]) {
+    super(id, "Accounting");
+  }
+
+  static getInstance() {
+    if (AccountingDepartment5.instance) {
+      return this.instance;
+    }
+    this.instance = new AccountingDepartment5("d2", []);
+    return this.instance;
+  }
+
+  describe(): void {
+    console.log("Accounting Department - ID: " + this.id);
+  }
+
+  addEmploys(name: string): void {
+    if (name === " Yahia") {
+      return;
+    }
+
+    this.employees.push(name);
+  }
+  addReport(text: string): void {
+    this.reports.push(text);
+  }
+
+  printReports(): void {
+    console.log(this.reports);
+  }
+}
+
+const accounting7 = AccountingDepartment5.getInstance(); // The object because it the same instance.
+const accounting8 = AccountingDepartment5.getInstance(); // The object because it the same instance.

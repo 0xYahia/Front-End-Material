@@ -1,15 +1,18 @@
-class Department1 {
+abstract class Department1 {
+  static fiscalYear = 2023;
   // public name: string;
   // private id: string;
   protected employees: string[] = [];
-  constructor(private readonly id: string, public name: string) {
+  constructor(protected readonly id: string, public name: string) {
     // this.name = name;
     // this.id = id;
   }
 
-  describe(this: Department1) {
-    console.log(`Department (${this.id}): ${this.name}`);
+  static createEmployee(name: string) {
+    return { name };
   }
+
+  abstract describe(): void;
 
   addEmploys(employee) {
     // this.id = "5"; //! can't change it because it readonly
@@ -28,6 +31,10 @@ class ITDepartment1 extends Department1 {
     super(id, "IT");
     this.admins = admins;
   }
+
+  describe() {
+    console.log("IT Department - ID: " + this.id);
+  }
 }
 
 const it1 = new ITDepartment1("d1", ["Yahia"]);
@@ -43,6 +50,7 @@ console.log(it1);
 
 class AccountingDepartment1 extends Department1 {
   private lastReport: string;
+  private static instance: AccountingDepartment1;
 
   get mostRecentReport() {
     if (this.lastReport) {
@@ -57,8 +65,20 @@ class AccountingDepartment1 extends Department1 {
     }
     this.addReport(value);
   }
-  constructor(id: string, private reports: string[]) {
+  private constructor(id: string, private reports: string[]) {
     super(id, "Accounting");
+  }
+
+  static getInstance() {
+    if (AccountingDepartment1.instance) {
+      return this.instance;
+    }
+    this.instance = new AccountingDepartment1("d2", []);
+    return this.instance;
+  }
+
+  describe() {
+    console.log("Accounting Department - ID: " + this.id);
   }
 
   addEmploys(name: string): void {
@@ -78,7 +98,10 @@ class AccountingDepartment1 extends Department1 {
   }
 }
 
-const accounting1 = new AccountingDepartment1("d2", []);
+// const accounting1 = new AccountingDepartment1("d2", []);
+const accounting1 = AccountingDepartment1.getInstance();
+// const accounting2 = AccountingDepartment1.getInstance();
+// console.log(accounting1, accounting2);
 
 accounting1.addReport("Something went wrong...");
 accounting1.mostRecentReport = "Year End Report";
@@ -89,3 +112,10 @@ accounting1.addEmploys("Yahia"); // not added because yahia is admin
 accounting1.addEmploys("Joe"); // will added
 
 console.log(accounting1);
+
+const employee1 = Department1.createEmployee("Yahia");
+console.log(employee1, Department1.fiscalYear);
+
+const it2 = new ITDepartment1("d1", []);
+accounting1.describe();
+it2.describe();
