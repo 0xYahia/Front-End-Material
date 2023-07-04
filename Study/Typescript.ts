@@ -585,3 +585,320 @@ console.log(result);
 // "strictBindCallApply": true, => Check that the arguments for 'bind', 'call', and 'apply' methods match the original function.
 //! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! 44- Code Quality Options
+//! noUnusedLocals
+// "noUnusedLocals": true, => Report errors on unused locals.
+//! noUnusedParameters
+// "noUnusedParameters": true, => Report errors on unused parameters.
+
+const button1 = document.querySelector("button")!;
+
+function clickHandler(message: string, age: number /* unused parameter */) {
+  let yahia = "yahia"; // unused variable
+  console.log("Clicked" + message);
+}
+
+button1.addEventListener(
+  "click",
+  clickHandler.bind(null, "You're welcome!", 25)
+);
+//! noImplicitReturns
+// "noImplicitReturns": true, => Report error when not all code paths in function return a value.
+// if we have a function that sometimes returns something and sometimes it does not.
+
+//! Example
+
+function add3(n1: number, n2: number) {
+  if (n1 + n2 > 0) {
+    return n1 + n2;
+  }
+  // return null;
+}
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 45- Debugging with visual studio code:
+// we put sourceMap => true;
+// Then we put breakpoint in the line we want start debug from it
+// Then we go to run in VS code and click on start debugging
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Section 5: Classes & Interfaces
+//! 58- What are classes?
+//! Classes:
+// Classes are blueprints for objects. They can contain data in form of properties and code in form of methods.
+// Define how objects look like, which properties and methods they have
+// Classes make creation of multiple, similar objects much easier
+
+//! Objects:
+// The things you work with in code
+// Instances of classes (= based on classes)
+// Class-based creation is an alternative to using object literals!
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 60- Compiling to JavaScript:
+
+// class Department {
+//   name: string;
+//   constructor(n: string) {
+//     this.name = n;
+//   }
+// }
+
+// const accounting = new Department("Accounting");
+// console.log(accounting);
+
+//! After ES6
+
+// class Department {
+//   name: string;
+//   constructor(n: string) {
+//     this.name = n;
+//   }
+// }
+
+// const accounting = new Department("Accounting");
+// console.log(accounting);
+
+//! Before ES6
+// var Department = (function () { //! constructor function
+//   function Department(n) {
+//     this.name = n;
+//   }
+//   return Department;
+// })();
+// var accounting = new Department("Accounting");
+// console.log(accounting);
+//# sourceMappingURL=app.js.map
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 61- Constructor Functions & The "this" Keyword:
+//! What New keyword make?
+// 1- It creates a new object
+// 2- It sets the type of this to be that new object
+// 3- It executes the constructor function to initialize the object
+
+//! Without new keyword this will be undefined because it not refer to the instance from this class
+class Department {
+  name: string;
+  constructor(n: string) {
+    this.name = n;
+  }
+
+  describe(this: Department) {
+    console.log("Department: " + this.name);
+  }
+}
+
+const accounting = new Department("Accounting");
+console.log(accounting);
+accounting.describe(); // output : Accounting
+
+const accountingCopy = { name: "DUMMY", describe: accounting.describe };
+
+accountingCopy.describe(); // output : undefined
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 62- "private" and "public" Access Modifiers:
+// public is a default it make can access any property and methods inside or outside class
+// private make can access any property and methods inside class only
+
+class Department2 {
+  name: string;
+  private employees: string[];
+  constructor(n: string) {
+    this.name = n;
+  }
+
+  describe(this: Department) {
+    console.log("Department: " + this.name);
+  }
+
+  addEmploys(employee) {
+    this.employees.push(employee);
+  }
+
+  printEmployeeInformation() {
+    console.log(this.employees.length);
+    console.log(this.employees);
+  }
+}
+
+const accounting2 = new Department2("Accounting");
+accounting2.addEmploys("Yahia");
+accounting2.addEmploys("Ahmed");
+
+accounting2.printEmployeeInformation(); // output : 2 ["Yahia", "Ahmed"]
+
+// accounting2.employees[2] = "Joe"; // property 'employees' is private and only accessible within class 'Department2
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 63- Shorthand Initialization:
+
+class Department3 {
+  // public name: string;
+  // private id: string;
+  private employees: string[];
+  constructor(private id: string, public name: string) {
+    // this.name = name;
+    // this.id = id;
+  }
+
+  describe(this: Department3) {
+    console.log(`Department (${this.id}): ${this.name}`);
+  }
+}
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 64- "readonly" Properties:
+// readonly make can access any property and methods inside or outside class but can't change it
+// i can give the same property private with readonly this mean we can access this property inside class only but we can't change it
+
+class Department4 {
+  // public name: string;
+  // private id: string;
+  protected employees: string[];
+  constructor(private readonly id: string, public name: string) {
+    // this.name = name;
+    // this.id = id;
+  }
+
+  describe(this: Department4) {
+    console.log(`Department (${this.id}): ${this.name}`);
+  }
+
+  addEmploys(employee) {
+    // this.id = "5"; //! can't change it because it readonly
+    this.employees.push(employee);
+  }
+
+  printEmployeeInformation() {
+    console.log(this.employees.length);
+    console.log(this.employees);
+  }
+}
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 65- Inheritance:
+//! super keyword:
+// super() => call the constructor of the base class
+
+// Now, important, you have to call super first in your constructor before you do anything with the "this" keyword.
+// So if you plan on assigning any other special properties here you have to do that after calling super.
+
+class ITDepartment extends Department1 {
+  admins: string[];
+  constructor(id: string, admins: string[]) {
+    super(id, "IT");
+    this.admins = admins;
+  }
+}
+
+const it1 = new ITDepartment("d1", ["Yahia"]);
+
+it1.addEmploys("Yahia");
+it1.addEmploys("Ahmed");
+
+it1.describe();
+it1.name = "New Name";
+it1.printEmployeeInformation();
+
+console.log(it1);
+
+class AccountingDepartment extends Department4 {
+  constructor(id: string, private reports: string[]) {
+    super(id, "Accounting");
+  }
+
+  addReport(text: string) {
+    this.reports.push(text);
+  }
+
+  printReports() {
+    console.log(this.reports);
+  }
+}
+
+const accounting4 = new AccountingDepartment("d2", []);
+
+accounting4.addReport("Something went wrong...");
+accounting4.printReports();
+
+console.log(accounting4);
+
+//! But there problem ITDepartment and Accounting has employees[]
+
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 66- Overriding Properties & The "protected" Modifier
+//! Protected:
+// protected make can access any property and methods inside class and inside class that inherit from it
+
+class AccountingDepartment2 extends Department4 {
+  constructor(id: string, private reports: string[]) {
+    super(id, "Accounting");
+  }
+
+  addEmploys(name: string): void {
+    if (name === " Yahia") {
+      return;
+    }
+
+    this.employees.push(name);
+  }
+  addReport(text: string): void {
+    this.reports.push(text);
+  }
+
+  printReports(): void {
+    console.log(this.reports);
+  }
+}
+
+const accounting5 = new AccountingDepartment2("d2", []);
+
+accounting4.addReport("Something went wrong...");
+accounting4.printReports();
+
+accounting4.addEmploys("Yahia"); // not added because yahia is admin
+accounting4.addEmploys("Joe"); // will added
+
+console.log(accounting4);
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 67- Getters & Setters:
+// getter => get value we use get keyword to and we can access it like property without calling
+// setter => set value we use set keyword to and we can access it like property without calling
+class AccountingDepartment3 extends Department4 {
+  private lastReport: string;
+  get mostRecentReport() {
+    if (this.lastReport) {
+      return this.lastReport;
+    }
+    throw new Error("Not report found!");
+  }
+
+  set mostRecentReport(value: string) {
+    if (!value) {
+      throw new Error("Please pass in a valid value!");
+    }
+    this.addReport(value);
+  }
+  constructor(id: string, private reports: string[]) {
+    super(id, "Accounting");
+  }
+
+  addEmploys(name: string): void {
+    if (name === " Yahia") {
+      return;
+    }
+
+    this.employees.push(name);
+  }
+  addReport(text: string): void {
+    this.reports.push(text);
+  }
+
+  printReports(): void {
+    console.log(this.reports);
+  }
+}
+
+const accounting6 = new AccountingDepartment3("d2", []);
+
+accounting6.addReport("Something went wrong...");
+accounting6.mostRecentReport = "Year End Report"; //! We can pass value to set like we assign value in property
+console.log(accounting6.mostRecentReport); //! we call getters without () like property
+accounting6.printReports();
+
+console.log(accounting6);
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 68- Static Methods & Properties:
