@@ -1459,3 +1459,65 @@ const errorBag: ErrorContainer = {
 };
 //! NOTE => when we choice type of properties is string this mean any thing can convert to a string
 //! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 88- Function Overloads
+// we can use function overloads to add more than one signature to a function
+
+//! Example
+
+type Combinable2 = string | number;
+
+function add6(a: number, b: number): number;
+function add6(a: string, b: string): string;
+function add6(a: string, b: number): string;
+function add6(a: number, b: string): string;
+function add6(a: Combinable1, b: Combinable1) {
+  if (typeof a === "string" || typeof b === "string") {
+    return a.toString() + b.toString();
+  }
+
+  return a + b;
+}
+
+// const result6 = add6("yahia", "mohamed") as string;
+const result6 = add6("yahia", "mohamed");
+result6.split(" , ");
+console.log(result6);
+
+//! After overloading when we use Combinable type only the function can't determine the type of the variable
+//! so we can't use split with result6 variable because the function can't know the type of the return
+//! so we can use type casting to tell the function the type of the return
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 89- Optional Chaining
+// we can use optional chaining to access properties that might not exist without getting errors
+// You can add a question mark after the thing you're not sure whether it's defined or not.
+// we do this to avoid errors when we try to access properties that might not exist (run time errors)
+
+//! Example
+
+const fetchedUserData = {
+  id: "u1",
+  name: "Yahia",
+  job: { title: "CEO", description: "My own company" },
+};
+
+// console.log(fetchedUserData.job && fetchedUserData.job.title); //! in JavaScript
+//! OR
+console.log(fetchedUserData?.job?.title); //! in TypeScript
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 90- Nullish Coalescing
+// we can use nullish coalescing to provide default values for variables that might be null or undefined
+// we write it use duple question mark (??)
+
+// The different between nullish coalescing and || or:
+// (||) or => if the value is null or undefined or empty string or 0 or false it will return the second value (fallback value)
+// (??) nullish coalescing => if the value is null or undefined it will return the second value (fallback value)
+
+//! Example
+
+const userInput1 = undefined;
+
+const storedData = userInput1 ?? "DEFAULT";
+
+console.log(storedData);
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 91- Type Unknown
