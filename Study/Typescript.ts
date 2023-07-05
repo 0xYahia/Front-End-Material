@@ -1156,3 +1156,63 @@ console.log(user2);
 // It's a bit like working with abstract classes, therefore, the difference being that an interface has no implementation details at all,
 // whereas abstract classes can be a mixture of you have to overwrite these parts and I have a concrete implementation parts.
 // That's an important difference between interfaces and abstract classes.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 74- Why Interfaces?
+// where we know we want to have a certain set of functionalities. Let's say a greet method, and we want to ensure
+// that a class has such a greet method, and another class has it maybe as well, well, then, we can implement an interface
+// which forces the existence of this method. Then we can easily share functionality amongst class,
+// and every clause has to add its own implementation, the exact code that should execute when the method is called
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 75- Readonly Interface Properties
+// we can add readonly to the interface properties to make it readonly to prevent any instance from changing it after initialization
+// but we can't add public or private or protected to the interface properties
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 76- Extending Interfaces
+
+// we can extend interfaces from other interfaces to add more properties and methods to the new interface
+// we can extend multiple interfaces from other interfaces but we can't do that with classes
+
+//! Example
+
+interface Named {
+  readonly name: string;
+}
+interface Greetable extends Named {
+  great(phrase: string): void;
+}
+
+class Person1 implements Greetable {
+  name: string;
+  age = 26;
+  constructor(n: string) {
+    this.name = n;
+  }
+
+  great(phrase: string): void {
+    console.log(` ${phrase} ${this.name}`);
+  }
+}
+
+//! Why would we split an interface like this?
+// Well, maybe you have an application where on some objects, you only want to force them to have a name, and not a greet method,
+// whereas on other objects, you need both greet and name. With this split, this is possible. Some objects, or some classes can just implement Named,
+// and others can implement Greetable and are forced to have both greet and a name.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 77- Interfaces as Function Types
+// we can use interfaces as function types to define the structure of a function
+
+// type AddFn = (a: number, b: number) => number; // this is define a type for a function
+
+//! to define a function type using interface we do it like this
+interface AddFn {
+  (a: number, b: number): number; //! anonymous function to be different from the function name in the interface
+}
+
+let add4: AddFn;
+
+add4 = (n1: number, n2: number) => {
+  return n1 + n2;
+};
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 78- Optional Parameters & Properties
+//
