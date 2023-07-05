@@ -1215,4 +1215,165 @@ add4 = (n1: number, n2: number) => {
 };
 //! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! 78- Optional Parameters & Properties
-//
+// we can add optional parameters, properties and methods to interfaces by adding ? after the property or parameter or method name
+//! We can make parameter is optional by two way:
+// 1) adding ? after the parameter name
+// 2)  by adding = after the parameter name and add the default value
+
+interface Named1 {
+  readonly name?: string;
+  outputName?: string;
+}
+interface Greetable1 extends Named {
+  great(phrase: string): void;
+}
+
+class Person2 implements Greetable1 {
+  name: string;
+  age = 26;
+  outputName = ".....";
+  constructor(n?: string) {
+    //! if name is not empty because it is optional
+    if (n) {
+      this.name = n;
+    }
+  }
+
+  great(phrase: string): void {
+    if (this.name) {
+      console.log(` ${phrase} ${this.name}`);
+    } else {
+      console.log("Hi");
+    }
+  }
+}
+
+let user3: Greetable1;
+
+user3 = new Person2();
+
+user2.great("Hi There - I am");
+console.log(user2);
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 79- Compiling Interfaces to JavaScript
+// interfaces are not compiled to JavaScript code, they are only used by the TypeScript compiler to check the structure of an object
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Section 6: Advanced Types
+//! 83- Intersection Types
+// we can combine multiple types to create a new type using intersection types
+// we use the & symbol to combine types
+// we can combine any types together
+// we can combine interfaces, types, primitives, union types, function types, object types, etc...
+
+//!
+
+type Admin = {
+  name: string;
+  privileges: string[];
+};
+
+type Employee = {
+  name: string;
+  startDate: Date;
+};
+
+type ElevatedEmployee = Admin & Employee;
+
+const e1: ElevatedEmployee = {
+  name: "yahia",
+  privileges: ["create-server"],
+  startDate: new Date(),
+};
+
+console.log(e1);
+
+//! We can also use intersection types with interfaces:
+
+interface Admin1 {
+  name: string;
+  privileges: string[];
+}
+
+interface Employee1 {
+  name: string;
+  startDate: Date;
+}
+
+interface ElevatedEmployee1 extends Employee1, Admin1 {}
+
+type Combinable1 = string | number;
+type Numeric = number | boolean;
+
+type Universal = Combinable1 & Numeric;
+
+const universal: Universal = 2;
+//! NOTE => when we use intersection types with objects, we get all the properties of the objects
+//! But when we use intersection types with union types, we get the common types between the union types
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 84- Type Guards
+// we can use type guards to check the type of a variable or to check if a property exists in an object
+//  or to check a property in class and to make sure that the code will work as expected
+
+//! We can use more than way to check the type:
+// 1) we can use typeof to check the type of a variable
+// 2) we can use in to check if a property exists in an object
+// 3) we can use instanceof to check if an object is an instance of a class
+
+function add5(a: Combinable1, b: Combinable1) {
+  if (typeof a === "string" || typeof b === "string") {
+    return a.toString() + b.toString();
+  }
+  return a + b;
+}
+
+type unknownEmployee = Admin | Employee;
+
+function printEmployeeInformation(emp: unknownEmployee) {
+  console.log("Name: " + emp.name);
+  if ("privileges" in emp) {
+    console.log("Privileges: " + emp.privileges);
+  }
+  if ("startDate" in emp) {
+    console.log("Start Date: " + emp.startDate);
+  }
+}
+
+printEmployeeInformation({
+  name: "Ahmed",
+  privileges: ["update-server"],
+  startDate: new Date(),
+});
+
+class Car {
+  drive() {
+    console.log("Driving...");
+  }
+}
+
+class Truck {
+  drive() {
+    console.log("Driving a truck...");
+  }
+
+  loadCargo(amount: number) {
+    console.log("Loading cargo ..." + amount);
+  }
+}
+
+type Vehicle = Car | Truck;
+
+const v1 = new Car();
+const v2 = new Truck();
+
+function useVehicle(vehicle: Vehicle) {
+  vehicle.drive();
+  // if ("loadCargo" in vehicle) {
+  if (vehicle instanceof Truck) {
+    vehicle.loadCargo(1000);
+  }
+}
+
+useVehicle(v1);
+useVehicle(v2);
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 85- Discriminated Unions
