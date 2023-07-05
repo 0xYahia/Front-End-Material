@@ -1377,3 +1377,85 @@ useVehicle(v1);
 useVehicle(v2);
 //! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! 85- Discriminated Unions
+// we can use discriminated unions to combine union types with type guards
+// we can use a common property (literal type) in each object to check the type of the object
+
+//! Example
+
+interface Bird {
+  type: "bird"; //! this is a literal type we must write it like this and we can't change it
+  flyingSpeed: number;
+}
+
+interface Horse {
+  type: "horse";
+  runningSpeed: number;
+}
+
+type Animal = Bird | Horse;
+
+function moveAnimal(animal: Animal) {
+  let speed;
+  switch (animal.type) {
+    case "bird":
+      speed = animal.flyingSpeed;
+      break;
+    case "horse":
+      speed = animal.runningSpeed;
+      break;
+  }
+  console.log("Moving at speed: " + speed);
+}
+
+moveAnimal({ type: "bird", flyingSpeed: 10 }); //! we can't add any other property except flyingSpeed because it is a literal type
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 86- Type Casting
+// we can use type casting to tell TypeScript that a certain variable is of a specific type
+
+//! We can use more than way to do type casting:
+// 1) we can use <type>variableName
+// 2) we can use variableName as type  (and use it with exclamation mark when we cast element in html )
+// 3) we can use if condition <type>variableName when we cast element in html
+
+//! NOTE => when we hold the html element by tag name we don't need to use type casting or exclamation mark because it is already know
+//! the type of the element (but) when we hold html element using id we need type casting adn exclamation mark
+
+//! Example
+
+// const userInputElement = document.querySelector("input");
+//! OR
+// const userInputElement = <HTMLInputElement>(
+//   document.getElementById("user-input")
+// );
+//! OR
+// const userInputElement = document.getElementById(
+//   "user-input"
+// )! as HTMLInputElement;
+
+//! OR
+// userInputElement.value = "Hi there!";
+
+//! OR with condition like
+const userInputElement = document.getElementById("user-input");
+
+if (userInputElement) {
+  (userInputElement as HTMLInputElement).value = "Hi there!";
+}
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 87- Index Properties
+// we can use index properties to create objects that are more flexible regarding the properties they might hold
+// to strict validation and type of properties that should be in the object
+
+//! Example
+
+interface ErrorContainer {
+  // {email: 'Not a valid email, username: 'Must start with a capital character}
+  [prop: string]: string;
+}
+
+const errorBag: ErrorContainer = {
+  email: "Not a valid email!",
+  username: "Must start with a capital character!",
+};
+//! NOTE => when we choice type of properties is string this mean any thing can convert to a string
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
