@@ -1550,3 +1550,87 @@ promise.then((data) => {
   data.split(" "); // will git error if i user method is not a string
 });
 //! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 95- Creating a Generic Function (Retrying)
+// we can use generic function to create a function that can work with a variety of types
+
+function merge(objA: object, objB: object) {
+  // return Object.assign(objA, objB);
+  return { ...objA, ...objB };
+}
+
+const mergedObj = merge({ name: "yahia" }, { age: 30 });
+console.log(mergedObj); // we can't access the properties because function take two unknown objects and return unknown object
+
+// to solve the problem we use generic function
+
+function merge1<T, U>(objA: T, objB: U) {
+  return { ...objA, ...objB };
+}
+
+const mergedObj1 = merge1({ name: "yahia" }, 30); // silent failure here because second argument is not a object and not get error and not added to the object
+console.log(mergedObj1);
+
+// we can also specify the type of the generic function like this
+
+const mergedObj2 = merge1<{ name: string }, { age: number }>(
+  { name: "yahia" },
+  { age: 30 }
+);
+console.log(mergedObj2.age);
+
+// But this will restrict the function to only this type of objects
+
+//!--------------------------------------------------------------------------------------------------------------------------------
+//! 96- Working with Constraints
+// we can use constraints to restrict the types that a generic function can work with to avoid silent failures
+// to add constraints to generic type we write (extends then we write constraints we want to put)
+// we can add any type constraints
+
+function merge3<T extends object, U extends object>(objA: T, objB: U) {
+  return { ...objA, ...objB };
+}
+
+const mergedObj3 = merge1({ name: "yahia" }, 30); // we get error here because second argument is not a object
+console.log(mergedObj1);
+
+//!--------------------------------------------------------------------------------------------------------------------------------
+//! 97- Another Generic Function
+// if we want check the length of arguments, when we use generic type we will ger error because
+// will got error because length is not exist in type T
+
+//! To solve the problem we create interface Lengthy and add length property to it then we extend Length interface
+//! in T  to implement length property in T
+
+//! Example
+interface Lengthy {
+  length: number;
+}
+
+function countAndDescribe<T extends Lengthy>(element: T): [T, string] {
+  let description = "Got no value.";
+  if (element.length === 1) {
+    // if we don't use interface will got error because length is not exist in type T
+    description = "Got 1 elements.";
+  } else if (element.length > 1) {
+    description = "Got " + element.length + " elements.";
+  }
+  return [element, description];
+}
+//!--------------------------------------------------------------------------------------------------------------------------------
+//! 98- The "keyof" Constraint
+// we can use keyof to ensure that the generic type can only be a key of another object
+
+//! Example
+function extractAndConvert<T extends object, U extends keyof T>(
+  obj: T,
+  key: U
+) {
+  return obj[key];
+}
+
+console.log(extractAndConvert({ name: "yahia" }, "name"));
+
+// if we make the second parameter is string type we will get error so we use keyof to make sure that the second parameter is a key of the first parameter
+
+//!--------------------------------------------------------------------------------------------------------------------------------
+//! 99- Generic Classes

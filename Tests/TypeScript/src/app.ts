@@ -51,8 +51,32 @@
 // };
 ////////////////////////////////
 
-const userInput = "";
+// function merge(objA: object, objB: object) {
+//   // return Object.assign(objA, objB);
+//   return { ...objA, ...objB };
+// }
 
-const storedData = userInput || "DEFAULT";
+// const mergedObj = merge({ name: "yahia" }, { age: 30 });
+// console.log(mergedObj); // we can't access the properties because function take two unknown objects and return unknown object
 
-console.log(storedData);
+// to solve the problem we use generic function
+
+// function merge1<T extends object, U extends object>(objA: T, objB: U) {
+//   return { ...objA, ...objB };
+// }
+
+// const mergedObj1 = merge1(
+//   { name: "yahia", hobbies: ["football"] },
+//   { age: 30 }
+// );
+// console.log(mergedObj1);
+////////////////////////////////
+
+function extractAndConvert<T extends object, U extends keyof T>(
+  obj: T,
+  key: U
+) {
+  return obj[key];
+}
+
+console.log(extractAndConvert({ name: "yahia" }, "name"));
