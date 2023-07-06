@@ -1520,4 +1520,33 @@ const storedData = userInput1 ?? "DEFAULT";
 
 console.log(storedData);
 //! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//! 91- Type Unknown
+//! Section 7: Generics
+//! 94- Built-in Generics & What are Generics?
+//! What are generics?
+// Generics are a way to create reusable components. They allow us to create functions and classes which can work with
+//  a variety of types rather than a single one.
+
+//! Built-in Generics like:
+// 1) Array
+// 2) Promise
+
+const names1: Array<string> = ["yahia", "Ahmed"];
+const names2: string[] = ["yahia", "Ahmed"];
+
+//! What different between names1 and names2?
+
+// 1) Consistency: It's important to maintain consistency within your codebase. If your project or team has an established convention or coding style that favors one syntax over the other, it's generally a good practice to follow that guideline for the sake of consistency.
+// 2) Readability: Consider which syntax provides better readability and understanding of the code. Some developers may find the Array<string> syntax more explicit and easier to comprehend, especially when dealing with more complex types or generic types. On the other hand, others may prefer the brevity and familiarity of the string[] syntax.
+// 3) Integration: If you are working with libraries or codebases that predominantly use one form of syntax, it may be beneficial to align with that convention to maintain consistency and simplify integration with existing code.
+// 4) Tooling and IDE Support: Different code editors and IDEs may handle the two syntaxes differently in terms of autocompletion, type inference, and documentation display. You may want to consider how your preferred development environment supports these syntaxes and choose the one that provides a better development experience.
+
+const promise: Promise<string> = new Promise((resolve, reject) => {
+  setTimeout(() => {
+    resolve("This is done!"); // git error if the input in resolve is not a string
+  }, 2000);
+});
+
+promise.then((data) => {
+  data.split(" "); // will git error if i user method is not a string
+});
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
