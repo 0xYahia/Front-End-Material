@@ -1754,3 +1754,139 @@ const names: Readonly<string[]> = ["yahia", "ahmed"];
 // that should make it clearer which role decorators fill and why they can be useful.
 //! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! 105- A First Class Decorator
+// Decorators are just functions, and they are functions you apply to something, to a class, to a property, to a method, to an argument.
+// And they get called with different arguments depending on what you apply them to. So they are functions you apply to something.
+// We called it use @expression
+//! https://www.typescriptlang.org/docs/handbook/decorators.html#introduction (Reference)
+
+function Logger(constructor: Function) {
+  console.log("Logging...");
+  console.log(constructor);
+}
+
+@Logger
+class Person3 {
+  name = "Yahia";
+  constructor() {
+    console.log("Creating person object...");
+  }
+}
+
+const person1 = new Person3();
+console.log(person1);
+
+//! NOTE VIP:
+// Please also note that our decorator output, Logging, and this class or this constructor function log here is printed first, before we see Creating person object
+// and our Person object. Because, indeed, decorators and that's really important, decorators execute when your class is defined. Not when it is instantiated.
+// You don't need to instantiate your class at all. We could remove that code for instantiating the class, and we would still get that decorator output.
+// So the decorator runs when JavaScript finds your class definition, your constructor function definition. Not when you use that constructor function
+// to instantiate an object. That's really important to understand.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 106- Working with Decorator Factories
+// Decorator factories are functions that return valid decorators. So functions that return a decorator function.
+// we can also define a decorator factory, which basically returns a decorator function,
+// but allows us to configure it when we assign it as a decorator to something.
+
+// I will return a new, anonymous function which takes that constructor argument and which then holds this logging which I want to execute inside of the decorator.
+function Logger1(logString: string) {
+  return function (constructor: Function) {
+    console.log(logString);
+    console.log(constructor);
+  };
+}
+
+// Now we can call this function and pass in the string we want to log. because it returns a decorator function, we can use it as a decorator.
+@Logger1("LOGGING- PERSON")
+class Person4 {
+  name = "Yahia";
+  constructor() {
+    console.log("Creating person object...");
+  }
+}
+
+const person5 = new Person4();
+console.log(person5);
+
+//! The benefits of using decorator factories:
+// 1- We can configure our decorator from outside.
+// So now we can customize the value the decorator function uses when it executes with our factory function. We now call our decorator here, because we're not executing the decorator function,
+// but we're executing a function that will return such a decorator function. And the advantage to this is that we can now pass in values which will be used by
+// that inner returned decorator function. So, if I now save that, we see the old output, but with our custom log string here. So, using decorator factories can give us
+// more power and more possibilities of configuring what the decorator then does internally.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 107- Building More Useful Decorators
+// we can create decorator to render html content like decorators in angular
+
+//! Example
+function WithTemplate(template: string, hookId: string) {
+  return function (constructor: any) {
+    // here we write type any because we don't know the type of the constructor
+    console.log("Rendering template");
+    const hookEl = document.getElementById(hookId); // here we hold the main template
+    const p = new constructor();
+    if (hookEl) {
+      hookEl.innerHTML = template; // here we added the html element in the root element
+      hookEl.querySelector("h1")!.textContent = p.name; // here we added the content of the template element in the root element
+    }
+  };
+}
+
+@WithTemplate("<h1>My Person Object</h1>", "app")
+class Person5 {
+  name = "Yahia";
+  constructor() {
+    console.log("Creating person object...");
+  }
+}
+
+const person6 = new Person5();
+console.log(person6);
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 108- Adding Multiple Decorators
+
+// When multiple decorators apply to a single declaration, their evaluation is similar to function composition in mathematics. In this model, when composing functions f and g, the resulting composite (f ∘ g)(x) is equivalent to f(g(x)).
+
+// As such, the following steps are performed when evaluating multiple decorators on a single declaration in TypeScript:
+
+// 1) The expressions for each decorator are evaluated top-to-bottom.
+// 2) The results are then called as functions from bottom-to-top.
+
+function Logger2(logString: string) {
+  return function (constructor: Function) {
+    console.log(logString);
+    console.log(constructor);
+  };
+}
+function WithTemplate2(template: string, hookId: string) {
+  return function (constructor: any) {
+    // here we write type any because we don't know the type of the constructor
+    console.log("Rendering template");
+    const hookEl = document.getElementById(hookId); // here we hold the main template
+    const p = new constructor();
+    if (hookEl) {
+      hookEl.innerHTML = template; // here we added the html element in the root element
+      hookEl.querySelector("h1")!.textContent = p.name; // here we added the content of the template element in the root element
+    }
+  };
+}
+@Logger2("LOGGING- PERSON")
+@WithTemplate2("<h1>My Person Object</h1>", "app")
+class Person6 {
+  name = "Yahia";
+  constructor() {
+    console.log("Creating person object...");
+  }
+}
+
+const person7 = new Person6();
+console.log(person7);
+
+// And of course, regular JavaScript rules apply here and this function execution happens before this function execution.
+// Which is why we see the Logger Factory before we see Template Factory.
+
+//But the execution of the actual decorator functions then happens bottom up. Which means the bottom-most decorator executes first, so this decorator function,
+// and thereafter the decorator above that executes.It's just something you have to know. With that, we got a solid base knowledge about decorators,
+
+//! Conclusion:
+// Factories function execute from top to bottom as rules in javascript
+// But the decorator function executes from bottom to top
