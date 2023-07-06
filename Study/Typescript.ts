@@ -1580,7 +1580,7 @@ console.log(mergedObj2.age);
 
 // But this will restrict the function to only this type of objects
 
-//!--------------------------------------------------------------------------------------------------------------------------------
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! 96- Working with Constraints
 // we can use constraints to restrict the types that a generic function can work with to avoid silent failures
 // to add constraints to generic type we write (extends then we write constraints we want to put)
@@ -1593,7 +1593,7 @@ function merge3<T extends object, U extends object>(objA: T, objB: U) {
 const mergedObj3 = merge1({ name: "yahia" }, 30); // we get error here because second argument is not a object
 console.log(mergedObj1);
 
-//!--------------------------------------------------------------------------------------------------------------------------------
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! 97- Another Generic Function
 // if we want check the length of arguments, when we use generic type we will ger error because
 // will got error because length is not exist in type T
@@ -1616,7 +1616,7 @@ function countAndDescribe<T extends Lengthy>(element: T): [T, string] {
   }
   return [element, description];
 }
-//!--------------------------------------------------------------------------------------------------------------------------------
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! 98- The "keyof" Constraint
 // we can use keyof to ensure that the generic type can only be a key of another object
 
@@ -1632,5 +1632,125 @@ console.log(extractAndConvert({ name: "yahia" }, "name"));
 
 // if we make the second parameter is string type we will get error so we use keyof to make sure that the second parameter is a key of the first parameter
 
-//!--------------------------------------------------------------------------------------------------------------------------------
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! 99- Generic Classes
+// we can use generic classes to create classes that work with a variety of types
+
+//! Example
+class DataStorage<T> {
+  private data: T[] = [];
+
+  addItem(item: T): void {
+    this.data.push(item);
+  }
+
+  removeItem(item: T): void {
+    if (this.data.indexOf(item) === -1) return;
+    this.data.splice(this.data.indexOf(item), 1);
+  }
+
+  getItems(): T[] {
+    return [...this.data];
+  }
+}
+
+const textStorage = new DataStorage<string>();
+textStorage.addItem("yahia");
+textStorage.addItem("ahmed");
+textStorage.removeItem("yahia"); // -1
+console.log(textStorage.getItems());
+
+const numberStorage = new DataStorage<number>();
+numberStorage.addItem(10);
+numberStorage.addItem(20);
+numberStorage.removeItem(10);
+console.log(numberStorage.getItems());
+
+const objectStorage = new DataStorage<object>();
+objectStorage.addItem({ name: "Yahia" });
+objectStorage.addItem({ name: "Ahmed" });
+objectStorage.removeItem({ name: "Yahia" });
+console.log(objectStorage.getItems());
+
+// But when we passed object we see problem it removed last object added to the storage not the object we want to remove
+// because object is reference type and when we passed it to the function it passed by reference not by value and the reference
+// object when we pass it to the addItem function it's different from the reference object that we passed to the removeItem function
+// so splice it removes the last element in the array here, because this in the end returns -1. IndexOf returns -1 even
+
+//! To solve this problem
+// first we will check in removeItem function if not find the item in the array return;
+// then we will store the object i wand add it in variable and pass it to the removeItem function to ensure that we will remove the same object
+// to ensure that object has the same reference like this
+
+// const obj = { name: "Yahia" };
+// objectStorage.addItem(obj);
+// objectStorage.addItem({ name: "Ahmed" });
+// objectStorage.removeItem(obj);
+// console.log(objectStorage.getItems());
+
+//! But if i want pass any object to this class we put constraint on the generic type
+
+//! NOTE => We can also have methods, which have their own generic types instead of classes.
+// So you could introduce new generic types in class methods,if you have some generic type, which only is needed in a certain method,
+// and not in the entire class. So you are really flexible there You can use constraints everywhere and in general, generic types are there
+// to make your life easier and to give you that perfect combination of full flexibility. We can use any primitive value you want here
+// and type safety, because we know perfectly well what is stored in this DataStorage and what is stored in this DataStorage.
+// So this combination is the awesome thing generic types give us.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 100- Generic Utility Types
+// we have some utility types that we can use with generic types
+//! Partial:
+// partial make all properties in object is optional, so we can create object and give it initial value empty object
+// then we add the property to the object
+
+//! Example
+
+interface CourseGoal {
+  title: string;
+  description: string;
+  completeUntil: Date;
+}
+
+function creteCourseGoal(title: string, description: string, date: Date) {
+  let courseGoal: Partial<CourseGoal> = {};
+  courseGoal.title = "title " + title;
+  courseGoal.description = "description " + description;
+  courseGoal.completeUntil = date;
+  return courseGoal;
+}
+
+console.log(creteCourseGoal("TS", "football", new Date()));
+
+//! Readonly:
+// Readonly make all properties in object or all elements in array is readonly, so we can't change the value of the property
+
+//! Example
+
+const names: Readonly<string[]> = ["yahia", "ahmed"];
+
+// names.push("mohamed"); // we get error here because names is readonly
+// names.pop(); // we get error here because names is readonly
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 101- Generic Types vs Union Types
+
+//! Union Type
+// Union types can be great if you want to have a function which you can call with one of these types every time you call it.
+
+//! Generic Types
+// Generic types are great if you want to lock in a certain type. Use the same type throughout the entire class instance you create.
+// Use the same type throughout the entire function. That's where you want the generic type. You want union types when you are
+// flexible to have a different type with every method call, with every function call. Then, you can use union types. Generic types lock in a type.
+
+// https://www.typescriptlang.org/docs/handbook/generics.html
+
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Section 8: Decorators
+//! 104- Module introduction
+// let's say when we add an event listener, we can easily write code which have a direct impact on the users of our page. If we register a listener on the button
+// and we show an alert after the button gets clicked, then the user visiting our page immediately see something. With decorators we don't typically work on that,
+// but instead we can for example guarantee that one of our classes gets used correctly, or a method in a class, or we do some hidden transformations, stuff like that.
+// So in detail in this module, we'll see what exactly decorators are, are about, and why we would use them. We will of course use them
+// and you will learn about the different types of decorators, types of supports. And we'Ll see a couple of examples
+// that should make it clearer which role decorators fill and why they can be useful.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 105- A First Class Decorator
