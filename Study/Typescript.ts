@@ -80,9 +80,8 @@ const input2 = document.getElementById("num2")! as HTMLInputElement;
     const result = n1 + n2;
     if (showResult) {
       console.log(phrase + result);
-    } else {
-      return result;
     }
+    return n1 + n2;
   }
 
   let num1 = 10; // 5.0
@@ -611,7 +610,7 @@ function add3(n1: number, n2: number) {
   if (n1 + n2 > 0) {
     return n1 + n2;
   }
-  // return null;
+  return null;
 }
 //! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! 45- Debugging with visual studio code:
@@ -734,6 +733,9 @@ class Department3 {
   constructor(private id: string, public name: string) {
     // this.name = name;
     // this.id = id;
+  }
+  addEmployee(employee: string) {
+    this.employees.push(employee);
   }
 
   describe(this: Department3) {
@@ -1540,7 +1542,7 @@ const names2: string[] = ["yahia", "Ahmed"];
 // 3) Integration: If you are working with libraries or codebases that predominantly use one form of syntax, it may be beneficial to align with that convention to maintain consistency and simplify integration with existing code.
 // 4) Tooling and IDE Support: Different code editors and IDEs may handle the two syntaxes differently in terms of autocompletion, type inference, and documentation display. You may want to consider how your preferred development environment supports these syntaxes and choose the one that provides a better development experience.
 
-const promise: Promise<string> = new Promise((resolve, reject) => {
+const promise: Promise<string> = new Promise((resolve, _reject) => {
   setTimeout(() => {
     resolve("This is done!"); // git error if the input in resolve is not a string
   }, 2000);
@@ -1843,7 +1845,7 @@ const person6 = new Person5();
 console.log(person6);
 //! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! 108- Adding Multiple Decorators
-
+//! in which order do these decorators execute?
 // When multiple decorators apply to a single declaration, their evaluation is similar to function composition in mathematics. In this model, when composing functions f and g, the resulting composite (f ∘ g)(x) is equivalent to f(g(x)).
 
 // As such, the following steps are performed when evaluating multiple decorators on a single declaration in TypeScript:
@@ -1852,12 +1854,14 @@ console.log(person6);
 // 2) The results are then called as functions from bottom-to-top.
 
 function Logger2(logString: string) {
+  console.log("LOGGER FACTORY");
   return function (constructor: Function) {
     console.log(logString);
     console.log(constructor);
   };
 }
 function WithTemplate2(template: string, hookId: string) {
+  console.log("TEMPLATE FACTORY");
   return function (constructor: any) {
     // here we write type any because we don't know the type of the constructor
     console.log("Rendering template");
@@ -1890,3 +1894,374 @@ console.log(person7);
 //! Conclusion:
 // Factories function execute from top to bottom as rules in javascript
 // But the decorator function executes from bottom to top
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 109- Diving into Property Decorators
+// Property decorators are only called once, when class definition is registered by javascript, So it executes when you define this property
+// Property decorators receive two arguments, the target of the property, so the prototype of the object for an instance member, or the constructor function for a static member.
+// And the name of the property.
+
+// Property decorators are a type of decorator in TypeScript that can be applied to class properties. They allow you to modify or enhance the behavior of individual properties within a class.
+// Property decorators are declared just before a property declaration using the @ syntax followed by the decorator name. They receive two parameters:
+// the target object (the prototype of the class) and the property key (the name of the property).
+
+//! Here's an example of a property decorator:
+
+function UpperCase(target: any, propertyKey: string) {
+  let value: string;
+
+  const getter = function () {
+    return value;
+  };
+
+  const setter = function (newValue: string) {
+    value = newValue.toUpperCase();
+  };
+
+  // Redefine the property with getter and setter
+  Object.defineProperty(target, propertyKey, {
+    get: getter,
+    set: setter,
+    enumerable: true,
+    configurable: true,
+  });
+}
+
+class Person8 {
+  @UpperCase
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
+}
+
+const person8 = new Person8("John");
+console.log(person8.name); // Output: JOHN
+
+// In this example, the UpperCase property decorator is used to transform the value of the name property to uppercase.\
+//  Whenever the name property is accessed or assigned a new value, the decorator intercepts the operation and modifies the value accordingly.
+
+//! Example In course
+function Log(target: any, propertyKey: string | Symbol) {
+  console.log("Property decorator!");
+  console.log(target, propertyKey);
+}
+
+class Product {
+  @Log
+  title: string;
+  private _price: number;
+
+  set price(val: number) {
+    if (val > 0) {
+      this._price = val;
+    } else throw new Error("Invalid price - should be positive!");
+  }
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this._price = p;
+  }
+
+  getPriceWithTax(tax: number) {
+    return this._price * (1 + tax);
+  }
+}
+
+//! Property decorators can be useful in various scenarios, such as:
+
+// 1) Validation: You can validate the assigned values of properties and enforce specific rules or constraints.
+// 2) Transformation: You can transform or manipulate the property values before they are used or stored.
+// 3) Logging: You can log property access or modification to track changes or monitor behavior.
+// 4) Data binding: You can establish data binding between properties and UI elements or other components.
+
+// Property decorators provide a way to add additional functionality to individual properties in a class, making your code more modular,
+//  reusable, and easier to maintain.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 110- Accessor & Parameter Decorators
+
+//! 1) Accessor Decorators
+// Accessor decorators are a feature in TypeScript that allow you to modify or observe the behavior of a getter or setter method of a class property at runtime.
+//  They are declared using the @ symbol followed by the decorator function name and are applied directly before a getter or setter declaration.
+
+//! Accessor decorators receive three parameters:
+// 1) the target object (the prototype of the class), The constructor function of the class.
+// 2) the property key (the name of the property), The name of the decorated property.
+// 3) the property descriptor (an object that contains the accessor's descriptor), describes the attributes of the accessor.
+
+//! What is the benefit of accessor decorators:
+// You can use accessor decorators to perform tasks such as intercepting property access or modification, implementing caching mechanisms,
+//  forcing validation or security checks, applying specific behavior based on the accessor's metadata,
+//  or even transforming the value before it is accessed or assigned.
+
+//! Here's an example that demonstrates the usage of an accessor decorator:
+
+function LogGetter(
+  _target: any,
+  propertyName: string,
+  descriptor: PropertyDescriptor
+) {
+  const originalGetter = descriptor.get;
+
+  descriptor.get = function () {
+    console.log(`Getting value of property: ${propertyName}`);
+    return originalGetter.apply(this);
+  };
+}
+
+class Person9 {
+  private _name: string;
+
+  @LogGetter
+  get name(): string {
+    return this._name;
+  }
+
+  set name(value: string) {
+    this._name = value;
+  }
+}
+
+const person9 = new Person9();
+person9.name = "John";
+console.log(person9.name);
+
+// In this example, the LogGetter accessor decorator is applied to the name getter method of the Person class. When the name property is accessed,
+// the decorator intercepts the access, logs a message to the console, and then invokes the original getter to retrieve and return the value.
+
+// 1) originalGetter is a reference to the original getter method of the property. It is assigned the value of descriptor.get, which represents the existing getter function of the property.
+// 2) descriptor.get refers to the original getter method of the property before the decorator modified it. It is stored in originalGetter so that we can invoke it later.
+// 3) apply(this) is a method available on functions in JavaScript. It allows you to call a function and specify the value of this within the function's scope.
+// 4) In this case, originalGetter.apply(this) calls the original getter function (originalGetter) with the context (this) set appropriately.
+// The this value is passed from the current accessor to ensure that the getter is called with the correct context and has access to the instance properties and methods.
+// 5) The apply function ensures that the this value inside the original getter remains unchanged and is not affected by the decorator.
+// 6) Finally, the return value of the original getter is returned by the decorator. This ensures that the decorated getter method behaves similarly to the original getter, but with additional behavior injected by the decorator.
+
+//!In summary, originalGetter.apply(this) is used to invoke the original getter method with the correct context (this) and retrieve its return value.
+//! By doing so, the decorator can preserve the original behavior of the getter while adding additional functionality or logging, as shown in the example.
+
+// Accessor decorators provide a way to modify or observe the behavior of getter and setter methods without modifying the class itself.
+//! They can be useful in various scenarios, including:
+
+// 1) Logging or tracking property access or changes.
+// 2) Implementing caching mechanisms to avoid unnecessary calculations or operations.
+// 3) Enforcing validation or security checks on property values.
+// 4) Transforming or modifying property values before they are accessed or assigned.
+// 5) Injecting dependencies or applying additional logic to property accessors.
+
+// By using accessor decorators, you can enhance the behavior of class property accessors while keeping your code modular, reusable,
+// and separate concerns. It enables you to add specific behavior to property accessors independently,
+// providing flexibility and customization options.
+
+//! 2) Methods Decorators
+// Method decorators are a feature in TypeScript that allow you to modify or observe the behavior of a class method at runtime. They are declared using the @ symbol
+//  followed by the decorator function name and are applied directly before a method declaration.
+
+//! Method decorators receive three parameters:
+
+// 1) The target: The constructor function of the class or the prototype of the class, depending on whether the method is static or instance.
+// 2) The method name: The name of the decorated method.
+// 3) The property descriptor: An object that describes the attributes of the method.
+// You can use method decorators to perform tasks such as intercepting method calls, modifying method behavior, applying specific behavior based on method metadata,
+// implementing logging or error handling, enforcing authentication or authorization checks, or even transforming the method's arguments or return value.
+
+//! Here's an example that demonstrates the usage of a method decorator:
+
+function LogMethod(
+  _target: any,
+  methodName: string,
+  descriptor: PropertyDescriptor
+) {
+  const originalMethod = descriptor.value;
+
+  descriptor.value = function (...args: any[]) {
+    console.log(`Calling method: ${methodName}`);
+    const result = originalMethod.apply(this, args);
+    // console.log(`Method ${methodName} returned: ${result}`);
+    return `Method ${methodName} returned: ${result}`;
+  };
+}
+
+class Calculator {
+  @LogMethod
+  multiply(a: number, b: number): number {
+    return a * b;
+  }
+}
+
+const calculator = new Calculator();
+const result2 = calculator.multiply(2, 3);
+console.log(result2);
+
+// In this example, the LogMethod decorator is applied to the multiply method of the Calculator class. When the multiply method is called,
+// the decorator intercepts the method call, logs a message before and after the method execution, and then invokes the original method
+// with the provided arguments.
+
+// Method decorators provide a way to modify or observe the behavior of methods without modifying the class itself.
+//! They can be useful in various scenarios, including:
+// 1) Logging or tracking method calls.
+// 2) Implementing error handling or exception tracking.
+// 3) Applying specific behavior based on method metadata or decorators.
+// 4) Enforcing authentication or authorization checks.
+// 5) Transforming or modifying method arguments or return values.
+// 6) Injecting dependencies or applying additional logic to method calls.
+
+// By using method decorators, you can enhance the behavior of class methods while keeping your code modular, reusable,
+// and separate concerns. It enables you to add specific behavior to methods independently,
+// providing flexibility and customization options.
+
+//! 2) Parameter Decorators
+// Parameter decorators are a feature in TypeScript that allow you to modify or observe the behavior of a parameter declaration within a function or method.
+// They are declared using the @ symbol followed by the decorator function name and are applied directly before a parameter declaration.
+
+//! Parameter decorators receive three parameters:
+// 1) The target: The constructor function of the class or the prototype of the class, depending on whether the parameter belongs to a static method or an instance method.
+// 2) The method name: The name of the method that contains the parameter being decorated.
+// 3) The parameter index: The index of the parameter within the parameter list.
+
+// You can use parameter decorators to perform tasks such as intercepting or modifying parameter values, applying validation or type checks,
+//  tracking parameter usage, injecting dependencies, or implementing custom behavior based on the parameter's metadata.
+
+//! Here's an example that demonstrates the usage of a parameter decorator:
+
+function LogParameter(
+  _target: any,
+  methodName: string,
+  parameterIndex: number
+) {
+  console.log(
+    `Parameter decorator called for method: ${methodName}, parameter index: ${parameterIndex}`
+  );
+}
+
+class Calculator1 {
+  multiply(@LogParameter a: number, @LogParameter b: number): number {
+    return a * b;
+  }
+}
+
+const calculator1 = new Calculator1();
+calculator.multiply(2, 3);
+
+// In this example, the LogParameter decorator is applied to the parameters a and b of the multiply method in the Calculator class.
+// When the method is called, the decorator is invoked for each decorated parameter, logging a message that includes the method name and parameter index.
+
+// Parameter decorators provide a way to modify or observe the behavior of method parameters without modifying the method itself.
+
+//! They can be useful in various scenarios, including:
+// 1) Logging or tracking parameter values.
+// 2) Implementing validation or type checks on parameter values.
+// 3) Injecting dependencies or applying additional logic based on parameter metadata.
+// 4) Modifying or transforming parameter values before they are used within the method.
+// 5) Implementing custom behavior or side effects specific to a parameter.
+
+// By using parameter decorators, you can enhance the behavior of method parameters while keeping your code modular, reusable, and separate concerns.
+// It enables you to add specific behavior to parameters independently, providing flexibility and customization options.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 111- When Do Decorators Execute?
+
+// Important to understand All these decorators, no matter if it was a property decorator, a method decorator, an accessor decorator,
+// or a parameter decorator, they all executed when you defined this class,
+
+// use the decorator to do some behind the scenes work, to then set up some code that should run whenever this is called. To add extra meta data or store some data
+// about a property somewhere else in your project or in your library, which you're creating.This is what you can use decorators for
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 112- Returning (and changing) a Class in a Class Decorator
+
+// Returning or changing a class in a class decorator allows you to modify or replace the original class with a new class dynamically at runtime. This can be useful
+// for implementing aspects such as inheritance, composition, or applying mixins to a class.
+
+//! Let's illustrate this with an example:
+
+function AddAdditionalProperty<T extends { new (...args: any[]): {} }>(
+  constructor: T
+) {
+  return class extends constructor {
+    additionalProperty = "Additional Property Value";
+  };
+}
+
+@AddAdditionalProperty
+class MyClass {
+  originalProperty = "Original Property Value";
+}
+
+const myObject = new MyClass();
+console.log(myObject.originalProperty); // Output: "Original Property Value"
+// console.log(myObject.additionalProperty); // Output: "Additional Property Value"
+
+// In this example, the AddAdditionalProperty class decorator takes the original class MyClass as an argument and returns a new class dynamically.
+// The returned class extends the original class and adds a new property additionalProperty.
+
+// When we instantiate MyClass and create an object myObject, it has both the original property originalProperty and the additional property additionalProperty.
+// The class decorator modifies the behavior of the original class by adding the additional property to instances of MyClass.
+
+// This allows you to dynamically modify or enhance the original class by applying decorators and returning a new class that extends the original one.
+// It gives you the flexibility to extend or alter the behavior of the class without modifying the original class directly.
+
+// You can use this approach to implement various patterns and techniques such as mixins, aspect-oriented programming,
+// or even altering the inheritance hierarchy of a class based on certain conditions or configurations.
+
+//! It's important to note that returning a class in a class decorator replaces the original class, so any methods, properties,
+//! or behavior present in the original class will not be inherited unless explicitly implemented or extended in the returned class.
+
+function WithTemplate3(template: string, hookId: string) {
+  return function <T extends { new (...args: any[]): { name: string } }>(
+    originalConstructor: T
+  ) {
+    return class extends originalConstructor {
+      constructor(..._: any[]) {
+        super();
+        console.log("Rendering template");
+        const hookEl = document.getElementById(hookId);
+        if (hookEl) {
+          hookEl.innerHTML = template;
+          hookEl.querySelector("h1")!.textContent = this.name;
+        }
+      }
+    };
+  };
+}
+
+@WithTemplate3("<h1>My Person Object</h1>", "app")
+class Person10 {
+  name = "yahia";
+
+  constructor() {
+    console.log("Creating person object...");
+  }
+}
+
+const person10 = new Person10();
+console.log(person10);
+
+// we get error regarding the types not being correct.
+// To fix that though, we can turn our decorator function into a generic function where we get a type, and set this as the type of original constructor,
+// and now make clear that this will actually be basically a constructor function, and we can make that clear
+
+// by assigning a special type, an object type, where we set a new property, this is a reserve name of course, but it tells TypeScript that in the end this will be an object
+// that can be new. So that will be a constructor function, a function we can call with the new keyword to generate a new object. And this new function, this new method,
+// which the object T is based on will have, will get any amount of arguments, so I'm using rest parameters here to accept as many arguments as you want,
+// so that they're really flexible regarding the arguments that can be passed to the constructor of the class we're trying to change. Add the new function will then in the end return an object here.
+
+// Now I should also just copy that definition of the rest parameter to my constructor here, so that this constructor is also capable of accepting all the arguments we might be getting,
+// so that we can, basically instantiate Person with any arguments you want to pass in here. With any arguments we might also need here, in the original constructor function.
+
+//! But still last problem is that we don't know that such a name property exists
+// But, we can fix this by simply telling TypeScript that the object T is based on, so our original constructor function, will not just produce any object,
+// but actually will produce an object with a name property which will be of type string
+
+// In this example I replace the class with my new custom class here, and that allows us to add extra logic, that should run when the class is instantiated.
+
+//! But this logic we added that does not run when the class is defined, but when the class is instantiated.
+
+//! NOTE VIP:
+// And you can not just define them as functions, and you can not just define them with factor functions. In some decorators, like the class decorator,
+// you can also return something to replace the thing you added the decorator to in our case the class, with a new class that can implement the old class
+// but also add its new custom logic. And with that, if we comment this back in, we again render Max to the screen with our own class
+// that replaces, or that extends and replaces the old class.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 113- Other Decorator Return Types
+// The decorators on properties and on parameters of course, also can return something but TypeScript will ignore it.
+// So return values are not supported there or are not used to be precise.
+// decorator where we will return something and we can build interesting with the help of decorators.

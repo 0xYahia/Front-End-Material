@@ -72,37 +72,119 @@
 // console.log(mergedObj1);
 ////////////////////////////////
 
-function Logger(logString: string) {
-  console.log("LOGGER FACTORY");
-  return function (constructor: Function) {
-    console.log(logString);
-    console.log(constructor);
-  };
+// function Logger(logString: string) {
+//   console.log("LOGGER FACTORY");
+//   return function (constructor: Function) {
+//     console.log(logString);
+//     console.log(constructor);
+//   };
+// }
+
+// function WithTemplate(template: string, hookId: string) {
+//   console.log("TEMPLATE FACTORY");
+//   return function (constructor: any) {
+//     console.log("Rendering template");
+//     const hookEl = document.getElementById(hookId);
+//     const p = new constructor();
+//     if (hookEl) {
+//       hookEl.innerHTML = template;
+//       hookEl.querySelector("h1")!.textContent = p.name;
+//     }
+//   };
+// }
+
+// @Logger("LOGGING- PERSON")
+// @WithTemplate("<h1>My Person Object</h1>", "app")
+// class Person {
+//   name = "Yahia";
+//   constructor() {
+//     console.log("Creating person object...");
+//   }
+// }
+
+// const person = new Person();
+// console.log(person);
+
+function Log(target: any, propertyName: string | Symbol) {
+  console.log("Property decorator!");
+  console.log(target);
+  console.log(propertyName);
 }
 
-function WithTemplate(template: string, hookId: string) {
-  console.log("TEMPLATE FACTORY");
-  return function (constructor: any) {
-    console.log("Rendering template");
-    const hookEl = document.getElementById(hookId);
-    const p = new constructor();
-    if (hookEl) {
-      hookEl.innerHTML = template;
-      hookEl.querySelector("h1")!.textContent = p.name;
-    }
-  };
+function Log2(target: any, name: string, descriptor: PropertyDescriptor) {
+  console.log("Accessor decorator!");
+  console.log(target);
+  console.log(name);
+  console.log(descriptor);
 }
 
-@Logger("LOGGING- PERSON")
-@WithTemplate("<h1>My Person Object</h1>", "app")
-class Person {
-  name = "Yahia";
-  constructor() {
-    console.log("Creating person object...");
+class Product {
+  @Log
+  title: string;
+  private _price: number;
+
+  @Log2
+  set price(val: number) {
+    if (val > 0) {
+      this._price = val;
+    } else throw new Error("Invalid price - should be positive!");
+  }
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this._price = p;
+  }
+
+  getPriceWithTax(tax: number) {
+    return this._price * (1 + tax);
   }
 }
 
-const person = new Person();
-console.log(person);
+// function LogGetter(
+//   _target: any,
+//   propertyName: string,
+//   descriptor: PropertyDescriptor
+// ) {
+//   const originalGetter = descriptor.get;
 
-//! in which order do these decorators execute?
+//   descriptor.get = function () {
+//     console.log(`Getting value of property: ${propertyName}`);
+//     return originalGetter.apply(this);
+//   };
+// }
+
+// class Person {
+//   private _name: string;
+
+//   @LogGetter
+//   get name(): string {
+//     return this._name;
+//   }
+
+//   set name(value: string) {
+//     this._name = value;
+//   }
+// }
+
+// const person = new Person();
+// person.name = "John";
+// console.log(person.name);
+
+function AddAdditionalProperty<T extends { new (...args: any[]): {} }>(
+  constructor: T
+) {
+  return class extends constructor {
+    additionalProperty = "Additional Property Value";
+  };
+}
+
+@AddAdditionalProperty
+class MyClass {
+  originalProperty = "Original Property Value";
+  // additionalProperty: any;
+}
+
+const myObject = new MyClass();
+console.log(myObject);
+console.log(myObject.originalProperty); // Output: "Original Property Value"
+// console.log(myObject.additionalProperty); // Output: "Additional Property Value"
