@@ -2265,3 +2265,157 @@ console.log(person10);
 // The decorators on properties and on parameters of course, also can return something but TypeScript will ignore it.
 // So return values are not supported there or are not used to be precise.
 // decorator where we will return something and we can build interesting with the help of decorators.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 114- Example: Creating an "Autobind" Decorator
+class Printer {
+  message = "This works!";
+
+  @Autobind
+  showMessage() {
+    console.log(this.message);
+  }
+}
+
+const p = new Printer();
+
+const button2 = document.querySelector("button")!;
+
+button2.addEventListener("click", p.showMessage); // Output: undefined
+// Without bind function we will get undefined because this doesn't refer to the instance it's refer to the target (showMessage function)
+
+//! We can solve this by more than way:
+// 1) using bind function to change this to refer to the instance
+// button.addEventListener("click", p.showMessage.bind(p)); // Output: "This works!"
+
+// 2) make showMessage function arrow function to remove own this and make this refer to the caller (object instance)
+
+// 3) create decorator method to and add some logic to change this to refer to the instance and added it before method
+
+function Autobind(_: any, _2: string, descriptor: PropertyDescriptor) {
+  const originalMethod = descriptor.value;
+  const adjDescriptor: PropertyDescriptor = {
+    configurable: true,
+    enumerable: false,
+    get() {
+      const boundFun = originalMethod.bind(this);
+      return boundFun;
+    },
+  };
+  return adjDescriptor;
+}
+
+button2.addEventListener("click", p.showMessage); // Output: "This works!"
+
+// The Autobind decorator is a convenient way to avoid manually binding methods to their class instances in situations
+// where the method reference is used independently or passed to other functions, callbacks, or event handlers.
+
+// By automatically binding the method to the class instance, it ensures that the method's this context remains intact
+// and correctly refers to the class instance where it is defined.
+
+// It's worth noting that in modern JavaScript and TypeScript, arrow functions inherently retain the lexical scope of this
+//  and do not require binding. Therefore, the Autobind decorator is typically used with traditional
+//  function declarations or class methods that use the this keyword.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 115- Validation with Decorators
+
+interface ValidatorConfig {
+  [property: string]: {
+    [validatableProp: string]: string[]; // ['required', 'positive']
+  };
+}
+
+const registeredValidators: ValidatorConfig = {};
+
+function Require(target: any, propName: string) {
+  // console.log(target.constructor.name); // Course
+  registeredValidators[target.constructor.name] = {
+    ...registeredValidators[target.constructor.name],
+    [propName]: [
+      ...(registeredValidators[target.constructor.name]?.[propName] ?? []),
+      "required",
+    ],
+  };
+}
+function PositiveNumber(target: any, propName: string) {
+  registeredValidators[target.constructor.name] = {
+    ...registeredValidators[target.constructor.name],
+    [propName]: [
+      ...(registeredValidators[target.constructor.name]?.[propName] ?? []),
+      "positive",
+    ],
+  };
+}
+
+function Validate(obj: object) {
+  const objValidatorConfig = registeredValidators[obj.constructor.name];
+  if (!objValidatorConfig) return true;
+  let isValid = true;
+  for (const prop in objValidatorConfig) {
+    for (const validator of objValidatorConfig[prop]) {
+      switch (validator) {
+        case "required":
+          isValid = isValid && !!obj[prop]; // Search
+          break;
+        case "positive":
+          isValid = isValid && obj[prop] > 0;
+          break;
+      }
+    }
+  }
+  return isValid;
+}
+
+class Course {
+  @Require
+  title: string;
+  @PositiveNumber
+  price: number;
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this.price = p;
+  }
+}
+
+const courseForm = document.querySelector("form")!;
+
+courseForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const titleEl = document.getElementById("title") as HTMLInputElement;
+  const priceEl = document.getElementById("price") as HTMLInputElement;
+
+  const title = titleEl.value;
+  const price = +priceEl.value;
+
+  const createdCourse = new Course(title, price);
+  console.log(createdCourse);
+
+  if (!Validate(createdCourse)) {
+    alert("Invalid input, please try again!");
+    return;
+  }
+});
+
+// But we can add course withe empty title or negative price so we need to add some validation
+// we can add if conditions before createCourse but we need to add validation in every place we create course
+// and Wouldn't it be nice if the validation logic would be included in the course class
+
+//! So we will use decorators do add validations
+// we will add function Require to check the title is not empty
+// and we will add function PositiveNumber to check the price is positive
+// and we will added third function Validate to check the title and price to which we can pass a object so any object and typescript then has a look at the project,
+// finds any validation we registered on this class for this object earlier and applies our validation logic.
+
+// So, this could be part of a third-party library we're exposing to you and then you just import required positive number and validate to first set up the validators
+// and then at some point call validate.
+
+// So for example here when we created the course, we can call validate and pass in the createdCourse and if this is not true, so let's say
+// this should return true or false, if this is not true, then we throw an error or show an alert, invalid input please try again
+// and only otherwise we continue.
+
+// That we can call validate, this returns true or false. True if it's valid, false if it's not valid
+
+// Overall, this example demonstrates a simple validation system using decorators in TypeScript. The decorators allow you to register validators for class properties,
+// and the Validate function applies those validators to validate an object's properties.
+//! -------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Section 9: Practice Time! Let's build a Drag & Drop Project

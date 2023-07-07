@@ -188,3 +188,99 @@ const myObject = new MyClass();
 console.log(myObject);
 console.log(myObject.originalProperty); // Output: "Original Property Value"
 // console.log(myObject.additionalProperty); // Output: "Additional Property Value"
+
+interface ValidatorConfig {
+  [property: string]: {
+    [validatableProp: string]: string[]; // ['required', 'positive']
+  };
+}
+
+const registeredValidators: ValidatorConfig = {};
+
+function Require(target: any, propName: string) {
+  // console.log(target.constructor.name); // Course
+  registeredValidators[target.constructor.name] = {
+    ...registeredValidators[target.constructor.name],
+    [propName]: [
+      ...(registeredValidators[target.constructor.name]?.[propName] ?? []),
+      "required",
+    ],
+  };
+}
+function PositiveNumber(target: any, propName: string) {
+  registeredValidators[target.constructor.name] = {
+    ...registeredValidators[target.constructor.name],
+    [propName]: [
+      ...(registeredValidators[target.constructor.name]?.[propName] ?? []),
+      "positive",
+    ],
+  };
+}
+
+function Validate(obj: object) {
+  const objValidatorConfig = registeredValidators[obj.constructor.name];
+  if (!objValidatorConfig) return true;
+  let isValid = true;
+  for (const prop in objValidatorConfig) {
+    for (const validator of objValidatorConfig[prop]) {
+      switch (validator) {
+        case "required":
+          isValid = isValid && !!obj[prop]; // Search
+          break;
+        case "positive":
+          isValid = isValid && obj[prop] > 0;
+          break;
+      }
+    }
+  }
+  return isValid;
+}
+
+class Course {
+  @Require
+  title: string;
+  @PositiveNumber
+  price: number;
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this.price = p;
+  }
+}
+
+const courseForm = document.querySelector("form")!;
+
+courseForm.addEventListener("submit", (event) => {
+  event.preventDefault();
+  const titleEl = document.getElementById("title") as HTMLInputElement;
+  const priceEl = document.getElementById("price") as HTMLInputElement;
+
+  const title = titleEl.value;
+  const price = +priceEl.value;
+
+  const createdCourse = new Course(title, price);
+  console.log(createdCourse);
+
+  if (!Validate(createdCourse)) {
+    alert("Invalid input, please try again!");
+    return;
+  }
+});
+
+// But we can add course withe empty title or negative price so we need to add some validation
+// we can add if conditions before createCourse but we need to add validation in every place we create course
+// and Wouldn't it be nice if the validation logic would be included in the course class
+//! So we will use decorators do add validations
+// we will add function Require to check the title is not empty
+// and we will add function PositiveNumber to check the price is positive
+// and we will added third function Validate to check the title and price to which we can pass a object so any object and typescript then has a look at the project,
+// finds any validation we registered on this class for this object earlier and applies our validation logic.
+
+// So, this could be part of a third-party library we're exposing to you and then you just import required positive number and validate to first set up the validators
+// and then at some point call validate.
+
+// So for example here when we created the course, we can call validate and pass in the createdCourse and if this is not true, so let's say
+// this should return true or false, if this is not true, then we throw an error or show an alert, invalid input please try again
+// and only otherwise we continue.
+
+// That we can call validate, this returns true or false. True if it's valid, false if it's not valid
