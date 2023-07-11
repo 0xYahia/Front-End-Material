@@ -70,7 +70,7 @@ function Counter() {
 // State: State is a JavaScript object that stores a component's dynamic data and determines the component's behavior.
 // and returns array with two elements: the current state value and a function that lets you update it.
 // Example: const [count, setCount] = useState(0);
-// NOTE: When we change the state, the component re-renders itself and its children.
+//! NOTE: When we change the state, the component re-renders itself and its children.
 // #------------------------------------------------------------------------------------------------------------------------------#
 // Keys: Keys help React identify which items have changed, are added, or are removed.
 // Keys should be given to the elements inside the array to give the elements a stable identity.
@@ -79,23 +79,23 @@ function Counter() {
 // Don’t use indexes as keys if the order of items may change. This can negatively impact performance
 // and may cause issues with component state. because the key is used to identify which items have changed, are added, or are removed.
 // #------------------------------------------------------------------------------------------------------------------------------#
-// NOTE: in onClick event carry the function without () because it takes reference to the function.
+//! NOTE: in onClick event carry the function without () because it takes reference to the function.
 // But if you put () it will call the function immediately.
-// NOTE: If my function takes parameters, I can use an arrow function to pass the parameters.
+//! NOTE: If my function takes parameters, I can use an arrow function to pass the parameters.
 // #------------------------------------------------------------------------------------------------------------------------------#
 // State: is internal data of the component
 // and it's private to the component and can't be accessed outside of the component.
 // Props: is external data of the component
 // and it's public to the component and can be accessed outside of the component.
 // #------------------------------------------------------------------------------------------------------------------------------#
-// NOTE: If have conflict between props and state, delete the state and use props only.
+//! NOTE: If have conflict between props and state, delete the state and use props only.
 // I can do without state and use props only. because props is external data of the component
 // #------------------------------------------------------------------------------------------------------------------------------#
 // Left state up: is a technique for sharing state between React components.
 // If two or more components need access to the same state, then that state needs to be lifted up
 // to their closest common ancestor.
 // #------------------------------------------------------------------------------------------------------------------------------#
-// NOTE: If i have array and i want edit for the element in the array, the first should i think i get index of the element
+//! NOTE: If i have array and i want edit for the element in the array, the first should i think i get index of the element
 // and then i can edit for the element in the array.
 // #------------------------------------------------------------------------------------------------------------------------------#
 // There three steps to update the state:
@@ -126,7 +126,7 @@ const newCounter = { ...newCounters[index] };
 setCounters(newCounters);
 };
 // #------------------------------------------------------------------------------------------------------------------------------#
-// NOTE: To make two child components communicate with each other, we need to lift the state up to their parent component.
+//! NOTE: To make two child components communicate with each other, we need to lift the state up to their parent component.
 // #------------------------------------------------------------------------------------------------------------------------------#
 // React Router: is a collection of navigational components that compose declaratively with your application.
 // BrowserRouter: is a component that wraps around your application and provides all the routing capabilities.
@@ -135,13 +135,13 @@ setCounters(newCounters);
 // Route: takes two props: path and component.
 // path: is a string that represents the matching pattern in the URL.
 // component: is a component that will be rendered when the path matches the URL.
-// NOTE: If i want component to be rendered in all routes, i should put it outside of the all routes. inside the BrowserRouter.
+//! NOTE: If i want component to be rendered in all routes, i should put it outside of the all routes. inside the BrowserRouter.
 
 // Link: is a component that is used to navigate between routes. without reloading the page.
 // Link: takes one prop: to.
 // to: is a string that represents the path to navigate to.
 
-// NOTE: To make nested routes, i should put the nested routes inside the parent route.
+//! NOTE: To make nested routes, i should put the nested routes inside the parent route.
 // And Route inside Routes may take index prop to make it as a default route.
 // Outlet: is a component that is used to render the nested routes.
 
@@ -189,12 +189,12 @@ Example:
 
 import { useParams } from 'react-router-dom';
 
-export /*defalult*/ function ProductDetails() {
+export /*default*/ function ProductDetails() {
 const {productId} = useParams();
 return <h1>Product Details - {productId}</h1>;
 }
 
-// NOTE: Maybe i have more than one dynamic segment in the path.
+//! NOTE: Maybe i have more than one dynamic segment in the path.
 //! Example:
 <Route path="/products/:productId/:view" element={<ProductDetails />} />
 
@@ -316,7 +316,7 @@ render() {
 // prevProps: is an object that represents the previous props.
 // prevState: is an object that represents the previous state.
 
-// NOTE: I can use prevProps and prevState to check if the props or state is updated.
+//! NOTE: I can use prevProps and prevState to check if the props or state is updated.
 
 componentDidUpdate(prevProps, prevState);{
   if (prevState.number !== this.state.number) {
@@ -387,7 +387,7 @@ render() {
 // When the component is removed:
 // iti => componentWillUnmount
 
-// NOTE: To fix the memory leak, we need to clear the interval in componentWillUnmount.
+//! NOTE: To fix the memory leak, we need to clear the interval in componentWillUnmount.
 componentWillUnmount() {
   console.log('iti => componentWillUnmount')
   clearInterval(this.interval);
@@ -395,7 +395,7 @@ componentWillUnmount() {
 
 // OR: I can save setInterval in a variable and clear it in componentWillUnmount.
 // #------------------------------------------------------------------------------------------------------------------------------#
-// NOTE: There difference setter useState and setState in class based component.
+//! NOTE: There difference setter useState and setState in class based component.
 // setState in useState: it's replace the old state with the new state.
 // this.setState in class component: it's merge the old state with the new state.
 // #------------------------------------------------------------------------------------------------------------------------------#
@@ -452,12 +452,12 @@ itemsToRender= itemsToRender.slice(start, end);
 // First video is about Add to cart:
 // The second video is about Login and validate the form:
 
-// NOTE: We use onChange to handle the change in input. onChange takes a function that takes an event as a parameter.
+//! NOTE: We use onChange to handle the change in input. onChange takes a function that takes an event as a parameter.
 // and inside the function, we use event.target.value to get the value of the input.
 
-// NOTE: don't forget use react dev tools to see the state and props of the component.
+//! NOTE: don't forget use react dev tools to see the state and props of the component.
 
-// NOTE: We use onSubmit to handle the submit in form. onSubmit takes a function that takes an event as a parameter.
+//! NOTE: We use onSubmit to handle the submit in form. onSubmit takes a function that takes an event as a parameter.
 // and inside the function, we use event.preventDefault() to prevent the default behavior of the form.
 
 // NavLink: is a component used in nab bar to navigate between pages. and it's like Link but it has active class.
@@ -488,14 +488,14 @@ const handleSubmit = async (e) => {
 // 1- Errors onSubmit: when the user submit the form. (it's called submit validation)
 // 2- Errors onChange: when the user change the input. (it's called real time validation)
 
-// NOTE: note prefer to use delete operator to delete a property from object. because there performance issue.
+//! NOTE: note prefer to use delete operator to delete a property from object. because there performance issue.
 
 // Formik: is a library used to handle the form in react.
 // react-hook-form: is a library used to handle the form in react.
 // #------------------------------------------------------------------------------------------------------------------------------#
 // useRef: is a hook that is used to get a reference to a DOM element. Whatever happened render, the reference will be the same.
 // useRef: takes one parameter: the initial value of the reference.
-// NOTE: like autoFocus in input.
+//! NOTE: like autoFocus in input.
 
 import {useRef} from 'react';
 
@@ -508,7 +508,7 @@ console.log(emailRef.current.focus); // focus function
 
 // in catch: emailRef.current.focus();
 // #------------------------------------------------------------------------------------------------------------------------------#
-// NOTE: If i have logic before render, this logic will be called before the first render and after each update.
+//! NOTE: If i have logic before render, this logic will be called before the first render and after each update.
 // and this is not good for performance. so we need to use useMemo to save the result of the logic and use it in render.
 // There concept called memoization: is a technique used to save the result of the logic and use it later.
 
@@ -528,7 +528,7 @@ console.log(emailRef.current.focus); // focus function
 // React.memo: it take copy from prevProps and nextProps and compare them. if they are the same, it will not re render.
 // if they are not the same, it will re render.
 
-// NOTE: if props is an object, it will not compare the properties of the object. it will compare the reference of the object.
+//! NOTE: if props is an object, it will not compare the properties of the object. it will compare the reference of the object.
 // so if i have object in props, i need to use useMemo to save the object and use it later.
 
 // useMemo: is a hook that is used to save the result of the heavy logic and use it later.
@@ -537,16 +537,16 @@ import {useMemo} from 'react';
 // useMmo: takes two parameters: the function, and array of dependencies. like useEffect.
 // useMemo: make memoization for the result of return of the function.
 
-// NOTE: if i have logic useMemo will not it don't save the result of the logic. it save the result of the return of the function.
+//! NOTE: if i have logic useMemo will not it don't save the result of the logic. it save the result of the return of the function.
 // so if i have logic before return, i need to use useCallback to save the result of the logic and use it later.
 
 // useCallback: is a hook that is used to save the result of the logic and use it later.
 // useCallback: takes two parameters: the function, and array of dependencies.
 // useCallback: make memoization for the result of the function.
 
-// NOTE: if i need re render depend any thing i put it in the array of dependencies.
+//! NOTE: if i need re render depend any thing i put it in the array of dependencies.
 
-// NOTE: if i pass the same property to the same object, it will override the old one. and it will re render.
+//! NOTE: if i pass the same property to the same object, it will override the old one. and it will re render.
 // so we can use if statement to check if the property is exist or not. if it's exist, we will not add it.
 
 // #------------------------------------------------------------------------------------------------------------------------------#
@@ -633,7 +633,7 @@ export default ThemeContext2;
 // Reducer: it take copy from the state and update it and return the new state. and it's only update the state.
 
 // In our case reducer will be interested with create policy and delete policy.
-// NOTE: i the start life of my application i mut give the state a default value. so i will use ES2015 default value.
+//! NOTE: i the start life of my application i mut give the state a default value. so i will use ES2015 default value.
 function reducer(state = [], action) {}
 
 // Dispatch: is a function that is used to send the action to the reducer. (required)
@@ -668,7 +668,7 @@ function reducer(state = [], action) {}
 // mapDispatchToProps: is a function that is used to get the dispatch function and return an object that contain the function that i want to use in the component.
 // 11- in the component i use the state that i get from mapStateToProps. and i use the function that i get from mapDispatchToProps.
 
-// NOTE: the second parameter in connect function is optional. if i don't pass it,
+//! NOTE: the second parameter in connect function is optional. if i don't pass it,
 // i will get the dispatch function as a prop in the component. and i can give it object take action creators as a value.
 // and it will return a copy from the action creators and it ready with dispatch function.
 // #------------------------------------------------------------------------------------------------------------------------------#
@@ -692,7 +692,7 @@ function reducer(state = [], action) {}
 // to your store setup to handle dispatching other values, such as 'redux-thunk' to handle dispatching functions.
 // This error is common
 
-// NOTE: This error happen when i dispatch an async action. (action that return a promise), i can't dispatch a promise. (async action)
+//! NOTE: This error happen when i dispatch an async action. (action that return a promise), i can't dispatch a promise. (async action)
 
 // To solve this problem i will use redux-thunk.
 // redux-thunk: is a middleware that is used to handle async code in redux.
@@ -809,8 +809,8 @@ export function fetchProducts() {
 // #------------------------------------------------------------------------------------------------------------------------------#
 // ExtraReducer: Is a object i put in it the action i want to listen to it. but this action is not related to this Slice.
 // and this action take state and action as a parameter.
-// NOTE: But it take state own the slice which is inside her
-// NOTE: And action mean the action it listen to it.
+//! NOTE: But it take state own the slice which is inside her
+//! NOTE: And action mean the action it listen to it.
 
 // Example:
 
