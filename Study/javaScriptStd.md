@@ -3,7 +3,7 @@
 JavaScript: used to make web pages interactive. It can update and change both HTML and CSS. It can also calculate, manipulate and validate data.
 interpreter: a program that translates source code into machine code line by line.
 #----------------------------------------------------------------------------------------------------------------------------------------------------#
-#=> What diffrent between interpreter and compiler?
+#=> What different between interpreter and compiler?
 interpreter: a program that translates source code into machine code line by line.
 compiler: a program that translates source code into machine code all at once.
 #----------------------------------------------------------------------------------------------------------------------------------------------------#
@@ -137,7 +137,7 @@ NOTE: we have problem here. because we have two variables with the same name. an
   Example: (function(){ x =5; console.log(x); })();
   #----------------------------------------------------------------------------------------------------------------------------------------------------#
   Hoisting: is a mechanism that move all declarations to the top of the scope. before executing the code.
-  Hoisting: works only with function declaration and varable it come befor it var keyword. not with function expression, let and const.
+  Hoisting: works only with function declaration and variable it come before it var keyword. not with function expression, let and const.
   #----------------------------------------------------------------------------------------------------------------------------------------------------#
   Lexical environment: is a mechanism that manage the scope of the variables. it's contain two things: environment record and reference to the outer environment.
   in js we have two types of scope: global scope and function scope.
@@ -211,7 +211,7 @@ h1.classList.contains("Yahia"): => it's return true or false if the element have
 #----------------------------------------------------------------------------------------------------------------------------------------------------#
 h1.style.backgroundColor = "red": => it's change the background color of the element. (inline style).
 typeof Array: => it's return object.
-null in js is value. udnefined in js is value. ?????
+null in js is value. undefined in js is value. ?????
 #----------------------------------------------------------------------------------------------------------------------------------------------------#
 Falsy values: false, 0, "", null, undefined, NaN.
 And operator: &&. if the first value is falsy it will return the first value. if the first value is truthy it will return the second value.
@@ -222,7 +222,7 @@ Built in object: contain properties and methods.
 Built in objects: are objects that built in the browser. like: Math, Date, String, Number, Boolean, Array, Object, Function, RegExp, Error, Symbol.
 To use built in object: we should use new keyword.
 Example: var str = new String("Yahia");
-NOTE: but i can use poperty and method of the built in object without using new keyword. via dot notation.
+NOTE: but i can use property and method of the built in object without using new keyword. via dot notation.
 this i due to wrapper object. this work with string, number and boolean.
 Example: var str = "Yahia";
 str.length; => 5
@@ -249,9 +249,9 @@ OR: function test(element, index, array){ console.log(element); }
 forEach(test);
 here i pass the function test as a parameter to forEach method. and forEach will invoke this function for each element in the array.
 #----------------------------------------------------------------------------------------------------------------------------------------------------#
-clouser: is inner function that have access to the outer function variables. even after the outer function is returned.
+closure: is inner function that have access to the outer function variables. even after the outer function is returned.
 NOTE: the variables of the outer function will not be removed from the memory. because the inner function have access to it.
-Don't use clouser to store big data. because it will not be removed from the memory.
+Don't use closure to store big data. because it will not be removed from the memory.
 Example:
 function outer() {
 var x = 5;
@@ -259,9 +259,9 @@ function inner() {
 console.log(x);
 }
 #----------------------------------------------------------------------------------------------------------------------------------------------------#
-The difference between clouser and lexical scope:
-lexical scope: is a concept that function have access to the variables of the outer function. bassed in pgysical location.
-clouser: is a concept a function already accessed vaiables in the outer function. even after the outer function is returned.
+The difference between closure and lexical scope:
+lexical scope: is a concept that function have access to the variables of the outer function. based in physical location.
+closure: is a concept a function already accessed variables in the outer function. even after the outer function is returned.
 #----------------------------------------------------------------------------------------------------------------------------------------------------#
 Create Element:
 1- create element using createElement method.
@@ -269,13 +269,13 @@ Create Element:
 Example:
 var h1 = document.createElement("h1");
 h1.textContent = "Yahia"; => here i set the text of the h1 element or override it.
-NOTE: if i wnat remove the text of the h1 element.
+NOTE: if i want remove the text of the h1 element.
 h1.textContent += "Yahia"; =>a here i append the text to the h1 element.
 document.body.append(h1); => here i append the h1 element to the body element.
 
 Another way to create element in the DOM:
 1- get element from the DOM: document.getElementById("id-name");
-2- use inerrHTML property to create the element.
+2- use innerHTML property to create the element.
 Example:
 var div = document.getElementById("id-name");
 div.innerHTML = "<h1>Yahia</h1>"; => here i create the h1 element and append it to the div element.
@@ -560,16 +560,16 @@ var id = setInterval(function(){ console.log("Hello World"); }, 3000);
 clearInterval(id);
 NOTE: if i pass negative time to setTimeout or setInterval method. as add 0 to the time.
 #----------------------------------------------------------------------------------------------------------------------------------------------------#
-Js syncronous and asyncronous: is a mechanism that allow me to execute code in order or not.
-syncronous: is a mechanism that execute code in order.
-asyncronous: is a mechanism that execute code not in order.
+Js synchronous and synchronous: is a mechanism that allow me to execute code in order or not.
+synchronous: is a mechanism that execute code in order.
+synchronous: is a mechanism that execute code not in order.
 Example:
-console.log("Hello World"); this code will execute first. because it is syncronous.
-setTimeout(function(){ console.log("Hello World"); }, 3000); this code will execute second. because it is asyncronous.
-asyncronous code will execute after stack is empty.
-NOTE: asyncronous code go to web api in message queue. and wait until the time end.
-when the time end. the asyncronous code will go to callback queue.
-when the stack is empty. the asyncronous code will go to stack.
+console.log("Hello World"); this code will execute first. because it is synchronous.
+setTimeout(function(){ console.log("Hello World"); }, 3000); this code will execute second. because it is synchronous.
+synchronous code will execute after stack is empty.
+NOTE: synchronous code go to web api in message queue. and wait until the time end.
+when the time end. the synchronous code will go to callback queue.
+when the stack is empty. the synchronous code will go to stack.
 
 NOTE: the event also go to web api in message queue. and wait until the event happen.
 when the event happen. the event will go to callback queue.
@@ -578,16 +578,16 @@ when the stack is empty. the event will go to stack.
 BOM: A collection of objects access the browser and the computer screen.
 Accessible through the global objects window.
 There's a window object for every popup, or browser tab.
-BOM objects: (navigator, location, history, document, screen)
+BOM objects: (navigator, location, history, screen)
 #----------------------------------------------------------------------------------------------------------------------------------------------------#
 window object: is a global object that contain all the global variables and functions.
 window.open(url, name, target, featurelsit): is a method that open new window.
-it's reurns a reference to the window object of the newly created browser instance.
+it's return a reference to the window object of the newly created browser instance.
 1- url: is a url that the new window will open it.
 2- name: is a name that the new window will have it.
 3- target: is a target that the new window will open it.
-4- featurelist: is a featurelist that the new window will have it.
-Featurelist: resizeable, scrollbars, status, toolbar, menubar, location, width, height, left, top.
+4- featurelsit: is a featurelsit that the new window will have it.
+featurelsit: resizeable, scrollbars, status, toolbar, menubar, location, width, height, left, top.
 Example:
 var win = window.open("https://www.google.com", "\_blank", "width=500,height=500");
 
@@ -604,7 +604,7 @@ window.print(): is a method that print the window.
 window.stop(): is a method that stop the window.
 #----------------------------------------------------------------------------------------------------------------------------------------------------#
 navigator object: is a object that contain information about the browser.
-and it's capabilities. it is used to identify the browser and provied different version of the code.
+and it's capabilities. it is used to identify the browser and provide different version of the code.
 
 One of the most important properties of the navigator object is the userAgent property.
 navigator.userAgent: is a property that return the user agent string for the current browser.
@@ -623,8 +623,9 @@ if the number is zero. it will refresh the current page.
 #----------------------------------------------------------------------------------------------------------------------------------------------------#
 Location object: is a object that contain information about URL of the currently loaded page.
 For the following URL: "https://search.phpied.com:8080/search?p=javascript#results"
-location.href: is a property that return the entire URL. (https://search.phpied.com:8080/search?p=javascript#results)
-location.hash: is a property that return the anchor part of the URL. (#results)
+location.href: Returns or sets the complete URL of the current web page, including the protocol, domain, port, path, query parameters, and fragment identifier. It is a string representing the entire URL.
+(https://search.phpied.com:8080/search?p=javascript#results)
+location.hash: Returns or sets the fragment identifier portion of the URL, including the "#" symbol. It represents a specific section within the web page. (#results)
 location.protocol: is a property that return the protocol of the URL. (https:)
 location.host: is a property that return the host name and port number of the URL. (search.phpied.com:8080)
 location.hostname: is a property that return the host name of the URL. (search.phpied.com)
@@ -633,9 +634,11 @@ location.pathname: is a property that return the path name of the URL. (/search)
 location.search: is a property that return the query string of the URL. (?p=javascript)
 location.replace(url): is a method that replace the current page with the new page. (it's not saved in the history list)
 like: login page.
+location.href = url: is a property that load the new document.
 location.reload(): is a method that reload the current page.
 location.assign(url): is a method that load the new document.
 NOTE: it's very important in location access query string. this is the data that we send it to the server.
+#----------------------------------------------------------------------------------------------------------------------------------------------------#
 encodeURIComponent(string): is a method that encode the string to be used in query string. every special character will be encoded.
 decodeURIComponent(string): is a method that decode the string to be used in query string. every special character will be decoded.
 Example:
@@ -932,8 +935,8 @@ delete obj.name;: // delete the property name from the object.
 I want put role to prevent any one can delete the property.
 Restrictions on properties:
 Object property descriptor:
-object.defineProperty(obj, propName,{});
-objec.defineProperties(obj, {propName: {}, propName: {}});
+Object.defineProperty(obj, propName,{});
+Object.defineProperties(obj, {propName: {}, propName: {}});
 
 Data descriptor:
 
@@ -953,7 +956,7 @@ Object.defineProperty(obj, "name", {
 });
 The property i want add it if it's not exist, it will add it. but if it's exist it will override it.
 
-NOTE: If i don't wirte writable, configurable, enumerable. it will be false by default.
+NOTE: If i don't write writable, configurable, enumerable. it will be false by default.
 NOTE: in data descriptor i can't put logic. either true or false. if i want put logic i will use Accessors descriptor.
 
 Accessors descriptor:
@@ -1019,7 +1022,7 @@ Object.defineProperty(obj, "name", {
 });
 console.log(obj.name); // Yahia
 
-To solve problem with vaiable in the global scope: we use IIFE.
+To solve problem with variable in the global scope: we use IIFE.
 (function () {
 var objName = "Yahia";
 Object.defineProperty(obj, "name", {
@@ -1191,7 +1194,7 @@ function StaticClass(name, age) {
 => if(this.constructor == StaticClass) throw new Error("can't create object from static class");
 }
 
-If i wnat prvent inheritance from static class:
+If i want prevent inheritance from static class:
 I throw error in the constructor of the static class.
 OR prevent extensions:
 StaticClass.prototype = Object.preventExtensions(StaticClass.prototype);

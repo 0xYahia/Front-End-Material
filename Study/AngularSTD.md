@@ -455,7 +455,8 @@ In lifecycle we have three phases:
 1.1: constructor: is a method which is used to initialize the component. it is called first.
 
 1.2: ngOnChanges: is a method which is called with each change of the perimeters (inputs) of the component only. any another change not on
-ngOnChanges it is called after the constructor. So the color is not changed to gray. because the constructor is called first.
+ngOnChanges it is called after the constructor.
+So the color is not changed to gray. because the constructor is called first.
 then the ngOnChanges is called. so we should use the ngOnChanges
 
 1.3: ngOnInit: is a method which is used to initialize the component. it is called after the constructor and ngOnChanges. so we should use it
@@ -465,7 +466,7 @@ to initialize the component. like get data from the server etc.
 directive like ngIf, ngFor etc. it is called after the ngOnInit. so we should use it to check the component. like add, remove, update etc.
 
 2: Update: when the component is updated. we have two hooks in this phase.
-2.1: ngAfterContentInit:
+2.1: ngAfterContentInit:s
 2.2: ngAfterContentChecked:
 2.3: ngAfterViewInit: is a method which is called after the view is loaded. so if we want to do something after the view is loaded. we should use it.
 before ngAfterViewInit the view is not loaded. so we can't do anything with html elements before ngAfterViewInit.
@@ -843,7 +844,6 @@ NOTE: here we use this service in this module only.
 
 Eager loading: is a method of loading the module when the application is loaded. when main.ts is loaded. the module will be loaded.
 Lazy loading: is a method of loading the module when the module is needed. when the user click on the link of the module. the module will be loaded.
-any module except the module which is loaded when the application is loaded.
 
 NOTE: in service we found @Injectable({ providedIn: 'any', })
 this means that this service is a singleton service.
