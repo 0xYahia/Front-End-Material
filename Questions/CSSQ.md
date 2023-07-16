@@ -118,7 +118,7 @@ Example: position: sticky;
 ChatGPT
 These positioning types provide flexibility in controlling the placement and behavior of elements on a web page, allowing developers to create complex layouts and designs.
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
-What is importance of Z-index and when it is not work?
+What is importance of Z-index and when it is not work?:
 The z-index property in CSS controls the stacking order of positioned elements along the z-axis (depth). It determines which elements appear in front of or behind other elements when they overlap.
 
 The importance of z-index can be summarized as follows:

@@ -327,10 +327,9 @@ Box Shadow:
 Positioning:
 (1) position: static; // default value
 (2) position: relative; // relative to its normal position (save its position in the page)
-(3) position: absolute; // relative to its first parent that have position relative or absolute or fixed (not static)
+(3) position: absolute; // relative to its first parent that have position not static
 NOTE: we use position absolute to make dropdown menu because not take white space in the page and it will float over the other elements.
-and the difference between position absolute and fixed that fixed relative to the viewport and absolute relative to its first parent that have position relative
-or absolute or fixed or the viewport and fixed be fixed in the page.
+and the difference between position absolute and fixed that fixed relative to the viewport and absolute relative to its first parent not static and fixed be fixed in the page.
 (4) position: fixed; // relative to the viewport
 (5) position: sticky; // save its position in the page if i give it top 0 it will be sticky in the top of the page
 if i give it 50px it will be sticky in the top of the page after 50px and if i give it bottom 0 it will be sticky in the bottom of the page

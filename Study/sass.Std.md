@@ -1,5 +1,5 @@
 What is SASS?:
-SASS is a CSS preprocessor, which adds special features such as variables, functions, loop, extend, control flow(if condtion), nested rules and mixins (sometimes referred to as syntactic sugar) into regular CSS.
+SASS is a CSS preprocessor, which adds special features such as variables, functions, loop, extend, control flow(if condition), nested rules and mixins (sometimes referred to as syntactic sugar) into regular CSS.
 The aim is to make the coding process simpler and more efficient. and compiler will convert it into regular CSS.
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Why SASS?: It is more stable and powerful CSS extension language that describes the style of document structurally.
@@ -38,7 +38,7 @@ Example:
 6: then i compile main.scss file into main.css file.
 7: then i use main.css file in my project.
 
-NOTE: undercore(\_) in the file name means that this file is not going to compile into css file. it means this file is only for import purpose.
+NOTE: underscore(\_) in the file name means that this file is not going to compile into css file. it means this file is only for import purpose.
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------#
 To import a file in another file:
 @import 'path of the file'; // this is deprecated
@@ -47,8 +47,8 @@ To import a file in another file:
 NOTE: the comment not compile into css file.
 NOTE: SSAS code called Development code and CSS code called Production code.
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------#
-04: Varaible:
-Vriables: Variables allow you to store information to be reused throughout your stylesheet. If you've ever repeated yourself in your stylesheets,
+04: Variables:
+Variables: Variables allow you to store information to be reused throughout your stylesheet. If you've ever repeated yourself in your stylesheets,
 variables are a good way to store this information in one place and then call it where needed.
 
 Example:
@@ -58,7 +58,7 @@ body {
 => color: $primary-color;
 }
 
-what difference between variabels in sass and css:
+what difference between variables in sass and css:
 in css we see the variable name in the css file we can't see the value but in sass we the value of the variable in the css file. after compile the sass file.
 
 we have two types of variables in sass:
@@ -83,7 +83,7 @@ $primary-color: #333; // this is global variable i can use this variable anywher
 
 if footer don't have any color property then it will take the color from global variable.
 
-I can conver local variable into global variable by using !global keyword.
+I can convert local variable into global variable by using !global keyword.
 
 Example:
 
@@ -99,7 +99,7 @@ Example:
 
 .copy-right {
 => color: $primary-color; // this will take the color from global variable.
-and here globa variable become a #888
+and here global variable become a #888
 }
 
 NOTE: we store all variables in one file called \_variables.scss and then we import this file in main.scss file.
@@ -200,7 +200,7 @@ If i have more than direct child then i can put all the child in {} like this:
 }
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------#
 Selector with parent element:
-if i have element with two calsses and i want select it:
+if i have element with two classes and i want select it:
 
 <div class="box red">
 => Box - Red
@@ -300,13 +300,13 @@ Example:
 => color: red;
 }
 
-.artucles{
+.articles{
 => @extend .main-box;
 => font-size: 22px;
 => color: blue;
 }
 
-If i don't have calss called .main-box but i want to extend it then i can use placeholder like this:
+If i don't have class called .main-box but i want to extend it then i can use placeholder like this:
 
 %main-box {
 => background-color: white;
@@ -426,7 +426,7 @@ ul.links {
 => list-style: none;
 }
 
-NOTE: i cand do the same thing with placeholder like this.
+NOTE: i can't do the same thing with placeholder like this.
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------#
 What is the difference between mixins and placeholder?:
 
@@ -540,7 +540,7 @@ Example:
 
 @for $i from 1 through 5 {
   => .class-#{$i} {
-=> => font-sizr: 100px + $i;
+=> => font-size: 100px + $i;
 => }
 }
 
@@ -584,9 +584,9 @@ Example:
 
 If i haven more than color and i want give each element a color then i can use each loop like this:
 
-$thems: red, blue, green, orange;
+$themes: red, blue, green, orange;
 
-@each $them in $thems {
+@each $them in $themes {
 => .#{$them}-theme {
 => => .product {
 => => => background-color: white;
@@ -682,7 +682,7 @@ this will compile into:
 }
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------#
 If i don't know how many arguments i will pass to the function then i can use ... like this:
-For example i have three element and i wnat calculate the height of each element to put another element under it:
+For example i have three element and i want calculate the height of each element to put another element under it:
 
 @function calculate-height($sizes...) {
 => $total: 0;
@@ -794,7 +794,7 @@ this will compile into:
 #-----------------------------------------------------------------------------------------------------------------------------------------------------------------#
 18: Practice Create media query mixin:
 
-// If condtion + Mixin + Content
+// If condition + Mixin + Content
 
 @mixin breakPoints($point) {
 => @if ($point == mobile) {

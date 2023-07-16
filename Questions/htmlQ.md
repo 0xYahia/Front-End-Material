@@ -386,7 +386,8 @@ Canvas:
 - Canvas can only be modified using scripts.
 - It is less scalable.
 
-#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------# 44. What are the significant goals of the HTML5 specification?:
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+44- What are the significant goals of the HTML5 specification?:
 These were the target area of the HTML5 specs:
 
 - Introduction of new element tags to better structure the web page such as <header> tag.
@@ -394,12 +395,14 @@ These were the target area of the HTML5 specs:
 - Backward compatible with the older version HTML web pages
 - Introduction of basic interactive elements without the dependency of plugins such as <video> tag instead of the flash plugin.
 
-#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------# 45. Explain the concept of web storage in HTML5.:
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+45- Explain the concept of web storage in HTML5.:
 This web storage helps in storing some of the static data in the local storage of the browser so that we do not need to fetch it from the server every time we need it. There is a size limit based on different browsers. This helps in decreasing the load time and a smooth user experience. There are two types of web storage that are used to store data locally in HTML5:
 
 Local Storage: This helps in storing data that will be retained even though the user reopens the browser. It is stored for each webapp on different browsers.
 Session Storage: This is used for one session only. After the user closes the browser this gets deleted.
-#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------# 46. What is Microdata in HTML5?:
+#-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+46- What is Microdata in HTML5?:
 It is used to help extract data for site crawlers and search engines. It is basically a group of name-value pairs. The groups are called items, and each name-value pair is a property. Most of the search engines like Google, Microsoft, Yandex, etc follow schema.org vocabulary to extract this microdata.
 
 <div itemscope itemtype="http://schema.org/SoftwareApplication">

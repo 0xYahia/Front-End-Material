@@ -1281,7 +1281,7 @@ xhrUsers.open("GET", "hello.txt");
 xhrUsers.send(); // we send it empty because we don't send any data to the server.
 if i want to send data to the server i will send it in the send() method.
 
-console.log(xhrUsers.responseText); // this will printempty string. because it is asynchronous.
+console.log(xhrUsers.responseText); // this will print empty string. because it is asynchronous.
 console.log() run before the response come from the server.
 
 to solve this problem i will make my code synchronous. via put false in the open() method. as a third parameter.
@@ -3418,7 +3418,7 @@ NOTE: this is not static, it depends on how the function is called, and its valu
 
 NOTE: As normal functions So not as a method and so not attached to any object in this case, the this keyword will simply be undefined.
 however, that is only valid for strict mode. In sloppy mode, the this keyword will simply point to the global object.
-So this is yer anoter very good reason to always use strict mode.
+So this is yet anoter very good reason to always use strict mode.
 
 Arrow functions: So arrow functions do not get their own this keyword. Instead, they simply use the this keyword of the surrounding function
 So of the parent function and in technical terms, we say that lexical this keyword, because it simply gets picked up from the outer lexical scope.

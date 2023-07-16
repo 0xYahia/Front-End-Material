@@ -331,7 +331,7 @@ componentDidUpdate(prevProps, prevState);{
 // In unmounting phase, we have one life cycle method: componentWillUnmount.
 
 // componentWillUnmount: is a method that is called before the component is removed from the DOM.
-// and this is a good place to clean up the side effect (any subscription) like timers.
+// and this is a good place to clean up the side effect (un subscription) like timers.
 
 // Example:
 // Class Based Components: is a component that is created using class syntax.
@@ -624,17 +624,16 @@ export default ThemeContext2;
 // Action Creator: is a functions that is used to create an action. it's return an action.
 
 // Action: is an object that is used to tell the reducer what happened. it's contain two properties: type, payload.
-// Type: is a string that is used to tell the reducer what happened. (required)
-// Payload: is a data that is used to tell the reducer what happened. (optional) (money in our case)
+// Type: is a string (required)
+// Payload: is a data (optional) (money in our case)
 
 // Reducer: is a function that is used to update the state. it's take tow parameters: state, action.
 // State: is a data that is used to save the data. (required)
-// Action: is an object that is used to tell the reducer what happened. (required)
+// Action: is an object (required)
 // Reducer: it take copy from the state and update it and return the new state. and it's only update the state.
 
 // In our case reducer will be interested with create policy and delete policy.
-//! NOTE: i the start life of my application i mut give the state a default value. so i will use ES2015 default value.
-function reducer(state = [], action) {}
+//! NOTE: i the start life of my application i must give the state a default value. so i will use ES2015 default value.
 
 // Dispatch: is a function that is used to send the action to the reducer. (required)
 // Store: is a place that is used to save the state. (required)
@@ -651,6 +650,97 @@ function reducer(state = [], action) {}
 // 3- subscribe: is a function that is used to subscribe to the store. (it's take a function as a parameter)
 // this function will be called every time i dispatch an action.
 // 4- replaceReducer: is a function that is used to replace the reducer.
+
+//! Example:
+const { combineReducers, createStore } = require("redux");
+// console.log(combineReducers);
+
+//----------------------------- Action Creators -----------------------------//
+
+function createPolicy(name, amount) {
+  // Action
+  return {
+    type: "CREATE_POLICY",
+    payload: {
+      name: name,
+      amount: amount,
+    },
+  };
+}
+
+function createClaim(name, amount) {
+  return {
+    type: "CREATE_CLAIM",
+    payload: {
+      name: name,
+      amount: amount,
+    },
+  };
+}
+
+function deletePolicy(name) {
+  return {
+    type: "DELETE_POLICY",
+    payload: {
+      name: name,
+    },
+  };
+}
+
+//----------------------------- Reducers -----------------------------//
+
+function policiesReducer(listOfPolicies = [], action) {
+  if (action.type === "CREATE_POLICY") {
+    return [...listOfPolicies, action.payload];
+  } else if (action.type === "DELETE_POLICY") {
+    return listOfPolicies.filter((p) => p.name !== action.payload.name);
+  }
+
+  return listOfPolicies;
+}
+
+function claimsReducer(listOfClaims = [], action) {
+  if (action.type === "CREATE_CLAIM") {
+    return [...listOfClaims, action.payload];
+  }
+  return listOfClaims;
+}
+
+function accountantReducer(amoutOfMoney = 100, action) {
+  if (action.type === "CREATE_POLICY") {
+    return amoutOfMoney + action.payload.amount;
+  } else if (action.type === "CREATE_CLAIM") {
+    amoutOfMoney - action.payload.amount;
+  }
+  return amoutOfMoney;
+}
+
+// =======> Create root reducer
+
+const rootReducer = combineReducers({
+  policies: policiesReducer,
+  claims: claimsReducer,
+  money: accountantReducer,
+});
+
+// =======> create store
+
+const store = createStore(rootReducer);
+
+// console.log(store.getState());
+
+// =======> Test
+
+const action1 = createPolicy("Yahia", 90);
+store.dispatch(action1);
+
+const action2 = createPolicy("Ali", 30);
+store.dispatch(action2);
+
+const action3 = createClaim("Ali", 200);
+store.dispatch(action3);
+
+console.log(store.getState());
 
 // #------------------------------------------------------------------------------------------------------------------------------#
 // Steps to use redux:
@@ -708,7 +798,7 @@ import {createStore, applyMiddleware} from 'redux';
 import {rootReducer} from './reducers';
 import thunk from 'redux-thunk';
 
-export const store = createStore(rootReducer, applyMiddleware(thunk));
+export const store2 = createStore(rootReducer, applyMiddleware(thunk));
 
 // In actions:
 // I will return a function instead of return an action.
@@ -890,9 +980,9 @@ axios.post('https://react-http-6a9a0.firebaseio.com/products.json', {...product,
 // Timeouts
 // Query parameters serialization with support for nested entries
 // Automatic request body serialization to:
-    // JSON (application/json)
-    // Multipart / FormData (multipart/form-data)
-    // URL encoded form (application/x-www-form-urlencoded)
+// JSON (application/json)
+// Multipart / FormData (multipart/form-data)
+// URL encoded form (application/x-www-form-urlencoded)
 // Posting HTML forms as JSON
 // Automatic JSON data handling in response
 // Progress capturing for browsers and node.js with extra info (speed rate, remaining time)
