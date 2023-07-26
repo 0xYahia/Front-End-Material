@@ -663,7 +663,7 @@ Services dependency injection: is a design pattern which is used to make the cod
 the main goal of the dependency injection is to remove hard coded dependency between the classes.
 to reduce coupling or dependency between the classes. (decoupling).
 
-Instead of in the component make object from the service adn use it in the component this is dependency. or coupling between the component and the service.
+Instead of in the component make object from the service and use it in the component this is dependency. or coupling between the component and the service.
 because each create component need inside it object from this service. this mean the service is become on of the main files in the component. and this is wrong.
 
 In OOP we have 4 types of relationships between the classes:

@@ -105,40 +105,40 @@
 // const person = new Person();
 // console.log(person);
 
-function Log(target: any, propertyName: string | Symbol) {
-  console.log("Property decorator!");
-  console.log(target);
-  console.log(propertyName);
-}
+// function Log(target: any, propertyName: string | Symbol) {
+//   console.log("Property decorator!");
+//   console.log(target);
+//   console.log(propertyName);
+// }
 
-function Log2(target: any, name: string, descriptor: PropertyDescriptor) {
-  console.log("Accessor decorator!");
-  console.log(target);
-  console.log(name);
-  console.log(descriptor);
-}
+// function Log2(target: any, name: string, descriptor: PropertyDescriptor) {
+//   console.log("Accessor decorator!");
+//   console.log(target);
+//   console.log(name);
+//   console.log(descriptor);
+// }
 
-class Product {
-  @Log
-  title: string;
-  private _price: number;
+// class Product {
+//   @Log
+//   title: string;
+//   private _price: number;
 
-  @Log2
-  set price(val: number) {
-    if (val > 0) {
-      this._price = val;
-    } else throw new Error("Invalid price - should be positive!");
-  }
+//   @Log2
+//   set price(val: number) {
+//     if (val > 0) {
+//       this._price = val;
+//     } else throw new Error("Invalid price - should be positive!");
+//   }
 
-  constructor(t: string, p: number) {
-    this.title = t;
-    this._price = p;
-  }
+//   constructor(t: string, p: number) {
+//     this.title = t;
+//     this._price = p;
+//   }
 
-  getPriceWithTax(tax: number) {
-    return this._price * (1 + tax);
-  }
-}
+//   getPriceWithTax(tax: number) {
+//     return this._price * (1 + tax);
+//   }
+// }
 
 // function LogGetter(
 //   _target: any,
@@ -170,102 +170,102 @@ class Product {
 // person.name = "John";
 // console.log(person.name);
 
-function AddAdditionalProperty<T extends { new (...args: any[]): {} }>(
-  constructor: T
-) {
-  return class extends constructor {
-    additionalProperty = "Additional Property Value";
-  };
-}
+// function AddAdditionalProperty<T extends { new (...args: any[]): {} }>(
+//   constructor: T
+// ) {
+//   return class extends constructor {
+//     additionalProperty = "Additional Property Value";
+//   };
+// }
 
-@AddAdditionalProperty
-class MyClass {
-  originalProperty = "Original Property Value";
-  // additionalProperty: any;
-}
+// @AddAdditionalProperty
+// class MyClass {
+//   originalProperty = "Original Property Value";
+//   // additionalProperty: any;
+// }
 
-const myObject = new MyClass();
-console.log(myObject);
-console.log(myObject.originalProperty); // Output: "Original Property Value"
-// console.log(myObject.additionalProperty); // Output: "Additional Property Value"
+// const myObject = new MyClass();
+// console.log(myObject);
+// console.log(myObject.originalProperty); // Output: "Original Property Value"
+// // console.log(myObject.additionalProperty); // Output: "Additional Property Value"
 
-interface ValidatorConfig {
-  [property: string]: {
-    [validatableProp: string]: string[]; // ['required', 'positive']
-  };
-}
+// interface ValidatorConfig {
+//   [property: string]: {
+//     [validatableProp: string]: string[]; // ['required', 'positive']
+//   };
+// }
 
-const registeredValidators: ValidatorConfig = {};
+// const registeredValidators: ValidatorConfig = {};
 
-function Require(target: any, propName: string) {
-  // console.log(target.constructor.name); // Course
-  registeredValidators[target.constructor.name] = {
-    ...registeredValidators[target.constructor.name],
-    [propName]: [
-      ...(registeredValidators[target.constructor.name]?.[propName] ?? []),
-      "required",
-    ],
-  };
-}
-function PositiveNumber(target: any, propName: string) {
-  registeredValidators[target.constructor.name] = {
-    ...registeredValidators[target.constructor.name],
-    [propName]: [
-      ...(registeredValidators[target.constructor.name]?.[propName] ?? []),
-      "positive",
-    ],
-  };
-}
+// function Require(target: any, propName: string) {
+//   // console.log(target.constructor.name); // Course
+//   registeredValidators[target.constructor.name] = {
+//     ...registeredValidators[target.constructor.name],
+//     [propName]: [
+//       ...(registeredValidators[target.constructor.name]?.[propName] ?? []),
+//       "required",
+//     ],
+//   };
+// }
+// function PositiveNumber(target: any, propName: string) {
+//   registeredValidators[target.constructor.name] = {
+//     ...registeredValidators[target.constructor.name],
+//     [propName]: [
+//       ...(registeredValidators[target.constructor.name]?.[propName] ?? []),
+//       "positive",
+//     ],
+//   };
+// }
 
-function Validate(obj: object) {
-  const objValidatorConfig = registeredValidators[obj.constructor.name];
-  if (!objValidatorConfig) return true;
-  let isValid = true;
-  for (const prop in objValidatorConfig) {
-    for (const validator of objValidatorConfig[prop]) {
-      switch (validator) {
-        case "required":
-          isValid = isValid && !!obj[prop]; // Search
-          break;
-        case "positive":
-          isValid = isValid && obj[prop] > 0;
-          break;
-      }
-    }
-  }
-  return isValid;
-}
+// function Validate(obj: object) {
+//   const objValidatorConfig = registeredValidators[obj.constructor.name];
+//   if (!objValidatorConfig) return true;
+//   let isValid = true;
+//   for (const prop in objValidatorConfig) {
+//     for (const validator of objValidatorConfig[prop]) {
+//       switch (validator) {
+//         case "required":
+//           isValid = isValid && !!obj[prop]; // Search
+//           break;
+//         case "positive":
+//           isValid = isValid && obj[prop] > 0;
+//           break;
+//       }
+//     }
+//   }
+//   return isValid;
+// }
 
-class Course {
-  @Require
-  title: string;
-  @PositiveNumber
-  price: number;
+// class Course {
+//   @Require
+//   title: string;
+//   @PositiveNumber
+//   price: number;
 
-  constructor(t: string, p: number) {
-    this.title = t;
-    this.price = p;
-  }
-}
+//   constructor(t: string, p: number) {
+//     this.title = t;
+//     this.price = p;
+//   }
+// }
 
-const courseForm = document.querySelector("form")!;
+// const courseForm = document.querySelector("form")!;
 
-courseForm.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const titleEl = document.getElementById("title") as HTMLInputElement;
-  const priceEl = document.getElementById("price") as HTMLInputElement;
+// courseForm.addEventListener("submit", (event) => {
+//   event.preventDefault();
+//   const titleEl = document.getElementById("title") as HTMLInputElement;
+//   const priceEl = document.getElementById("price") as HTMLInputElement;
 
-  const title = titleEl.value;
-  const price = +priceEl.value;
+//   const title = titleEl.value;
+//   const price = +priceEl.value;
 
-  const createdCourse = new Course(title, price);
-  console.log(createdCourse);
+//   const createdCourse = new Course(title, price);
+//   console.log(createdCourse);
 
-  if (!Validate(createdCourse)) {
-    alert("Invalid input, please try again!");
-    return;
-  }
-});
+//   if (!Validate(createdCourse)) {
+//     alert("Invalid input, please try again!");
+//     return;
+//   }
+// });
 
 // But we can add course withe empty title or negative price so we need to add some validation
 // we can add if conditions before createCourse but we need to add validation in every place we create course
@@ -284,3 +284,60 @@ courseForm.addEventListener("submit", (event) => {
 // and only otherwise we continue.
 
 // That we can call validate, this returns true or false. True if it's valid, false if it's not valid
+
+function mergeSort(array: number[], start: number, end: number) {
+  if (end <= start) return;
+  // console.log(array)
+  let midpoint = (end + start) / 2;
+  mergeSort(array, start, midpoint);
+  mergeSort(array, midpoint + 1, end);
+  merge(array, start, midpoint, end);
+}
+
+function merge(array: number[], start: number, midpoint: number, end: number) {
+  var i, j, k;
+  let left_length = midpoint - start + 1;
+  let right_length = end - midpoint;
+  // console.log(array)
+
+  var left_array: number[] = [];
+  var right_array: number[] = [];
+
+  for (i = 0; i < left_length; i++) {
+    left_array[i] = array[start + i];
+  }
+
+  for (j = 0; j < right_length; j++) {
+    right_array[j] = array[midpoint + 1 + j];
+  }
+
+  i = j = 0;
+  k = start;
+  while (i < left_length && j < right_length) {
+    if (left_array[i] <= right_array[j]) {
+      array[k] = left_array[i];
+      i++;
+    } else {
+      array[k] = right_array[j];
+      j++;
+    }
+    k++;
+  }
+
+  while (i < left_length) {
+    array[k] = left_array[i];
+    i++;
+    k++;
+  }
+
+  while (i < right_length) {
+    array[k] = right_array[i];
+    j++;
+    k++;
+  }
+}
+
+let arr = [8, 65, 9, 7, 3, 5, 54];
+console.log(arr);
+mergeSort(arr, 0, arr.length - 1);
+console.log(arr);
