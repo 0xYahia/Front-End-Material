@@ -234,3 +234,19 @@
 // @ContentChild('contentParagraph') paragraph: ElementRef;
 // and i will use the element in ngAfterContentInit() lifecycle hook if i use it before ngAfterContentInit() it will be undefined or empty
 //!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Section 17: Using Pipers to Transform Output
+//! 241: Introduction & Why Pipes are Useful
+// Pipes are a feature in Angular that allows us to transform output in our templates
+// Pipes are a way to transform data before displaying it in the view (template) if i want change the data before displaying it in the view
+// but i don't want to change the data in the ts code i will use pipes
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 242: Using Pipes
+// We can use pipes in the template using | (pipe) and the name of the pipe
+// {{ server.name | uppercase }} => uppercase is a built-in pipe
+// {{ server.started | date }} => date is a built-in pipe
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 243: Parametrizing Pipes:
+// We can parametrize pipes using : (colon) and the parameter
+// {{ server.started | date: 'fullDate' }} => date is a built-in pipe and fullDate is a parameter
+// and we can use multiple parameters separated by : (colon)  {{ server.started | date: 'fullDate' : 'shortTime' }}
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
