@@ -308,3 +308,144 @@
 // and we can use multiple parameters separated by : (colon)  {{ server.name | shorten: 10 : 20 }}
 // and we can use the pipe in the template using | shorten: 10 : 20
 //!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 248: Example: Creating a Filter Pipe
+// We can create a filter pipe to filter data in the template
+//! 1- create a filter pipe
+
+// import { Pipe, PipeTransform } from "@angular/core";
+
+// @Pipe({
+//   name: 'filter'
+// })
+// export class FilterPipe implements PipeTransform {
+//   transform(value: any, filterString: string, propName: string) {
+//     if (value.length === 0 || filterString === '') {
+//       return value;
+//     }
+//     const resultArray = [];
+//     for (const item of value) {
+//       if (item[propName] === filterString) {
+//         resultArray.push(item);
+//       }
+//     }
+//     return resultArray;
+//   }
+// }
+
+//! 2- import the pipe class in the declarations in the module that we want to use the pipe in it
+//! 3- use the pipe in the template using | (pipe) and the name of the pipe
+
+// add input field type text and make two way binding on it to filter the data
+// <input type="text" [(ngModel)]="filteredStatus">
+// and add property filteredStatus in the ts code
+// and we can use the pipe in the template using | filter: filteredStatus : 'status'
+
+//! in app.component.html
+// <div class="container">
+//   <div class="row">
+//     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+//       <input type="text" [(ngModel)]="filteredStatus">
+//       <hr>
+//       <ul class="list-group">
+//         <li
+//           class="list-group-item"
+//           *ngFor="let server of servers | filter: filteredStatus : 'status'"
+//           [ngClass]="getStatusClasses(server)">
+//           <span
+//             class="badge">{{ server.status }}</span>
+//           <strong>{{ server.name }}</strong> |
+//           {{ server.instanceType | uppercase }} |
+//           {{ server.started | date: 'fullDate' | uppercase }}
+//         </li>
+//       </ul>
+//     </div>
+//   </div>
+// </div>
+
+// we apply it here in the ng for loop. And this might sound strange because:
+// before, we only used it in string interpolation
+
+//! NOTE => Popes transform your output and the ngFor loop is outputting something is simply part of your output
+// Therefore, of course you can add a pipe here to my servers. And then I simply say filter
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 249: Pure and Impure Pipes (or: How to fux the filter Pipe)
+
+//! We note if i add server here when i filter, it doesn't work. And the reason for that is that the pipe is not executed again.
+//! Because the pipe is only executed when Angular detects a change to the input value or to the object reference.
+//! And in this case, we're not changing the input value. We're not changing the array. We're only changing the filter string.
+//! And therefore, Angular doesn't detect a change and doesn't execute the pipe again.
+//! To be precise: Updating arrays or objects doesn't trigger it, updating strings or numbers does.
+
+//! We can make a pipe pure or impure
+// pure pipe: is a pipe that is only executed when it detects a pure change (a change to a primitive input value or a changed object reference)
+// impure pipe: is a pipe that is executed for every change detection cycle no matter whether the value or object reference changes
+// we can make a pipe pure or impure using pure: false or pure: true
+// @Pipe({
+//   name: 'filter',
+//   pure: false
+// })
+// export class FilterPipe implements PipeTransform {
+//   transform(value: any, filterString: string, propName: string) {
+//     if (value.length === 0 || filterString === '') {
+//       return value;
+//     }
+//     const resultArray = [];
+//     for (const item of value) {
+//       if (item[propName] === filterString) {
+//         resultArray.push(item);
+//       }
+//     }
+//     return resultArray;
+//   }
+// }
+
+//! but we should be careful when we use impure pipes because it can cause performance issues
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 250: Understanding the "async" Pipe
+// We can use async pipe to handle observables in the template instead of subscribing to them in the ts code
+// we can use async pipe with observables and promises and it will subscribe to the observable or promise and unsubscribe from it automatically
+
+//! Example:
+// in app.component.ts
+// export class AppComponent implements  {
+//   appStatus = new Promise((resolve, reject) => {
+//     setTimeout(() => {
+//       resolve('stable');
+//     }, 2000);
+//   });
+// }
+
+// in app.component.html
+
+// <div class="container">
+//   <div class="row">
+//     <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+//       <input type="text" [(ngModel)]="filteredStatus">
+//       <br><br>
+//       <button class="btn btn-primary" (click)="onAddServer()">Add Server</button>
+//       <br><br>
+//       <p>{{ appStatus | async }}</p>
+//       <hr>
+//       <ul class="list-group">
+//         <li
+//           class="list-group-item"
+//           *ngFor="let server of servers | filter: filteredStatus : 'status'"
+//           [ngClass]="getStatusClasses(server)">
+//           <span
+//             class="badge">{{ server.status }}</span>
+//           <strong>{{ server.name }}</strong> |
+//           {{ server.instanceType | uppercase }} |
+//           {{ server.started | date: 'fullDate' | uppercase }}
+//         </li>
+//       </ul>
+//     </div>
+//   </div>
+// </div>
+
+//! async this is a built-in pipe
+
+// and by adding it, well, watch for yourself.
+
+// You see, I will reload the app. There's nothing there at the beginning but after two seconds you see stable. And this is what async does.It recognizes that this is a promise.
+// And as a side note it put all the work with observables there. It would subscribe automatically, and after two seconds it will simply recognize that something changed,
+// that the promise resolved, Or in the case of an observable that data was sent through the subscription and it will print this data to the screen.
