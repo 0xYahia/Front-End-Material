@@ -250,3 +250,61 @@
 // {{ server.started | date: 'fullDate' }} => date is a built-in pipe and fullDate is a parameter
 // and we can use multiple parameters separated by : (colon)  {{ server.started | date: 'fullDate' : 'shortTime' }}
 //!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 244: Where to learn more about Pipes:
+// https://angular.io/api?query=pipe
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 245: Chaining Multiple Pipes:
+// We can chain multiple pipes using | (pipe)
+// {{ server.started | date: 'fullDate' | uppercase }} => date is a built-in pipe and fullDate is a parameter and uppercase is a built-in pipe
+// always keep in mind that the order of the pipes matters if we change the order of the pipes the output will be different ( we get error in this case)
+// because uppercase works on strings and date is not a string
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 246: Creating a Custom Pipe:
+// We can create a custom via some steps:
+// 1- create a new file with the name of the pipe and the extension .pipe.ts
+// 2- import Pipe, PipeTransform from @angular/core
+// 3- add @Pipe decorator with the name of the pipe
+// 4- implement PipeTransform interface
+// 5- implement transform method
+// 6- add logic to transform method
+// 7- export the pipe class
+// 8- import the pipe class in the declarations in the module that we want to use the pipe in it
+// 9- use the pipe in the template using | (pipe) and the name of the pipe
+
+//! Example:
+
+// import { Pipe, PipeTransform } from "@angular/core";
+
+// @Pipe({
+//   name: 'shorten'
+// })
+
+// export class ShortenPipe implements PipeTransform {
+//   transform(value: any) {
+//     if (value.length > 10) {
+//       return value.substr(0, 10) + ' ...';
+//     }
+//     return value;
+//   }
+// }
+
+// and we can use the pipe in the template using | (pipe) and the name of the pipe
+// {{ server.name | shorten }}
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 247: Parametrizing a Custom Pipe:
+// We can parametrize a custom pipe using : (colon) and the parameter
+// {{ server.name | shorten: 10 }} => shorten is a custom pipe and 10 is a parameter
+
+//! Example:
+// export class ShortenPipe implements PipeTransform {
+//   transform(value: any, limit: number, anotherParam: any) {
+//     if (value.length > limit) {
+//       return value.substr(0, limit) + ' ...';
+//     }
+//     return value;
+//   }
+// }
+
+// and we can use multiple parameters separated by : (colon)  {{ server.name | shorten: 10 : 20 }}
+// and we can use the pipe in the template using | shorten: 10 : 20
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
