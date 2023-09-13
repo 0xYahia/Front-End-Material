@@ -519,6 +519,77 @@
 //         <div *ngIf="onlyOdd">
 //           <l
 //             class="list-group-item"
+//!            [ngClass]="{odd: odd % 2 !== 0}"
+//!            [ngStyle]="{ backgroundColor: odd % 2 !== 0 ? 'yellow' : 'transparent' }"
+//             *ngFor="let odd of oddNumbers">{{ odd }}</li>
+//         </div>
+//         <div *ngIf="!onlyOdd">
+//           <li
+//             class="list-group-item"
+//!            [ngClass]="{odd: even % 2 === 0}"
+//!            [ngStyle]="{ backgroundColor: even % 2 === 0 ? 'yellow' : 'transparent' }"
+//             *ngFor="let even of evenNumbers">{{ even }}</li>
+//         </div>
+//       </ul>
+//       </div>
+//   </div>
+// </div>
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 93: Creating a Basic Attribute Directive
+// 1- create a new file with the name of the directive and the extension .directive.ts
+// 2- import Directive, ElementRef, OnInit from @angular/core
+// 3- add @Directive decorator with the name of the directive
+// 4- implement OnInit interface
+// 5- implement ngOnInit method
+// 6- add logic to ngOnInit method
+// 7- export the directive class
+// 8- import the directive class in the declarations in the module that we want to use the directive in it
+// 9- use the directive in the template using the selector of the directive
+
+
+//! Example:
+
+//! in basic-highlight.directive.ts
+// import { Directive, ElementRef, OnInit } from "@angular/core";
+
+// @Directive({
+//   selector: '[appBasicHighlight]'
+// })
+// export class BasicHighlightDirective implements OnInit {
+//   constructor(private elementRef: ElementRef) {}
+
+//   ngOnInit() {
+//     this.elementRef.nativeElement.style.backgroundColor = 'green';
+//   }
+// }
+
+//! in app.module.ts
+// import { BasicHighlightDirective } from './basic-highlight/basic-highlight.directive';
+
+// @NgModule({
+//   declarations: [
+//     AppComponent,
+//!    BasicHighlightDirective
+//   ],
+//   imports: [
+//     BrowserModule,
+//     FormsModule
+//   ],
+//   providers: [],
+//   bootstrap: [AppComponent]
+// })
+// export class AppModule { }
+
+//! in app.component.html
+// <div class="container">
+//   <div class="row">
+//     <div class="col-xs-12">
+//       <button class="btn btn-primary" (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+//       <br><br>
+//       <ul class="list-group">
+//         <div *ngIf="onlyOdd">
+//           <l
+//             class="list-group-item"
 //             [ngClass]="{odd: odd % 2 !== 0}"
 //             [ngStyle]="{ backgroundColor: odd % 2 !== 0 ? 'yellow' : 'transparent' }"
 //             *ngFor="let odd of oddNumbers">{{ odd }}</li>
@@ -531,7 +602,7 @@
 //             *ngFor="let even of evenNumbers">{{ even }}</li>
 //         </div>
 //       </ul>
+//!      <p appBasicHighlight>Style me with basic directive</p>
 //       </div>
 //   </div>
 // </div>
-//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
