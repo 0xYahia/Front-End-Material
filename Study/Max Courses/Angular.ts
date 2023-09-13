@@ -449,3 +449,6 @@
 // You see, I will reload the app. There's nothing there at the beginning but after two seconds you see stable. And this is what async does.It recognizes that this is a promise.
 // And as a side note it put all the work with observables there. It would subscribe automatically, and after two seconds it will simply recognize that something changed,
 // that the promise resolved, Or in the case of an observable that data was sent through the subscription and it will print this data to the screen.
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Section 7: Directives Deep Dive
+//! 90: Module Introduction
