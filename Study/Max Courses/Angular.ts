@@ -452,3 +452,86 @@
 //!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! Section 7: Directives Deep Dive
 //! 90: Module Introduction
+//! There are two main types of directives in Angular:
+//! 1- Attribute Directives:
+// look like a normal HTML attribute (possibly with databinding or event binding)
+// only affect/change the element they are added to
+
+//! 2- Structural Directives:
+// look like a normal HTML attribute but have a leading * (for desugaring)
+// affect a whole area in the DOM (elements get added/removed)
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 91: ngFor and ngIf Recap
+//! NOTE => we can't have more than one structural directive on the same element
+
+//! Example:
+
+//! in app.component.ts
+// export class AppComponent {
+//   numbers = [1, 2, 3, 4, 5];
+//   oddNumbers = [1, 3, 5];
+//   evenNumbers = [2, 4];
+//   onlyOdd = false;
+// }
+
+
+//! in app.component.html
+// <div class="container">
+//   <div class="row">
+//     <div class="col-xs-12">
+//       <button class="btn btn-primary" (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+//       <br><br>
+//       <ul class="list-group">
+//         <div *ngIf="onlyOdd">
+//           <li
+//             class="list-group-item"
+//             *ngFor="let odd of oddNumbers">{{ odd }}</li>
+//         </div>
+//         <div *ngIf="!onlyOdd">
+//           <li
+//             class="list-group-item"
+//             *ngFor="let even of evenNumbers">{{ even }}</li>
+//         </div>
+//       </ul>
+//       </div>
+//   </div>
+// </div>
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 92: ngClass and ngStyle Recap
+//! Example:
+
+//! in app.component.css
+// .odd {
+//   color: red;
+// }
+
+// .even {
+//   color: blue;
+// }
+
+//! in app.component.html
+// <div class="container">
+//   <div class="row">
+//     <div class="col-xs-12">
+//       <button class="btn btn-primary" (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+//       <br><br>
+//       <ul class="list-group">
+//         <div *ngIf="onlyOdd">
+//           <l
+//             class="list-group-item"
+//             [ngClass]="{odd: odd % 2 !== 0}"
+//             [ngStyle]="{ backgroundColor: odd % 2 !== 0 ? 'yellow' : 'transparent' }"
+//             *ngFor="let odd of oddNumbers">{{ odd }}</li>
+//         </div>
+//         <div *ngIf="!onlyOdd">
+//           <li
+//             class="list-group-item"
+//             [ngClass]="{odd: even % 2 === 0}"
+//             [ngStyle]="{ backgroundColor: even % 2 === 0 ? 'yellow' : 'transparent' }"
+//             *ngFor="let even of evenNumbers">{{ even }}</li>
+//         </div>
+//       </ul>
+//       </div>
+//   </div>
+// </div>
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
