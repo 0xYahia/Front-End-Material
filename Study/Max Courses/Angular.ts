@@ -606,3 +606,13 @@
 //       </div>
 //   </div>
 // </div>
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 94: Using the Renderer to build a Better Attribute Directive
+// In last lecture we used ElementRef to access the element that the directive is placed on
+// this.elementRef.nativeElement.style.backgroundColor = 'green';
+//! this way to access element is not recommended because angular actually isi also able to render your templates without a DOM
+
+// and then these properties might not be available. It could do this when using service workers so basically some advanced use cases, but nonetheless
+// it's not a good practice to directly access your elements.
+
+//! How should you access them then?
