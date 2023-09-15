@@ -687,3 +687,32 @@ this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue'
 //! To know more about renderer2: https://angular.io/api/core/Renderer2
 //!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! 97: Using HostListener to Listen to Host Events
+// We can use HostListener to listen to host events like mouseenter, mouseleave, etc...
+
+// we write @HostListener('event') method() {
+//  here we add the logic i want to execute when the event is triggered
+// }
+
+//! Example:
+
+//! in better-highlight.directive.ts
+// import { Directive, ElementRef, OnInit, Renderer2, HostListener } from "@angular/core";
+
+// @Directive({
+//   selector: '[appBetterHighlight]'
+// })
+// export class BetterHighlightDirective implements OnInit {
+//   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+
+//   ngOnInit() {
+//     this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue');
+//   }
+
+//!   @HostListener('mouseenter') mouseover(eventData: Event) {
+//     this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue');
+//   }
+
+//!   @HostListener('mouseleave') mouseleave(eventData: Event) {
+//     this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'transparent');
+//   }
+// }
