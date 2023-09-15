@@ -683,3 +683,7 @@ this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue'
 // 4) the flags object we want to set (optional) Here we can set a couple of flags for this style.
 //   I will leave it out here. What you could set here are things like if you want to add an important text
 // or this exclamation mark, important annotation for a style to override our styles or something like that.
+
+//! To know more about renderer2: https://angular.io/api/core/Renderer2
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 97: Using HostListener to Listen to Host Events
