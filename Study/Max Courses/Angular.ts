@@ -613,6 +613,73 @@
 //! this way to access element is not recommended because angular actually isi also able to render your templates without a DOM
 
 // and then these properties might not be available. It could do this when using service workers so basically some advanced use cases, but nonetheless
-// it's not a good practice to directly access your elements.
+// it's not a good practice to directly access your elements in DOM.
 
 //! How should you access them then?
+// we should use Renderer2 to access the element that the directive is placed on
+
+//! Example:
+
+//! in better-highlight.directive.ts
+// import { Directive, ElementRef, OnInit, Renderer2 } from "@angular/core";
+
+// @Directive({
+//   selector: '[appBetterHighlight]'
+// })
+// export class BetterHighlightDirective implements OnInit {
+//   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+
+//   ngOnInit() {
+//     this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue');
+//   }
+// }
+
+//! in app.module.ts
+// import { BetterHighlightDirective } from './better-highlight/better-highlight.directive';
+
+// @NgModule({
+//   declarations: [
+//     AppComponent,
+//     BasicHighlightDirective,
+//!    BetterHighlightDirective
+//   ],
+// })
+
+//! in app.component.html
+
+// <div class="container">
+//   <div class="row">
+//     <div class="col-xs-12">
+//       <button class="btn btn-primary" (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+//       <br><br>
+//       <ul class="list-group">
+//         <div *ngIf="onlyOdd">
+//           <l
+//             class="list-group-item"
+//             [ngClass]="{odd: odd % 2 !== 0}"
+//             [ngStyle]="{ backgroundColor: odd % 2 !== 0 ? 'yellow' : 'transparent' }"
+//             *ngFor="let odd of oddNumbers">{{ odd }}</li>
+//         </div>
+//         <div *ngIf="!onlyOdd">
+//           <li
+//             class="list-group-item"
+//             [ngClass]="{odd: even % 2 === 0}"
+//             [ngStyle]="{ backgroundColor: even % 2 === 0 ? 'yellow' : 'transparent' }"
+//             *ngFor="let even of evenNumbers">{{ even }}</li>
+//         </div>
+//       </ul>
+// !      <p appBasicHighlight>Style me with basic directive</p>
+// !      <p appBetterHighlight>Style me with better directive</p>
+//       </div>
+//   </div>
+// </div>
+
+this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue');
+
+// setStyle() method fourth argument:
+// 1) the element we want to access
+// 2) the style we want to set
+// 3) the value of the style we want to set
+// 4) the flags object we want to set (optional) Here we can set a couple of flags for this style.
+//   I will leave it out here. What you could set here are things like if you want to add an important text
+// or this exclamation mark, important annotation for a style to override our styles or something like that.
