@@ -533,7 +533,80 @@ this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue'
 //!    this.backgroundColor = 'transparent';
 //   }
 // }
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 98: Binding to Directive Properties:
+// In last lecture we used @HostBinding() to bind to host properties but the properties is hard coded not dynamic
+// we can bind to directive properties using @Input() decorator to make the property accessible from outside the directive and make it dynamic
 
+// we can make directive itself is enclosed in square brackets []
+// at square brackets and that's a typical use case especially if you only have one property to bind or at least one main property.
+
+//! if i put the name of the directive as alias name in input decorator inside the directive class this called closing the directive itself
+// i write the directive name in the element in square brackets and the property name in single quotation marks to bind to the property
+// That really only happens if you want to bind to a property which has the same name or alias like your directive selector.
+
+//! Example:
+
+//! in better-highlight.directive.ts
+
+// import { Directive, ElementRef, OnInit, Renderer2, HostListener, HostBinding, Input } from "@angular/core";
+
+// @Directive({
+//   selector: '[appBetterHighlight]'
+// })
+// export class BetterHighlightDirective implements OnInit {
+//!   @Input() defaultColor: string = 'transparent';
+//!   @Input('appBetterHighlight') highlightColor: string = 'blue';
+//   @HostBinding('style') backgroundColor: string = 'transparent';
+//   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+
+//   ngOnInit() {
+//!    this.backgroundColor = this.defaultColor;
+//     this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue', false, false);
+//   }
+
+//   @HostListener('mouseenter') mouseover(eventData: Event) {
+//     this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue', false, false);
+//!    this.backgroundColor = this.highlightColor;
+//   }
+
+//   @HostListener('mouseleave') mouseleave(eventData: Event) {
+//     this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'transparent', false, false);
+//!    this.backgroundColor = this.defaultColor;
+//   }
+// }
+
+//! in app.component.html
+
+// <div class="container">
+//   <div class="row">
+//     <div class="col-xs-12">
+//       <button class="btn btn-primary" (click)="onlyOdd = !onlyOdd">Only show odd numbers</button>
+//       <br><br>
+//       <ul class="list-group">
+//         <div *ngIf="onlyOdd">
+//           <l
+//             class="list-group-item"
+//             [ngClass]="{odd: odd % 2 !== 0}"
+//             [ngStyle]="{ backgroundColor: odd % 2 !== 0 ? 'yellow' : 'transparent' }"
+//             *ngFor="let odd of oddNumbers">{{ odd }}</li>
+//         </div>
+//         <div *ngIf="!onlyOdd">
+//           <li
+//             class="list-group-item"
+//             [ngClass]="{odd: even % 2 === 0}"
+//             [ngStyle]="{ backgroundColor: even % 2 === 0 ? 'yellow' : 'transparent' }"
+//             *ngFor="let even of evenNumbers">{{ even }}</li>
+//         </div>
+//       </ul>
+//        <p appBasicHighlight>Style me with basic directive</p>
+//        <p appBetterHighlight>Style me with better directive</p>
+//!       <p [appBetterHighlight]="'red'" [defaultColor]="'yellow'">Style me with better directive</p>
+//       </div>
+//   </div>
+// </div>
+
+//! Note i can write defaultColor without square brackets and red the value without single quotation because it's not enclosed in square brackets
 //!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! Section 17: Using Pipers to Transform Output
 //! 241: Introduction & Why Pipes are Useful
