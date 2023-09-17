@@ -470,7 +470,7 @@ this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue'
 
 //! To know more about renderer2: https://angular.io/api/core/Renderer2
 //!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//! 97: Using HostListener to Listen to Host Events
+//! 96: Using HostListener to Listen to Host Events
 // We can use HostListener to listen to host events like mouseenter, mouseleave, etc...
 
 // we write @HostListener('event') method() {
@@ -500,6 +500,40 @@ this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue'
 //     this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'transparent');
 //   }
 // }
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 97: Using HostBinding to Bind to Host Properties
+// We can use HostBinding to bind to host any properties like style, class, etc...
+
+//! @HostBinding('style') backgroundColor: string = 'transparent';
+
+//! Example:
+
+//! in better-highlight.directive.ts
+
+// import { Directive, ElementRef, OnInit, Renderer2, HostListener, HostBinding } from "@angular/core";
+
+// @Directive({
+//   selector: '[appBetterHighlight]'
+// })
+// export class BetterHighlightDirective implements OnInit {
+//!   @HostBinding('style') backgroundColor: string = 'transparent';
+//   constructor(private elementRef: ElementRef, private renderer: Renderer2) {}
+
+//   ngOnInit() {
+//     this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue', false, false);
+//   }
+
+//   @HostListener('mouseenter') mouseover(eventData: Event) {
+//     this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue', false, false);
+//!    this.backgroundColor = 'blue';
+//   }
+
+//   @HostListener('mouseleave') mouseleave(eventData: Event) {
+//     this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'transparent', false, false);
+//!    this.backgroundColor = 'transparent';
+//   }
+// }
+
 //!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! Section 17: Using Pipers to Transform Output
 //! 241: Introduction & Why Pipes are Useful
