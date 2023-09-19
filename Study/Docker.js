@@ -59,3 +59,51 @@
 //! All of them there components like it's in the containers.
 
 //! So always there comparison between VMs and Containers.
+
+//! We can make template for VMs to make it easy to create VMs.
+// for example we can make template for VMs with name nodejs-template. this template has nodejs and npm and all dependencies and requirements.
+// or make template for DBs with name db-template. this template has DBs and all dependencies and requirements.
+
+//! So we invest the time to make templates for VMs with all configurations and dependencies and requirements we need it and export it. to make it easy to create VMs.
+// then we can import this template and edit the configurations and dependencies to be more specific to our project.
+
+//! But in this case we need to human with skills to do this work. and this is not efficient.
+
+//! I need to solution without strict to know the OS and installation and configurations and dependencies and requirements. and VMs don't give me this solution.
+// If want to make this with VMs i need to make templates for everything. and this is not efficient.
+
+//! And the big problem in VMs is the OS in all VMs and all Templates is the same. and this is not efficient.
+
+//! The OS consists of two parts:
+// 1- Kernel. this the core of OS. this the part that talk with hardware directly. //! (called kernel mode)
+// 2- User Space. this the part that talk with kernel. and this the part that we use it. //! (called user mode)
+
+// In our case we don't need of user space. we need only kernel. because we need only the part that talk with hardware directly.
+// so of i make out application talk with kernel of host OS directly. without need of VMs OS. this will be more efficient.
+
+// All of containers need to one kernel to run. and this kernel is the kernel of host OS. so we replaced used full OS in VMs with kernel of host OS.
+// and this is very efficient.
+//! What is the advantage of this solution?
+// 1) by using this way i don't need to licensing for every VMs and the OS on this VMs, because i use the kernel of host OS.
+// 2) not there services attack because i don't use the user space of OS. i use only the kernel of OS.
+// 3) I don't need to install OS in every VMs. and make the setting configurations and dependencies and requirements.
+
+//! How can i do this?
+// We make Base Disks.
+// Base Disk is the Parent VM. for example the VM to our web template.
+// I will make this VM to be ready to use. via install the OS and make the setting configurations and dependencies and requirements. then our application.
+// this VM has Virtual Hard Disk (VHD). in Hyper-V is file with extension .vhd this called base disk or base image.
+//! If want create copy from this VM i can make it by two ways:
+// 1) i can make copy from this VM via copy the VHD file. and this called (copy on write). but this not efficient
+// 2) i can make copy from this VM via depend on this VHD file, and make another VHD file called (Differencing Disk). and this called (copy on read).
+// with our differencing settings and configurations and dependencies and requirements. and this is very efficient. and this file with extension .AVHD
+// so the new VM will be the child VM. and the parent VM will be the base VM.
+
+//! So the disk of child VM is collection of two disks:
+// 1) Base Disk on top of it the child disk.
+// 2) Differencing Disk.
+
+// If i make snapshot from child VM. this snapshot will be the child VM. and the child VM will be the parent VM. and the parent VM will be the base VM. and i can revert
+
+//! There way is very similar to the way of containers.
+//! 30:00
