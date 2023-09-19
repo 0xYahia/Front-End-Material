@@ -121,3 +121,6 @@
 
 // Image        ------  pull   -------> containers             //! When i take from image to create container this process called (pull)
 // VM template  ------  import -------> running VM             //! When i take VM template to be running VM this process called (import)
+
+//!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Introduction to Docker:
