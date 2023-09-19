@@ -105,5 +105,19 @@
 
 // If i make snapshot from child VM. this snapshot will be the child VM. and the child VM will be the parent VM. and the parent VM will be the base VM. and i can revert
 
-//! There way is very similar to the way of containers.
-//! 30:00
+//! NOTE => VMs need to kernel and my be need to some services of user mode but sure not need to all services of user mode.
+
+// so the main idea we make container above of kernel to complete the kernel to add the OS specification we need it.
+// and above of the OS there layers for requirements and above of them layer for our application.
+// in this case we don't need to all services of user mode. we need only the services we need it. and i can't don't it in the ordinary VMs.
+
+//! There way is very similar to the way of containers via layers.
+
+//! After we make the container is ready to copy it. via install all layers we need it until our application this called (Image) and image be read only.
+// and this image like VM template.
+
+// containers   ------  build  -------> Image                  //! When we convert container to image this process called (build)
+// running VM   ------  export -------> VM template            //! When we convert VM to template this process called (export)
+
+// Image        ------  pull   -------> containers             //! When i take from image to create container this process called (pull)
+// VM template  ------  import -------> running VM             //! When i take VM template to be running VM this process called (import)
