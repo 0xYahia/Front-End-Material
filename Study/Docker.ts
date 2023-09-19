@@ -124,3 +124,34 @@
 
 //!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! Introduction to Docker:
+//! What is Docker?
+// Docker is a tool designed to make it easier to create, deploy, and run applications by using containers. its a technology to create containers.
+// like VMs technology to create VMs.
+
+// There Two types of containers:
+// 1) Linux Containers (LXC). this containers for Linux OS.
+// 2) Windows Containers. this containers for Windows OS.
+
+// But there three version from docker software Linux, Windows, Mac.
+
+
+//!----------------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Docker Commands:
+// docker version => to get the version of docker.
+// docker info => to get the information about docker.
+// docker container run -it alpine:latest sh => to run container from image alpine:latest and enter to it (interactive with terminal mode) run sh command.
+// hostname => to get the name of container.
+// cat /etc/*release* => to get the information about OS of container.
+// exit => to exit from container.
+// docker container ls -a => to get all containers (running and stopped).
+
+// docker container run -it node:latest sh => to run container from image node:latest and enter to it (interactive mode) run sh command.
+// then i can write any code in nodejs and run it.
+// docker image ls => to get all images.
+
+// docker container -d -p80:80 nginx:latest => to run container from image nginx:latest and run it in background (detached mode)
+// and map port 80 in host machine to port 80 in container. //! so anything in port 80 in host machine will be forward to port 80 in container.
+
+// curl http://localhost:80 => to get the response from container.
+// docker container stop <container id or container name> => to stop container.
+// docker container ls => to get all running containers.
