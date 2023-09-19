@@ -155,3 +155,11 @@
 // curl http://localhost:80 => to get the response from container.
 // docker container stop <container id or container name> => to stop container.
 // docker container ls => to get all running containers.
+// sudo getent group docker => to get the group docker.
+// sudo usermod -aG docker ${USER} => to add the current user to group docker.
+//! pull image from docker hub:
+// docker image pull <image name> => to pull image from docker hub.
+//! create container from image i pulled from docker hub:
+// docker container create -it <image name> bash => to create container from image and interactive with terminal mode and run bash command.
+//! start container:
+// docker container start <container id or container name> => to start container.
