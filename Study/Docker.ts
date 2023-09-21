@@ -233,3 +233,36 @@
 
 //! There way to make docker daemon listen to https protocol and this secure. (search about it)
 //!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Images - Deep Dive:
+// image is a package application or bundle application
+// image contain all layers or files start from files above the kernel
+// image contain description file or build file and layers
+// layers or physical layers are contain actual files
+// build file or description file is called build time
+
+//! Any command i do it when build creation of image this called build time
+//! Any command i do it when run container from image this called run time
+
+//! When i pull image it get it from registry and by default docker.hub.com is the default registry
+// docker hub consists of many repositories and every repository consist of many images (version of image)
+// example there repository called ubuntu and this repository consist of many images (version of image) like ubuntu:latest ubuntu:18.04 ubuntu:16.04
+// When we use git and we commit changes there change we commit called it tag. and this tag is the version of this commit.
+// in docker the tag is the version of image. and the default tag is latest or write :latest after image name. and image name is the repository name.
+//! Image name = <repo name>:<tag>
+// example: ubuntu:20.04
+// example: python:3.8.5
+
+//! In repository we have many images (version of image) and every image consist of many layers there image for linux and image for windows
+//! and there images for different architectures like x86 and arm64 and there images for different OS like linux and windows
+//! but not copy images all images has the base image but the difference between them is the layers above of base image
+
+//! all images in Manifest list and this list consist of many Manifests and every Manifest consist of many layers
+//! So for example when i pull image python it looks for my OS and my architecture and get the Manifest for my OS and my architecture
+
+// jps => to get all daemon process running in java machine
+// ip addr show => to get the ip address container take it from host machine
+
+// hdfs dfs -ls hdfs://localhost:9000 => to get all files in hdfs
+// hdfs => hadoop distributed file system //! (the file system of our container)
+
+// docker image inspect <image name or image id> => to get the information about image
