@@ -164,7 +164,7 @@
 //! start container:
 // docker container start <container id or container name> => to start container.
 //!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
-//! from home
+//! Container = Application from home
 // docker container run => like docker container create and docker container start and docker image pull if the image not exist.
 // docker container run -it python => to run container from image python and interactive with terminal mode.
 //! NOTE => If i write exit() this will logout from python and exit from container.
@@ -198,3 +198,38 @@
 //and and don't download this layer this will be more efficient.
 // but if i squash this layer in one layer the identity (Hash) of this layer will be changed.
 // so if i download another image with this layer it will be downloaded again.
+//!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Docker Engine:
+// Docker Engine consists of three main parts:
+
+//! 1) Docker Daemon:
+// this the service side of docker this make container talks with kernel, and take the commands from Docker client. and work with it
+// if this command related to container daemon will pass this command to container d
+//! 2) Container d:
+// when container d take the command from daemon if this command to create or run container container d will execute run c
+//! 3) Run c:
+// run c is the run time for container every container was created opposite it process run c
+// and run c is responsible to do all things related to container like start stop delete etc.
+
+//! NOTE:
+// we have one docker daemon and one container d in every machine. but we can have many run c to each container.
+
+//! NOTE:
+// there process called (shim) this process inherited something from container d and run c to separate dependency of container to run c and container d
+// and docker daemon so if a stoped container d or docker daemon this will not affect on container.
+
+
+// ps -elf | grep docker => to get the process of docker. we see the process of docker daemon
+// ps -elf | grep containerd => to get the process of containerd. we see the process of container d
+
+//! API or Docker daemon API:
+// listen to:
+// /var/run/docker.sock => on Linux
+// //./pipe/docker_engine => on Windows
+
+// if container take access for this path to docker client pass command to docker daemon.
+
+//! By default docker daemon listen to 2375/tcp and listen to http protocol. and this not secure.
+
+//! There way to make docker daemon listen to https protocol and this secure. (search about it)
+//!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
