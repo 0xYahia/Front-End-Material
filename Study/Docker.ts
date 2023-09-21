@@ -163,3 +163,38 @@
 // docker container create -it <image name> bash => to create container from image and interactive with terminal mode and run bash command.
 //! start container:
 // docker container start <container id or container name> => to start container.
+//!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! from home
+// docker container run => like docker container create and docker container start and docker image pull if the image not exist.
+// docker container run -it python => to run container from image python and interactive with terminal mode.
+//! NOTE => If i write exit() this will logout from python and exit from container.
+//! this mean the container is a bundle from the application and all dependencies. and the goal from the container is run one process only.
+//! if this process is terminated the container will be terminated.
+
+//! The difference between VM and container:
+// in VMs we have the OS and the application and the dependencies and the requirements. so i can run many processes in VMs. and can use OS services.
+// but container bundle the application and the dependencies and part from the OS. so if i exit the application the container will be terminated.
+
+
+// container == application
+// container == command bash if command bash is exist the container will be terminated.
+
+// So if i entered in bash in container and run ps i founded the process of bash with PID 1. and this mean if i exit from bash the container
+// will be terminated. the process with PID 1 is the main process in container. and if this process is terminated the container will be terminated.
+
+//! But i can run python in bash in container in this case python if i exit from python the container will not be terminated. and return to bash.
+//! because python is not the main process in container. the main process in container is bash.
+
+//! To delete container:
+// docker container rm <container id or container name> => to delete container. i can delete more than container in one command.
+//! To delete image:
+// docker image rm <Image id or image name> => to delete image. i can delete more than image in one command.
+
+
+//! NOTE:
+// when we delete image we delete all layers of this image. but when we delete container we delete only the container. and the image will be exist.
+// and recommended don't squash this layer to be one layer
+// because if i want install image this image if there layer in this image already exist in my machine in another image it will be used.
+//and and don't download this layer this will be more efficient.
+// but if i squash this layer in one layer the identity (Hash) of this layer will be changed.
+// so if i download another image with this layer it will be downloaded again.
