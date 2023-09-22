@@ -406,3 +406,8 @@
 // this interface who is can interface the containers in bridge network.
 
 //! Every each container meant it  virtual eth created in host.
+//!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Service discovery:
+// if i have network inn docker host and this network attach on it names containers (containers with names) inn docker engine like name resolution service
+// like DNS service in small scale to make containers can communicate with each other via name but this work between containers and each other
+// and between containers and names and each other if i this have network.
