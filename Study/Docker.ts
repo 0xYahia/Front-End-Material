@@ -266,3 +266,9 @@
 // hdfs => hadoop distributed file system //! (the file system of our container)
 
 // docker image inspect <image name or image id> => to get the information about image
+// docker image history <image name or image id> => to get the history of image
+// docker container inspect <container name or container id> => to get the information about container
+//!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Docker in VSCode:
+// docker image ls -q => to get all images id
+// docker image rm $(docker image ls -q) => to delete all images
