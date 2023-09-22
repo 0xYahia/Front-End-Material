@@ -411,3 +411,33 @@
 // if i have network inn docker host and this network attach on it names containers (containers with names) inn docker engine like name resolution service
 // like DNS service in small scale to make containers can communicate with each other via name but this work between containers and each other
 // and between containers and names and each other if i this have network.
+//!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Container Volumes - Storage:
+// if i storage data in container and this container is terminated this data will be lost.
+// so we need to storage data out of the container in this case if container is terminated this data will not be lost.
+
+//! There two types of data:
+//! 1) none-persistent data:
+// this data will be lost if container is terminated.
+// example: like we do it when we copy file.py from host machine to container.
+// we know image is a set of layers. and every layer is collection of files is read only.
+// when we take container from image this container add layer above of image layer. and we storage the data, write, copy, and logs in this layer.
+// life this layer is the life of container. this layer is none-persistent data. and this layer will created as folder in docker host.
+// and as long asa container is life whether running or stopped this layer is life, but if container is terminated this layer and this folder will be deleted.
+//! 2) persistent data:
+// this data will not be lost if container is terminated.
+//!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
+// To enter to placed docker maintain the image, layers image, and storage of container
+// sudo -i
+// cd /var/lib/docker
+// ls
+// we founded many folders:
+// buildkit  containers  image  network  overlay2  plugins  runtimes  swarm  tmp  trust  volumes
+
+// overlay2 => this folder is storage drivers this make docker can represent container to out storage
+// this overlay is different from divers overlay in network
+
+//! NOTE:
+// when we change anything in the container In fact, it is about directory in docker host, container can access this directory host and make this changes
+// and this is read and write layer, butt if we terminate container this folder will be deleted. so we say life this layer is the life of container.
+//!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
