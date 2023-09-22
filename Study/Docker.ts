@@ -319,3 +319,40 @@
 
 // docker container rm $(docker container ls -aq) -f => to delete all containers if it running
 // docker image rm $(docker image ls -q) -f => to delete all images if there container attached to it
+//!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Network:
+// To copy file from host machine to container:
+// docker container cp <file path> <container name>:<path in container>
+
+//!Example:
+// docker container rut -it python:latest
+// import os => to import os module
+// os.listdir() => to get all files in container
+// os.listdir('/tmp') => to get all files in container in path /tmp
+// []
+
+//! In another terminal:
+// docker container cp /Study/Docker/file.py <container id or container name>:/temp/file.py
+
+//os.listdir('/temp')
+// ['file.py']
+// exec(open('/temp/file.py').read())
+// 'Hello from Python container!'
+
+//! NOTE:
+// in this way to communication if i change the file in host machine this will not affect on container.
+//!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! To make container communicate with another container:
+//! Example:
+// make container from nginx
+// docker container run -d --name web -p 80:80 nginx:latest
+// make container from centos
+// docker container run -it --name centos centos:latest
+// in centos container interact with terminal mode we talk with nginx container
+// curl http://web => i get error Could not resolve host: web
+// but if i talk with IP address of nginx container i get response
+// curl http://172.17.0.2 => i get response from nginx container
+
+//! To make centos container talk with nginx container via name of container:
+// when we create container from centos we add --add-host <name>:<ip address> in command
+// docker container run -it --name centos --add-host web:172.17..0.2 centos:latest
