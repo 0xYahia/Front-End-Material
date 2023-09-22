@@ -357,7 +357,7 @@
 // when we create container from centos we add --add-host <name>:<ip address> in command
 // docker container run -it --name centos --add-host web:172.17..0.2 centos:latest
 
-// ip link show
+// ip link show => to show all interfaces in container
 // ip addr show => to get the ip address of container
 
 //! NOTE:
@@ -377,3 +377,32 @@
 
 //! 3) None network:
 // this network make container not communicate with any thing. is isolated network.
+//!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! By default if i crete network it ask me to choose the driver of network.
+//! And by default the localhost (single host) has three types of drivers:
+// 1) Bridge driver: this driver carry bridge network. //! in windows this driver called nat driver.
+// 2) macvlan driver: by default this driver act as layer 2 make container act as physical device in network.
+// 3) overlay driver: this driver make container communicate with another container in another host machine. (in multi host docker)
+
+// docker network ls => to get all networks
+// docker network create <network name> => to create network
+// docker network connect <network name> <container name> => to connect container to network
+//! By default when i create network will be in subnet 172
+// bu i can change this subnet via add --subnet <subnet> in command
+// docker network create --subnet 10.0.0.0/16 <network name>
+// docker disconnect <network name> <container name> => to disconnect container from network
+//!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! We can add switch when we create network to make containers in this network can communicate with containers in the same network
+//! but can't communicate with containers in another network and can't communicate with the network
+
+//! NOTE:
+// all containers in bridge network can communicate with each other. but can't communicate with containers in another network (another host).
+//!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Network in docker build on open standard called CNM (Container Network Model)
+// implementation of this standard is called libnetwork this is library in docker
+// components of network founded in container like we see.
+
+//! When we install docker engine by default download interface called docker0
+// this interface who is can interface the containers in bridge network.
+
+//! Every each container meant it  virtual eth created in host.
