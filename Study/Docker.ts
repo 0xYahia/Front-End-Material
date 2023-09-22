@@ -356,3 +356,24 @@
 //! To make centos container talk with nginx container via name of container:
 // when we create container from centos we add --add-host <name>:<ip address> in command
 // docker container run -it --name centos --add-host web:172.17..0.2 centos:latest
+
+// ip link show
+// ip addr show => to get the ip address of container
+
+//! NOTE:
+// With each container i create it docker create virtual adapter in host machine and this adapter has ip address to make container
+// can communicate with host machine and another container in host machine.
+
+//! By default docker create with three networks:
+//! 1) Bridge network:
+// this network is default network. and this network is private network. and this network is internal network.
+//! 2) Host network:
+// this network expose all the container and make container communicate with host machine. make container work like a host machine.
+// and will clean all network adaptors in host //! and this is special case to use it.
+// it's make me can i create container and work with files in container without need to map port.
+//! Example:
+// container run -d --name web --network host nginx
+// In this case if i go to browser and write localhost i will get response from nginx container. without need to map port.
+
+//! 3) None network:
+// this network make container not communicate with any thing. is isolated network.
