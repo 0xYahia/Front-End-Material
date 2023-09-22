@@ -272,3 +272,50 @@
 //! Docker in VSCode:
 // docker image ls -q => to get all images id
 // docker image rm $(docker image ls -q) => to delete all images
+//!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Container - Deep Dive:
+// A container is the runtime instance of an image
+// container for image like run VM for template
+
+// docker container run <image name> <application name> => to run container from image and run the main process of application
+// docker container run -it ubuntu /bin/bash
+// docker container run -it alpine:latest sleep 10
+
+// docker container stop => to stop container
+// docker container start => to start container
+// docker container rm => to delete container
+//!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Container Lifecycle:
+//! Self-healing containers with restart policies:
+// Restart policies are applied per-container, and can be configured imperatively on the command line as part of docker container run commands,
+// or declaratively in YAML files for use with higher-level tools
+
+//! Always
+// container will always restart if the main process is killed from inside the container but won't restart if you manually stopped it.
+// Will restart if the Docker daemon restarts.
+//! Unless-stopped
+// container will always restart if the main process is killed from inside the container but won't restart if you manually stopped it.
+// However will NOT restart if the Docker daemon restarts.
+//! on-failue
+// container will always restart if the main process exits with non-zero code (i.e. with error) but won't restart if you manually stopped it.
+// However will restart if the Docker daemon restarts.
+
+// docker container run --name <container-name> --restart <policy> <image-name> <process>
+// docker container run --name my-always-restart --restart always alpine /bin/bash
+
+//! Web server example:
+// docker container run -d --name web-server -p 80:80 nginx:latest
+// -d => detached mode
+// -p 80:80 => map port 80 in host machine to port 80 in container
+
+//! SQL server example:
+
+// docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=P@ssw0rd" -e "MSSQL_PID=Express" -p 1433:1433 -d mcr.microsoft.com/mssql/server:2019-latest
+// -e => environment variable
+// -p 1433:1433 => map port 1433 in host machine to port 1433 in container
+// -d => detached mode
+// mcr.microsoft.com => microsoft container registry
+// mssql/server:2019-latest => repository name and image name
+
+// docker container rm $(docker container ls -aq) -f => to delete all containers if it running
+// docker image rm $(docker image ls -q) -f => to delete all images if there container attached to it
