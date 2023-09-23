@@ -441,3 +441,19 @@
 // when we change anything in the container In fact, it is about directory in docker host, container can access this directory host and make this changes
 // and this is read and write layer, butt if we terminate container this folder will be deleted. so we say life this layer is the life of container.
 //!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! How to make data persistent? (doesn't lost if container is terminated)
+//! 1) Bind mount: This is the fast way to make data persistent.
+// this is the way to make file from docker host we can see it in container and make changes in docker host automatically will be reflected in container
+// like mount in linux.
+//! How to make bind mount?
+// docker container run -it -v <path in host>:<path in container> <image name> <process>
+
+//! 2) Docker Volume: This is the recommended way to make data persistent.
+// docker create volume <volume name> => to create volume in path /var/lib/docker/volumes
+//! to make container use this volume:
+// docker container run -it -v <volume name>:<path in container> <image name> <process>
+
+//! NOTE:
+// in volume in path /var/lib/docker/volumes we can mount it in any external volume in don't must be in docker host my be refer to san or nas or cloud driver
+//! We can make more than container can read and write in the same volume
+//!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
