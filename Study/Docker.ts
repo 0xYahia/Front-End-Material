@@ -462,4 +462,63 @@
 // docker commit <container name> username/image-name:tag
 
 // then we can take container from this image and run it. and we can push this image to docker hub.
+//! NOTE:
+// this way not better way to build image, because if someone want change anything in this image he will have to take container from this image and make changes
+// then convert this container to image. and this not efficient. so this way not optimal way to build image.
+
+//! To build this image there steps we should do it like install flask and vim
+//! We can use instructions files inside it orders instruction to tell docker engine what should do it when build the same image without need to download image
+//! and create container and make updates and convert this container to image. and this instruction files called Dockerfile.
 //!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Containerizing an Application:
+//! FROM: python:latest
+// => FROM instruction to know docker when build image what image should use it as base image (starting point)
+
+//! WORKDIR: /app => will create new layer in image
+// => WORKDIR instruction to know docker when build image make change directory to directory i want to work in it
+// and if this directory not exist in image docker will create it
+
+//! COPY: requirements.txt . => will create new layer in image
+// => COPY instruction will copy any content from the directory i stand in it to directory i want to work in container
+// directory i stand in it means directory where Dockerfile in it and this directory called build context
+// will copy requirements.txt from build context to . dot is current directory in container and this directory is /app
+
+//! RUN: pip install -r requirements.txt => will create new layer in image
+// => RUN instruction to run command in container when build image and this command is pip install -r requirements.txt
+// i can run command pip install -r flask directly but this not efficient because not recommended to edit image directly
+// so i can make file called requirements.txt and put all dependencies and requirements in it and run command pip install -r requirements.txt
+// this way make my image more efficient and more optimal and modularization
+
+//! COPY: hello.py .  => will create new layer in image
+// => COPY instruction to copy file from build context to . dot is current directory in container and this directory is /app
+
+//! EXPOSE: 5000 => will edit in metadata of image
+// => EXPOSE instruction to expose port 5000 in container
+
+//! CMD: python hello.py => will edit in metadata of image
+// => CMD instruction to run command when run container from image and this command is python hello.py
+// this command doesn't execute when build image. this command execute when run container from image
+// this is the first and only command will execute when run container from image
+// If there instruction don't execute when build image this command don't be born inside image itself will be in metadata of image
+// but instruction change on layers or file system of image will make more layer in image
+//! WORKDIR => don't edit in layers but if workdir edit in directory will be edit in layers
+
+//! So we found four layers different between python image and my image
+
+// docker build -t username/image-name:tag . => to build image from Dockerfile
+//! The difference between build image from Dockerfile and commit container to image:
+// when build image from Dockerfile docker will create container from image and every instruction in Dockerfile will be create layer in intermediate container
+// and this layer will be commit to image. and this container will be deleted. and so on until finish all instructions in Dockerfile.
+// but when commit container to image docker all changes in read and write layer (graph driver) so i create one layer only.
+
+//! NOTE:
+// When we build image using Dockerfile if we inspect container we founded CMD instruction in container. but if we commit container to image we don't founded CMD instruction in container.
+// and we founded ExposePorts in inspect of container in both cases.
+
+//! If we change any files in directory we should build image again. because docker will not know this change. and this change will not be reflected in image.
+
+//! You should focus you build image or run container (build time or run time) on the main process of application. and this process should be the last process in Dockerfile.
+//! And you should focus when docker build work is build containers and remove it, so every each remove container you should if you need anything from the old container
+//! you should copy it from old container to new container.
+//!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Dockerfile - Deep Dive:
