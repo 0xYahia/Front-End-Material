@@ -457,3 +457,9 @@
 // in volume in path /var/lib/docker/volumes we can mount it in any external volume in don't must be in docker host my be refer to san or nas or cloud driver
 //! We can make more than container can read and write in the same volume
 //!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! How to build container to Image?
+// we prepare the container with all dependencies and requirements and configurations and settings and application. to be ready to use. then we convert it to image.
+// docker commit <container name> username/image-name:tag
+
+// then we can take container from this image and run it. and we can push this image to docker hub.
+//!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
