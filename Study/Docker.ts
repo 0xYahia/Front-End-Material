@@ -522,3 +522,5 @@
 //! you should copy it from old container to new container.
 //!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! Dockerfile - Deep Dive:
+//! FROM:
+// FROM instruction is changed in intermediate container. mean make new layer, and this layers is the layer it pulled it from image you told it in FROM instruction.
