@@ -39,3 +39,12 @@ COPY ["name with space.py", "name with space2.py", "name with space3.py", "/app/
 # If you want ignoe some files or directories, you can use .dockerignore file like .gitignore file and you can using the same syntax
 # Dockerfile* *.pyc !important.pyc (! to ignore ignore file)
 # ignoer all files with .pyc extension except important.pyc file
+
+# ADD instruction is like COPY instruction but using to copy file not exist in build context to image
+ADD <url> /app
+ADD <tar archive> /app/
+
+# Shell
+SHELL [ "/bin/bsh", "-c" ]
+# To change the default shell to run commands in the image from /bin/sh to /bin/bash (from standard shell to bash shell)
+SHELL [ "/usr/local/bin/python", "-c" ]
