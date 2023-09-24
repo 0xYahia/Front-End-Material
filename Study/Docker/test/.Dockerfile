@@ -13,3 +13,9 @@ FROM mcr.microsoft.com/mssql/server:2019-latest
 FROM private-registry.somecompany.com:5000/someimage
 # Image from scratch without any base image without any layers
 FROM scratch
+
+################################################################################################
+
+# WORKDIR COPY ADD
+# WORKDIR will change directory, make cureent working directory i work in it, or directory will build on it specific directory
+WORKDIR /app
