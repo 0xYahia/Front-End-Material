@@ -110,3 +110,5 @@ ENTRYPOINT ["/bin/bash", "-c"]
 CMD ["<args for enterypoint>"]
 
 # NOTE => some commands doesn't work good with enterypoint but it work good with CMD.
+# NOTE => anything related to metadata like ENV, ENTRYPOINT, CMD, we can override it when we run the container
+# NOTE => you can use cmd to execute more than one command in the same time
