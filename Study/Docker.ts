@@ -163,3 +163,6 @@
 // docker container create -it <image name> bash => to create container from image and interactive with terminal mode and run bash command.
 //! start container:
 // docker container start <container id or container name> => to start container.
+
+//! If i exit from terminal of container this will stop container. and container be with status exited.
+//! Container == application.
