@@ -17,5 +17,25 @@ FROM scratch
 ################################################################################################
 
 # WORKDIR COPY ADD
-# WORKDIR will change directory, make cureent working directory i work in it, or directory will build on it specific directory
+# WORKDIR will change the current working directory or directory will build on it to the specified directory in the image
+# and if this directory not exist, it will create it.
 WORKDIR /app
+# If we have subdirectory and we don't give it path, it will be considered as subdirectory of the current working directory
+WORKDIR subdir
+# the final result will be /app/subdir
+
+# copy hello.py from the current directory to the /app directory in the image in file hello.py (this called shell mode) as we write command in shell
+COPY hello.py /app/hello.py
+# copy all files from the current directory to the /app directory in the image make sure wirte / at the end of the path to told docker that it is directory not file
+# if you don't write / at the end of the path, it will be renamed files
+COPY hello.py startup.sh /app/
+# we can use wildcards to copy files
+COPY *.py /app/
+# copy all files from the current directory to the /app directory in the image and if the directory not exist, it will create it
+COPY . /app/
+# if we file names have space, we can use double quotes in square brackets and write directory name in the end (this called exec mode) as we write instructions
+COPY ["name with space.py", "name with space2.py", "name with space3.py", "/app/"]
+
+# If you want ignoe some files or directories, you can use .dockerignore file like .gitignore file and you can using the same syntax
+# Dockerfile* *.pyc !important.pyc (! to ignore ignore file)
+# ignoer all files with .pyc extension except important.pyc file
