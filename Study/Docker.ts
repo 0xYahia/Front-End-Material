@@ -573,3 +573,89 @@
 // ADD instruction is like COPY instruction but using to copy file not exist in build context to image
 //! ADD <url> /app
 //! ADD <tar archive> /app
+//!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//! Shell
+// SHELL [ "/bin/bsh", "-c" ]
+// To change the default shell to run commands in the image from /bin/sh to /bin/bash (from standard shell to bash shell)
+// SHELL [ "/usr/local/bin/python", "-c" ]
+// if your component has interactive shell, you can use SHELL instruction to change the default shell to interactive shell like python
+
+//!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//! RUN command make intimidate container (means make a new layer)
+// RUN instruction is used to execute commands in the image default shell is /bin/sh, if you want to change it, you can use SHELL instruction before RUN instruction
+// NOTE => RUN instruction doesn't receive any input from user
+// RUN <command> <arg1> <arg2> ... (shell mode)
+// RUN apt-get update
+// RUN ["executable", "param1", "param2", ...] (exec mode)
+// RUN [ "apt-get", "update" ]
+// RUN echo "This is a line" > /temp/file
+// RUN echo "This is another line" >> /temp/file
+// RUN cat /temp/file
+// NOTE => the execution of RUN instruction will be in output of docker build command, so it useful to use it for debugging
+// RUN fin / -name "python*" | wc -l
+// RUN pipe install flask numpy
+// RUN apt update && apt upgrade -y
+// RUN java -version
+// RUN apt install wget vim openssh-server -y
+
+//!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+//! Metadata
+//! ENV instruction is used to set environment variable in the image and this variable will be available for all intermediate containers
+// we doesn't declear it via export command because if we do that, it will be removed when the shell session is closed
+// ENV <key> <value> if we declear one variable
+// ENV SQL_SA_ACCOUNT "sa"
+// ENV <key1>=<value1> <key2>=<value2> ... if we declear more than one variable
+// ENV SQL_USER=sa SQL_PASSWORD="P@ssw0rd" SQL_DB="master"
+// all environment variables in base image in from instruction it will be inherited to the new image
+// path variable mean all environment variables we take it from base image and add it to the new image
+// ENV PATH $PATH:/app
+// brase mode
+// ENV PATH="/usr/local/hadoop/bin:${PATH}"
+// this mean add /usr/local/hadoop/bin to the current path variable
+// ENV EMPTY ""
+//!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//! USER instruction is used to change the user in the image to make user is not root
+//! Example
+// FROM ubuntu:latest
+// RUN groupadd hadoop & useradd -g hadoop hduser
+// USER hduser
+// RUN id
+// the output will be uid=1000(hduser) gid=1000(hadoop) groups=1000(hadoop)
+//!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//! There some of instructions doesn't edit anythings in the image, it just provide some information to docker like LABEL
+// LABEL
+// LABEL maintainer="Mohamed Yahia"
+// LABEL description="This is a test image"
+// LABEL version="1.0"
+// LABEL is_dev="true"
+//!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//! ENTRYPOINT instruction is used to specify the default command to run when the container is created you can see cmd in inspect
+//! ENTRYPOINT <command>
+// ENTRYPOINT ["/bin/bash", "-c"]
+
+// CMD instruction is used to specify the default arguments to the ENTRYPOINT instruction
+// CMD <arg1> <arg2> ...
+// CMD ["<args for entrypoint>"]
+
+// NOTE => some commands doesn't work good with entrypoint but it work good with CMD.
+// NOTE => anything related to metadata like ENV, ENTRYPOINT, CMD, we can override it when we run the container
+// NOTE => you can use cmd to execute more than one command in the same time
+
+//!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//! ARG instruction is used to specify the arguments that we can use it in docker file and when we build the image
+// ARG <name>=<default value>
+// ARG PYTHON_IMAGE_NAME=python
+// ARG PYTHON_IMAGE_TAG=3.8.0
+// ARG SQL_SA=saARG SQL_PASSWORD=P@ssw0rd // we will talk about it later
+// FROM $PYTHON_IMAGE_NAME:$PYTHON_IMAGE_TAG
+
+//! If there long part from build already exist in official image use official image as base image and add your part to it
+//! but don't use official image if security team doesn't allow it
+
+// docker image push <username>/<image name>:<tag>
+//! I write image name without user name docker think this is official image
+//!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//! Docker Compose
