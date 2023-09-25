@@ -1,5 +1,5 @@
 # We can use FROM to specify the base image for our own image. via more than way.
-# FROM <image>
+#! FROM <image>
 FROM python
 # FROM <image>:<tag>
 FROM ubuntu:18.04
@@ -14,9 +14,9 @@ FROM private-registry.somecompany.com:5000/someimage
 # Image from scratch without any base image without any layers
 FROM scratch
 
-################################################################################################
+############################################################################################################################################################################################
 
-# WORKDIR COPY ADD
+#! WORKDIR COPY ADD
 # WORKDIR will change the current working directory or directory will build on it to the specified directory in the image
 # and if this directory not exist, it will create it.
 WORKDIR /app
@@ -40,19 +40,20 @@ COPY ["name with space.py", "name with space2.py", "name with space3.py", "/app/
 # Dockerfile* *.pyc !important.pyc (! to ignore ignore file)
 # ignoer all files with .pyc extension except important.pyc file
 
-# ADD instruction is like COPY instruction but using to copy file not exist in build context to image
+#! ADD instruction is like COPY instruction but using to copy file not exist in build context to image
 ADD <url> /app
 ADD <tar archive> /app/
 
-# Shell
+#! Shell
 SHELL [ "/bin/bsh", "-c" ]
 # To change the default shell to run commands in the image from /bin/sh to /bin/bash (from standard shell to bash shell)
 SHELL [ "/usr/local/bin/python", "-c" ]
 # if your component has interactive shell, you can use SHELL instruction to change the default shell to interactive shell like python
 
-################################################################################################
+############################################################################################################################################################################################
 
-# RUN command make intemidiate container (means make a new layer)
+
+#! RUN command make intemidiate container (means make a new layer)
 # RUN instruction is used to execute commands in the image default shell is /bin/sh, if you want to change it, you can use SHELL instruction before RUN instruction
 # NOTE => RUN instruction doesn't recive any input from user
 # RUN <command> <arg1> <arg2> ... (shell mode)
@@ -69,10 +70,11 @@ RUN apt update && apt upgrade -y
 RUN java -version
 RUN apt install wget vim openssh-server -y
 
-################################################################################################
+############################################################################################################################################################################################
 
-# Metadata
-# ENV instruction is used to set environment variable in the image and this variable will be available for all intermidiate containers
+
+#! Metadata
+#! ENV instruction is used to set environment variable in the image and this variable will be available for all intermidiate containers
 # we doesn't declear it via export command because if we do that, it will be removed when the shell session is closed
 # ENV <key> <value> if we declear one variable
 ENV SQL_SA_ACCOUNT "sa"
@@ -85,24 +87,27 @@ ENV PATH $PATH:/app
 ENV PATH="/usr/local/hadoop/bin:${PATH}"
 # this mean add /usr/local/hadoop/bin to the current path variable
 ENV EMPTY ""
-################################################################################################
-# USER instruction is used to change the user in the image to make user is not root
-# Example
+############################################################################################################################################################################################
+
+#! USER instruction is used to change the user in the image to make user is not root
+#! Example
 FROM ubuntu:latest
 RUN groupadd hadoop & useradd -g hadoop hduser
 USER hduser
 RUN id
 # the output will be uid=1000(hduser) gid=1000(hadoop) groups=1000(hadoop)
-################################################################################################
-# There some of instructions doesn't edit anythings in the image, it just provied some information to docker like LABEL
+############################################################################################################################################################################################
+
+#! There some of instructions doesn't edit anythings in the image, it just provied some information to docker like LABEL
 # LABEL
 LABEL maintainer="Mohamed Yahia"
 LABEL description="This is a test image"
 LABEL version="1.0"
 LABEL is_dev="true"
-################################################################################################
-# ENTRYPOINT instruction is used to specify the default command to run when the container is created you can see cmd in inspect
-# ENTRYPOINT <command>
+############################################################################################################################################################################################
+
+#! ENTRYPOINT instruction is used to specify the default command to run when the container is created you can see cmd in inspect
+#! ENTRYPOINT <command>
 ENTRYPOINT ["/bin/bash", "-c"]
 
 # CMD instruction is used to specify the default arguments to the ENTRYPOINT instruction
@@ -113,5 +118,14 @@ CMD ["<args for enterypoint>"]
 # NOTE => anything related to metadata like ENV, ENTRYPOINT, CMD, we can override it when we run the container
 # NOTE => you can use cmd to execute more than one command in the same time
 
-################################################################################################
-# ARG instruction is used to specify the arguments that we can use it in docker file and when we build the image
+############################################################################################################################################################################################
+
+#! ARG instruction is used to specify the arguments that we can use it in docker file and when we build the image
+# ARG <name>=<default value>
+ARG PYTHON_IMAGE_NAME=python
+ARG PYTHON_IMAGE_TAG=3.8.0
+ARG SQL_SA=saARG SQL_PASSWORD=P@ssw0rd # we will talk about it later
+FROM $PYTHON_IMAGE_NAME:$PYTHON_IMAGE_TAG
+
+#! If there long part from build already exist in offical image use offical image as base image and add your part to it
+#! but don't use offical image if security team doesn't allow it
