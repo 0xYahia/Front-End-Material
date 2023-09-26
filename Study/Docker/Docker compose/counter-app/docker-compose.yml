@@ -1,0 +1,37 @@
+version: '3.7'
+# services: is a selection of version compatible with docker-compose version on my machine (3.7)
+# and tihs is the only key that is required to be present in the file
+
+services:
+# services: is a container or more than one container are participating in network communication and storage
+  web-fe:
+  # web-fe: is the name of the service this mean there container or more than one container called web-fe
+    build: .
+    # build: is the path to the Dockerfile that will be used to build the image
+    command: python app.py
+    ports:
+      - target: 5000
+        published: 5000
+        # this mean the container port 5000 will be published on the host port 5000 (port mapping)
+    networks:
+      - counter-net
+    volumes:
+      - type: volume
+      # this mean the volume type is volume
+        source: counter-vol
+        target: /code
+            # this mean the volume counter-vol will be mounted on the container path /code
+  redis:
+  # redis: is the name of another srevice
+    image: redis:alpine
+    # image: is the image name that will be used to create the container this mean redis database container on alpine linux
+    networks:
+      - counter-net
+    # this mean the redis container will be on the same network as the web-fe container
+networks:
+  counter-net:
+  # counter-net: is the name of the network
+
+volumes:
+  counter-vol:
+  # counter-vol: is the name of the volume

@@ -715,3 +715,46 @@
 // In Summery Docker Compose simplifies the process of deploying and managing multi-container applications, making it easier for developers to work with Docker in a development and testing environment.
 // It's particularly useful for local development and testing, as you can define your entire application stack in one configuration file and spin up the environment with a single command.
 //!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//! Docker Compose File:
+// docker-compose.yml file is a YAML file that defines the version, services, networks, and volumes for your application. all this called top-level keys
+// yml file is a file like json file but with different syntax and this file is a configuration file
+
+//! version: '3.7'
+// services: is a selection of version compatible with docker-compose version on my machine (3.7)
+// and this is the only key that is required to be present in the file
+
+//! services:
+// services: is a container or more than one container are participating in network communication and storage
+  //! web-fe:
+  // web-fe: is the name of the service this mean there container or more than one container called web-fe
+    // build: .
+    // build: is the path to the Dockerfile that will be used to build the image
+    // command: python app.py
+    // ports:
+      // - target: 5000
+        // published: 5000
+        // this mean the container port 5000 will be published on the host port 5000 (port mapping)
+    //! networks:
+      // - counter-net
+    //! volumes:
+      // - type: volume
+      // this mean the volume type is volume
+        // source: counter-vol
+        // target: /code
+            // this mean the volume counter-vol will be mounted on the container path /code
+  //! redis:
+  // redis: is the name of another service
+    // image: redis:alpine
+    // image: is the image name that will be used to create the container this mean redis database container on alpine linux
+    // networks:
+      // - counter-vol
+
+//! networks:
+  // - counter-vol:
+// networks: told docker engine to create a network called counter-vol as we write (docker network create counter-vol)
+
+//! volumes:
+  // counter-vol:
+// volumes: told docker engine to create a volume called counter-vol as we write (docker volume create counter-vol)
+
+// docker-compose up & => to run docker compose in background
