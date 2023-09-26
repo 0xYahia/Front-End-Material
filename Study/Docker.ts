@@ -823,3 +823,24 @@
 // we make web-fe service in two networks frontend-net and backend-net and redis service in backend-net
 // so web-fe service can communicate with redis service and global network like google.com
 // redis service can communicate web-fe service but can't communicate with global network like google.com
+//!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//! Docker Swarm
+//! Docker Swarm is a container orchestration tool, meaning that it allows the user to manage multiple containers deployed across multiple host machines.
+// it make cluster of docker hosts and make this cluster work as one host and if i create container or network in this cluster it will be distributed on all hosts in this cluster
+
+// Docker Swarm => Is a set of nodes (hosts) or one node
+// Docker Swarm => Convert docker host from standalone docker host to node inside cluster of docker hosts
+// Each node in Docker swarm as from manager or worker
+
+//! Manager node in docker swarm:
+// Node that manage responsibilities of control plane (orchestration plane), execute commands, create services, edit services, delete services, edit on docker swarm.
+// Manager node include etcd (database) via key value store in memory to store information (configuration) about docker swarm and this information is metadata about services, networks, volumes, etc.
+
+// This database (etcd) in manager node only so any command related to this database will be execute in manager node.
+
+//! Numbers of manager node: we can make any number of manager node but we recommend be from 1 to 7 manager node and this number should be odd number
+//! Numbers of worker node: we can make any number of worker node
+
+// Manager node work as leader and worker node work also.
+
+// docker swarm init => create etcd database, convert engine to node in docker swarm and via it i can join another node to docker swarm
