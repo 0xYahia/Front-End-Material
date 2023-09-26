@@ -666,3 +666,52 @@
 // and each microservice it's about of container
 //! So th service it's about of microservice or more and all of them is identical or almost identical
 //! Service it's about of container or more identical container each container called microservice
+
+//! Monolithic application: this application consist of one component and this component is a main service
+//! Microservices application: this application consist of many components and each component is a service
+//! The benefits of microservices application:
+// 1) Easy to scale
+// 2) Easy to maintain
+// 3) Easy to update
+// And if one service is down, the other services will be up and the application will be up
+
+//! Service in docker consist of:
+// 1) container + configuration + setting on build in image
+// 2) Network and driver he work on and port he work on
+// 3) Storage
+
+//! Docker Compose:
+// is a tool for defining and running multi-container Docker applications. It allows you to use a simple YAML file to define the services, networks, and volumes
+// that make up your application stack and then start and manage all of these services as a single unit. Docker Compose is particularly useful for orchestrating complex,
+// multi-container applications that consist of multiple interconnected services.
+
+//! Key features and concepts of Docker Compose:
+//! 1) Docker Compose File: You define your application stack using a docker-compose.yml file:
+// This file specifies the services your application needs, the Docker images to use for those services, environment variables, volumes, ports, and other configuration options.
+
+//! 2) Service Definitions:
+// Each service defined in the docker-compose.yml file represents a containerized component of your application, such as a web server, a database, an API, etc.
+
+//! 3) Networking:
+// Docker Compose automatically creates a network for your application, allowing services to communicate with each other by their service name.
+// You can also define custom networks for more advanced network configurations.
+
+//! 4) Volume Mounts:
+// You can define shared volumes that allow data to persist between containers or be shared among them. This is useful for databases and other stateful applications.
+
+//! 5) Environment Variables:
+// Docker Compose allows you to set environment variables for your services, making it easy to configure and customize each container as needed.
+
+//! 6) Scaling:
+// You can specify the number of containers for each service, enabling you to scale services up or down as required. This is particularly useful for load balancing and high availability.
+
+//! 7) Dependency Management:
+// Docker Compose can manage dependencies between services, ensuring that services start in the correct order. For example, a web application might depend on a database being ready before it starts.
+
+//! 8) Command-Line Interface (CLI):
+// Docker Compose provides a command-line interface (docker-compose) for managing your application. You can start, stop, rebuild, view logs,
+// and perform other actions on your application stack using this CLI.
+
+// In Summery Docker Compose simplifies the process of deploying and managing multi-container applications, making it easier for developers to work with Docker in a development and testing environment.
+// It's particularly useful for local development and testing, as you can define your entire application stack in one configuration file and spin up the environment with a single command.
+//!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
