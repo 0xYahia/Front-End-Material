@@ -14,7 +14,8 @@ services:
         published: 5000
         # this mean the container port 5000 will be published on the host port 5000 (port mapping)
     networks:
-      - counter-net
+      - frontend-net
+      - backend-net
     volumes:
       - type: volume
       # this mean the volume type is volume
@@ -26,12 +27,13 @@ services:
     image: redis:alpine
     # image: is the image name that will be used to create the container this mean redis database container on alpine linux
     networks:
-      - counter-net
+      backend-net:
     # this mean the redis container will be on the same network as the web-fe container
 networks:
-  counter-net:
-  # counter-net: is the name of the network
-
+  frontend-net:
+  backend-net:
+    internal: true
+    # this mean the backend-net is an internal network and it will not be accessible from outside the docker-compose file
 volumes:
   counter-vol:
   # counter-vol: is the name of the volume

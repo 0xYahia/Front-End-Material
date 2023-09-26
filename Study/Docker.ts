@@ -198,7 +198,7 @@
 // when we delete image we delete all layers of this image. but when we delete container we delete only the container. and the image will be exist.
 // and recommended don't squash this layer to be one layer
 // because if i want install image this image if there layer in this image already exist in my machine in another image it will be used.
-//and and don't download this layer this will be more efficient.
+// and and don't download this layer this will be more efficient.
 // but if i squash this layer in one layer the identity (Hash) of this layer will be changed.
 // so if i download another image with this layer it will be downloaded again.
 //!-----------------------------------------------------------------------------------------------------------------------------------------------------------//
@@ -658,6 +658,13 @@
 // docker image push <username>/<image name>:<tag>
 //! I write image name without user name docker think this is official image
 //!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//! Docker Registry:
+// docker login => to login to docker hub
+// docker logout => to logout from docker hub
+// docker tag <image name> <username>/<image name>:<tag> => to tag image
+// docker image push <username>/<image name>:<tag> => to push image to docker hub
+//! NOTE: if don't write tag docker and i have more than version of image docker will push all version of image
+//!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //! Docker Compose
 //! IF we have application for example web application
 // this application consist of many components like front end component, authentication component, database component, etc.
@@ -758,3 +765,61 @@
 // volumes: told docker engine to create a volume called counter-vol as we write (docker volume create counter-vol)
 
 // docker-compose up & => to run docker compose in background
+// we see after build using docker compose we have two images one for web-fe and another for redis
+// and there two container running one for counter-app-web-fe and another for redis:alpine
+// and we see the network counter-app_counter-net
+// and there two volumes counter-app_counter-vol and another volume
+
+//! NOTE:
+// every component (container, network, volume) will created by docker-compose will be prefixed by the name of the directory that contains docker-compose.yml file
+// and we can override this prefix by add key in services called container_name: <name>
+
+//! One of feature in docker-compose: between services we can communicate with each other via name of service
+
+// docker exec <container id or container name> -c <counter> <container name or container id or website i want pin on it> => to ping from container to another container or website
+// docker-compose ps => to get all services in docker compose
+// docker-compose logs => to get all logs of all services in docker compose
+// docker-compose down => docker will delete all containers (services) and networks and but not delete images and volumes
+// and this is make sense because the main idea from docker compose is make persistent data and this data is in volumes
+// so the volume is important part
+// and not delete to be more fast if you build service again
+
+// but if you want delete images add rmi in command
+// docker-compose down rmi => docker will delete all containers (services) and networks and images.
+
+//! We can make more than network in docker compose and make network internal to make container can't communicate with global network
+//! In our Example:
+
+// version: '3.7'
+// services:
+//   web-fe:
+//     build: .
+//     command: python app.py
+//     ports:
+//       - target: 5000
+//         published: 5000
+//     networks:
+//!       - frontend-net
+//!       - backend-net
+//     volumes:
+//       - type: volume
+//         source: counter-vol
+//         target: /code
+//   redis:
+//     image: redis:alpine
+//     networks:
+//!       backend-net:
+// networks:
+//!   frontend-net:
+//!   backend-net:
+//!     internal: true
+//! this mean the backend-net is an internal network and it will not be accessible from outside the docker-compose file
+// volumes:
+//   counter-vol:
+
+// in this docker compose we have two networks frontend-net and backend-net and backend-net is internal network and this mean the container in this network
+// can't communicate with any network outside docker compose file
+
+// we make web-fe service in two networks frontend-net and backend-net and redis service in backend-net
+// so web-fe service can communicate with redis service and global network like google.com
+// redis service can communicate web-fe service but can't communicate with global network like google.com
