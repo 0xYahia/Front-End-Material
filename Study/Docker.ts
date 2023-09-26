@@ -659,3 +659,10 @@
 //! I write image name without user name docker think this is official image
 //!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 //! Docker Compose
+//! IF we have application for example web application
+// this application consist of many components like front end component, authentication component, database component, etc.
+// each component called service and each service consists of small components if we gather this small components
+// we will build our application this small components called microservices
+// and each microservice it's about of container
+//! So th service it's about of microservice or more and all of them is identical or almost identical
+//! Service it's about of container or more identical container each container called microservice
