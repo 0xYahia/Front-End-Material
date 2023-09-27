@@ -1,7 +1,6 @@
 version: '3.7'
 # services: is a selection of version compatible with docker-compose version on my machine (3.7)
 # and tihs is the only key that is required to be present in the file
-
 services:
 # services: is a container or more than one container are participating in network communication and storage
   web-fe:
