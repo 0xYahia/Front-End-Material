@@ -843,5 +843,5 @@
 
 // Manager node work as leader and worker node work also.
 
-// docker swarm init => create etcd database, convert engine to node in docker swarm and via it i can join another node to docker swarm
+// docker swarm init --advertise-addr <mac-address>:port by default (2377  --listen-addr <mac-address>:port by default (2377) => create etcd database, convert engine to node in docker swarm and via it i can join another node to docker swarm
 
