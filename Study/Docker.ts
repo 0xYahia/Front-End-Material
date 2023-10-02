@@ -871,3 +871,21 @@
 
 //! But the way we deploy container in docker swarm is using docker service not in standalone host or node
 //!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//! Docker Service:
+// docker service create --name <service name> -p 80:80 --replicas <number of replicas> <image name>:<tag> => to create service in docker swarm
+// with this command we create service in docker swarm and this service is distributed on all nodes in docker swarm
+// after pull all images we see //! Service converged
+// Service converged and this mean all images is pulled and all containers is up and running distributed correctly and ready to serve any request
+// on this services from any way
+
+// And we see nginx in images and two networks ingress and type of it driver is overlay
+// Overlay driver is driver we can't make it without swarm initialization this driver make the same network in more than docker host.
+// the second network is docker_gwbridge
+
+// docker service ls => to get all services in docker swarm
+// docker service ps <service name> => to get all containers in service
+
+//! NOTE:
+// we can execute docker service command in node manager only we can't execute it in node worker
+// docker service rm <service name> => to delete service
+//! 7:28
