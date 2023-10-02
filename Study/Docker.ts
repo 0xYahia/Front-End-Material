@@ -888,4 +888,54 @@
 //! NOTE:
 // we can execute docker service command in node manager only we can't execute it in node worker
 // docker service rm <service name> => to delete service
-//! 7:28
+
+//! NOTE:
+// If i have manager and worker nodes and we created service docker swarm will distribute this service on worker node in the beginning
+// then if all worker nodes is full docker swarm will distribute this service on manager node
+// but if service run on worker node on host machine and we go to manager node on another host machine and we open browser and write localhost
+// we will see the service (nginx) and this because ingress network is special network in docker swarm and this network maker docker swarm
+// forward host will serve this service to all nodes in docker swarm so i can see this host in any node in docker swarm
+//! And this the idea from dicker swarm
+
+// docker service scale <service name>=<number of replicas> => to scale service (increase or decrease number of replicas)
+//!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//! NOTE:
+// If node is down and this node was have service up and running docker swarm will distribute this service on another nodes in docker swarm
+//! This called failover and this is one of benefits from docker swarm
+//! But if this node is up again docker swarm will not distribute this service on this node again we can do this manually (configurations)
+
+// docker service update --image <image name>:<tag> --update-parallelism <number of replicas> --update-delay <time> <service name> => to update service
+// --update-parallelism <number of replicas> => to update number of replicas in the same time
+// --update-delay <time> => time between update replicas and another replicas
+// docker service update --rollback <service name> => to rollback service to previous version
+
+//! NOTE:
+// If i write docker service create --name ubuntu --replicas 2 ubuntu:latest will try to be this ready and fail etc..
+
+//! Why i can create 6 containers from nginx image in docker swarm but i can't create any container from ubuntu image?
+//! There two types of services or applications:
+//! 1) Stateless application:
+// this application doesn't have any data or information and the output from this applications doesn't changed if external factors changed
+// example: web server, etc.
+//! 2) Stateful application:
+// this application has data or information  and the output from this applications will changed if external factors changed
+// example: database, etc.
+
+//! In our example:
+// Stateful mean this application must up with 6 replicas and if one of this replicas is down docker swarm will create it again
+// because this command i up service with 6 replicas this configuration is saved in etcd database in manager node
+// also considered under desired state should be connected on network (x) and should be mounted on volume (y) etc...
+
+//! If any information form desired state is changed docker swarm will happen problem and service don't be up this mean form serviced converged
+// this mean desired state is matched with current state
+//! Desired state:
+// - all containers up and running
+// - number of containers of up and running
+// - containers running on which nodes
+// - and any state i selected it in command i created service via it etc..
+
+//! So ubuntu image does't work because not there container running.
+// but if i want to create service from ubuntu image i should run command inside ubuntu to run service in background
+// and this service always up and running. and this service is stateless application
+//! Example:
+// docker service create --name ubuntu --replicas 2 ubuntu:latest bash -c "while true; do echo hello; sleep 2; done"
