@@ -843,7 +843,31 @@
 
 // Manager node work as leader and worker node work also.
 
-// docker swarm init --advertise-addr <mac-address>:port by default (2377  --listen-addr <mac-address>:port by default (2377) => create etcd database, convert engine to node in docker swarm and via it i can join another node to docker swarm
+// docker swarm init --advertise-addr <IP-address>:port by default (2377  --listen-addr <IP-address>:port by default (2377) => create etcd database, convert engine to node in docker swarm and via it i can join another node to docker swarm
+// docker swarm init => to create etcd database, convert engine to node in docker swarm and via it i can join another node to docker swarm
+// adn create first node and by default be manager node
+// docker swarm join-token worker => to get token to join worker node to docker swarm
+// docker swarm join-token manager => to get token to join manager node to docker swarm
 
-// we will continue
+//! NOTE => If we run docker info command after added node to our swarm:
+// we after client and server we see swarm: active and this mean we have docker swarm
+// Swarm: active
+// NodeID: 6oim1czjj3rjr7d6fte1rxi39
+// Is Manager: true
+// ClusterID: 9n5op4hu2524tmrcs8yv7z83j
+// Managers: 1
+// Nodes: 1
+// Default Address Pool: 10.0.0.0/8
+// SubnetSize: 24
+// Data Path Port: 4789
+// etc...
+
+// docker node ls => to get all nodes in docker swarm and explain manager node and worker node
+//! NOTE => Each node in docker swarm should be in host machine and this host machine should be in same network
+
+//! We work with services not containers in docker swarm
+// We can make standalone container in node in docker swarm using docker container run command but this container will not be in docker swarm
+// if this container is terminated swarm will not create it again
+
+//! But the way we deploy container in docker swarm is using docker service not in standalone host or node
 //!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
