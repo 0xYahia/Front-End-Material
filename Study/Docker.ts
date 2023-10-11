@@ -939,3 +939,45 @@
 // and this service always up and running. and this service is stateless application
 //! Example:
 // docker service create --name ubuntu --replicas 2 ubuntu:latest bash -c "while true; do echo hello; sleep 2; done"
+
+
+/**
+Dockerfile:
+# Stage 1
+FROM node:14.15.4 as build
+RUN mkdir -p /app
+WORKDIR /app
+COPY package.json /app/
+RUN npm install
+RUN npm run build --prod
+
+# Stage 2
+FROM nginx:alpine
+COPY --from=build /app/dist/roboost-system /usr/share/nginx/html
+
+.dockerignore:
+# Exclude development and build artifacts
+node_modules
+npm-debug.log
+dist
+
+# Exclude version control files
+.git
+.gitignore
+
+# Exclude configuration files
+angular.json
+tsconfig.json
+tslint.json
+
+# Exclude any other unnecessary files or directories
+# Add more entries as needed
+
+COMMAND:
+docker build --tag roboost-fe .
+
+docker images
+
+docker run -d -p 4200:80 --name roboost-fe roboost-fe
+
+*/
