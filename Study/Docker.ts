@@ -980,4 +980,10 @@ docker images
 
 docker run -d -p 4200:80 --name roboost-fe roboost-fe
 
+docker tag <image name> <username>/<image name>:<tag> => to tag image
+
+
+docker image push <username>/<image name>:<tag>
+
+
 */
