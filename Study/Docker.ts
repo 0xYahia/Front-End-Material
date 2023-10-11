@@ -974,19 +974,20 @@ tslint.json
 # Add more entries as needed
 
 COMMAND:
-docker build --tag roboost-fe .
+docker build -t roboost-test .
 
-docker images
 
-docker run -d -p 4200:80 --name roboost-fe roboost-fe
+docker run -d --name roboost-fe -p 4200:80 roboost-fe:v3
 
-docker tag <image name> <username>/<image name>:<tag> => to tag image
+curl -k http://localhost:4500
+
+docker tag <image name>:<tag> <username>/<image name>:<tag> => to tag image
 
 
 docker image push <username>/<image name>:<tag>
 
 docker image pull username/<image name>:<tag>
 
-docker container run -t username/<image name>:<tag> <process>
+docker container run -t username/<image name>:<tag>
 
 */
