@@ -985,5 +985,8 @@ docker tag <image name> <username>/<image name>:<tag> => to tag image
 
 docker image push <username>/<image name>:<tag>
 
+docker image pull username/<image name>:<tag>
+
+docker container run -t username/<image name>:<tag> <process>
 
 */
