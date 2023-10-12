@@ -977,21 +977,25 @@ COMMAND:
 docker build -t roboost-test .
 
 
-docker run -d --name roboost-test-container -p 80:80 roboost-test
+docker run -d --name roboost-test -p 80:80 roboost-test
 
 curl -k http://localhost:4500
 
 docker tag <image name>:<tag> <username>/<image name>:<tag> => to tag image
+//! Example:
 docker tag roboost-test:latest 0xyahia/roboost-test:latest
 
 
 docker image push <username>/<image name>:<tag>
+//! Example:
 docker image push 0xyahia/roboost-test:latest
 
 docker image pull username/<image name>:<tag>
+//! Example:
 docker image pull 0xyahia/angular:v3
 
 docker container run -t username/<image name>:<tag>
+//! Example:
 docker container run -t 0xyahia/angular:v3
 
 */
