@@ -824,3 +824,16 @@ this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue'
 // And as a side note it put all the work with observables there. It would subscribe automatically, and after two seconds it will simply recognize that something changed,
 // that the promise resolved, Or in the case of an observable that data was sent through the subscription and it will print this data to the screen.
 //!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Section 27: Angular Universal: Server-Side Rendering
+//! 433: Angular Universal - What & Why?
+// Angular app => Client-side rendering (CSR) => the browser downloads the app and renders it
+// Possible Disadvantages:
+// 1- SEO => search engine optimization because crawlers see an empty page
+// 2- Performance => slow page load because javascript must be executed first
+
+//! Angular Universal => First page gets pre-rendered on the server => Thereafter, it's still a SPA
+// you get the best of both worlds. You still have a client-side single page application once the Angular app was downloaded from the server,
+// but the very first page that's loaded by a user will actually be pre-rendered on the server which simply means that the finished page
+// will be served to the user. And the user or web search crawler, therefore doesn't have to wait
+
+//! Angular Universal = Client-side rendering (CSR) + Server-side rendering (SSR)
