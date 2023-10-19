@@ -863,3 +863,7 @@ this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue'
 
 //! And this code here is required because it in the end captures requests to different paths of your application so that different first pages can be pre-rendered.
 //!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 437: Integrating a REST API
+// we can integrate a REST API in angular universal app using TransferHttpCacheModule and make fullstack app
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 438: Some Notes about deploying angular universal apps
