@@ -836,4 +836,30 @@ this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue'
 // but the very first page that's loaded by a user will actually be pre-rendered on the server which simply means that the finished page
 // will be served to the user. And the user or web search crawler, therefore doesn't have to wait
 
-//! Angular Universal = Client-side rendering (CSR) + Server-side rendering (SSR)
+//! Angular Universal = Client-side rendering (CSR) + Server-side rendering (SSR)\
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 434: Converting the App to an Angular Universal App
+
+// ng add @nguniversal/express-engine
+// npm run dev:ssr
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 463: A Closer Look at the server-side code
+
+// server.engine('html', ngExpressEngine({
+//   bootstrap: AppServerModule,
+// }));
+
+//! this code is responsible for rendering the app or the first page of the app on the server
+
+// server.get('*.*', express.static(distFolder, {
+//   maxAge: '1y'
+// }));
+//! This code block here in the end is responsible for serving any extra assets,
+//! including the JavaScript files that contain your compiled Angular code to the browser.
+
+// server.get('*', (req, res) => {
+//   res.render(indexHtml, { req, providers: [{ provide: APP_BASE_HREF, useValue: req.baseUrl }] });
+// });
+
+//! And this code here is required because it in the end captures requests to different paths of your application so that different first pages can be pre-rendered.
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
