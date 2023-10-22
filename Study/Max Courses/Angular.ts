@@ -835,8 +835,25 @@ this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue'
 //! 349: Standalone Directives & Connecting Building Blocks
 // we can make directives standalone directives and remove it from declarations in app.module.ts we should add it in import in app.module.ts
 // in this case this directive can't see the module or directives or pipes that we import in app.module.ts so we import them in the directive itself
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 351: A Standalone Root Component
+// we can make the app component standalone component and remove it from declarations in app.module.ts we should add it in import in app.module.ts
+// and we can remove the app.module.ts but in main.ts we should use bootstrapApplication() instead of bootstrapModule() and pass pointer to the app component
+// to bootstrapApplication() method
+//! NOTE => BrowserModule is imported in bootstrapApplication() method by default So we can remove the app.module.ts
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 352: Services & Standalone Components
+// we can using services in standalone components by adding the service in providers in the component itself but this instance of the service is be own it not shared
+// with other components
 
+//! NOTE => We can add shared service in bootstrapApplication() method by adding second argument to bootstrapApplication() method and pass the service
 
+// bootstrapApplication(AppComponent,
+//   {
+//     providers: [
+//        AnalyticsService
+//     ],
+//   });
 
 //!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! Section 27: Angular Universal: Server-Side Rendering
