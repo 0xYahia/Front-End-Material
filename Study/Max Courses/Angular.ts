@@ -871,7 +871,26 @@ this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue'
 //!       importProvidersFrom(AppRoutingModule)
 //     ],
 //   });
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 354: Lazy Loading with Standalone Components
+// Now we can use lazy loading with standalone components even we want lazy load for one component
+// without standalone component if we want lazy load for one component we should wrap it in a module and lazy load this module
+// and import router module for child then we use loadChildren property in routes array in app routing module
 
+//! Example:
+
+// {path: 'about', loadComponent: () => import('./about/about.component').then(m => m.AboutComponent)},
+
+// Now, if you have multiple components that should be loaded lazily, you can still use the old approach of having a separate wrapper module,
+// but it's also not something you have to do.
+
+//! Because we can make file for example route.ts and define routes array in it and lazy load this file in app routing module
+//! using loadChildren property in routes array in app routing module
+
+// In this example we have dashboard component inside it about component and we want lazy load the two components
+// we make file for example route.ts and define routes array in it and lazy load this file in app routing module
+// we should two components be standalone components
+// and we should import router module in dashboard component to know about router-outlet and routerLink directive
 //!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! Section 27: Angular Universal: Server-Side Rendering
 //! 433: Angular Universal - What & Why?

@@ -13,6 +13,6 @@ if (environment.production) {
 bootstrapApplication(AppComponent, {
   providers: [
     // AnalyticsService,
-    // importProvidersFrom(AppRoutingModule)
+    importProvidersFrom(AppRoutingModule)
   ],
 });
