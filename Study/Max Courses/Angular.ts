@@ -854,6 +854,23 @@ this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue'
 //        AnalyticsService
 //     ],
 //   });
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 353: Routing with standalone components
+// if app component is standalone component we can't use router-outlet or routerLink directive because it is standalone component it not see the router module
+//! NOTE => If router module forRoot() router module is not a service but actually it act as a service
+// so we will import router module from @angular/router and add it in import in app.component.ts to know about router-outlet and routerLink directive
+// but we don't see any content in browser because app routing module don't work in main.ts
+
+//! To make app routing module work in main.ts we have import a special helper function provided by angular core called importProvidersfrom()
+//! and pass pointer from app routing module to importProvidersfrom() function and pass the result to bootstrapApplication() method as second argument
+
+// bootstrapApplication(AppComponent,
+//   {
+//     providers: [
+//        AnalyticsService,
+//!       importProvidersFrom(AppRoutingModule)
+//     ],
+//   });
 
 //!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! Section 27: Angular Universal: Server-Side Rendering
