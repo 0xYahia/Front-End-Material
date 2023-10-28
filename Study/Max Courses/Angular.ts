@@ -608,6 +608,30 @@ this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue'
 
 //! Note i can write defaultColor without square brackets and red the value without single quotation because it's not enclosed in square brackets
 //!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 99: What happens behind the scenes on structural directives
+// 1- *ngIf="condition" => <ng-template [ngIf]="condition"></ng-template>
+
+// So on the ng-template, we place NGF and now not with the star because this is the form to which it will get transformed
+// due to the star, but instead with the tool we already know, with property binding.And here we simply bind, well,
+// not only odd, so the condition.
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 100: Building a Structural Directive
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! Section 17: Using Pipers to Transform Output
 //! 241: Introduction & Why Pipes are Useful
 // Pipes are a feature in Angular that allows us to transform output in our templates
