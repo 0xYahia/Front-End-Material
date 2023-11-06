@@ -647,14 +647,29 @@ this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue'
 
 // this.vcRef.createEmbeddedView(this.templateRef); => this will render the templateRef in the place where we placed the directive in the template
 // this.vcRef.clear(); => this will clear the templateRef from the place where we placed the directive in the template
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! 101: Understanding ngSwitch
+// ngSwitch is a structural directive that allows us to switch between multiple cases and render the case that matches the condition
 
+//! Example:
 
+//! in app.component.html
+
+// <div [ngSwitch]="value">
+//    <p *ngSwitchCase="5">Value is 5</p>
+//    <p *ngSwitchCase="10">Value is 10</p>
+//    <p *ngSwitchCase="100">Value is 100</p>
+//    <p *ngSwitchDefault>Value is Default</p>
+// </div>
+
+//! in app.component.ts
+// value = 10;
 
 
 
 
 //!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
-//! Section 17: Using Pipers to Transform Output
+//! Section 17: Using Pipes to Transform Output
 //! 241: Introduction & Why Pipes are Useful
 // Pipes are a feature in Angular that allows us to transform output in our templates
 // Pipes are a way to transform data before displaying it in the view (template) if i want change the data before displaying it in the view
