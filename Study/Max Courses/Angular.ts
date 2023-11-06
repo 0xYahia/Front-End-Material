@@ -616,15 +616,37 @@ this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue'
 // not only odd, so the condition.
 //!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! 100: Building a Structural Directive
+// templateRef => it just like elementRef but it gives us access to the element directive is placed on we import it from @angular/core
+// vcRef => it stands for view container reference and it gives us access to the place where we placed the directive in the template we import it from @angular/core
+
+//! So templateRef is what we want rendered and vcRef is where we want to render it.
+
+//! Example:
+
+// import { Directive, Input, TemplateRef, ViewContainerRef } from '@angular/core';
+
+// @Directive({
+//   selector: '[appUnless]'
+// })
+// export class UnlessDirective {
+//   @Input() set appUnless(condition: boolean)
+//   {
+//     if(!condition)
+//     {
+//       this.vcRef.createEmbeddedView(this.templateRef);
+//     }
+//     else
+//     {
+//       this.vcRef.clear();
+//     }
+//   }
+
+//   constructor(private templateRef: TemplateRef<any>, private vcRef: ViewContainerRef){}
+// }
 
 
-
-
-
-
-
-
-
+// this.vcRef.createEmbeddedView(this.templateRef); => this will render the templateRef in the place where we placed the directive in the template
+// this.vcRef.clear(); => this will clear the templateRef from the place where we placed the directive in the template
 
 
 
