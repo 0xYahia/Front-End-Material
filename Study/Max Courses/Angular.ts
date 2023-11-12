@@ -664,6 +664,10 @@ this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue'
 
 //! in app.component.ts
 // value = 10;
+//!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
+//! Section 9: Using Services & Dependency Injection
+//! 106: Module Introduction
+
 
 
 
