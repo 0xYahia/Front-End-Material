@@ -1000,3 +1000,31 @@ docker container run -t 0xyahia/angular:v3
 
 */
 //!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//! Docker Stack
+// Docker stack is a group of services that are deployed together as a single unit. A stack is defined using a YAML file called a docker-stack.yml file.
+// Docker Stack => does't work without docker swarm
+
+//! Secrets in docker-stack.yml file:
+// secrets:
+//   postgres_password:
+//     external: true
+//   staging_token:
+//     external: true
+//   revprox_key:
+//     external: true
+//   revprox_cert:
+//     external: true
+
+// external: true => this mean this secret object is exist (postgres_password, staging_token, revprox_key, revprox_cert) and this object
+//  is created before build service (does't override on it) and if this object is not exist docker swarm will created it
+// but if we write external: false or does't wite it this mean this object is exist will created it again and override on it
+//!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+// openssl req -newkeyrsa:4096 -nodes -sha256 -keyout domain.key -x509 -days 365 -out domain.crt => to create domain.key and domain.crt
+// docker secret create revprox_key domain.key => to create secret from domain.key
+// docker secret create revprox_cert domain.crt => to create secret from domain.crt
+// echo staging | docker secret create staging_token - => to create secret from staging_token
+
+// docker secret ls => to get all secrets
+
+// docker stack deploy -c docker-stack.yml (fileName) seastack (appName) => to deploy stack
