@@ -1019,7 +1019,6 @@ docker container run -t 0xyahia/angular:v3
 //  is created before build service (does't override on it) and if this object is not exist docker swarm will created it
 // but if we write external: false or does't wite it this mean this object is exist will created it again and override on it
 //!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
 // openssl req -newkeyrsa:4096 -nodes -sha256 -keyout domain.key -x509 -days 365 -out domain.crt => to create domain.key and domain.crt
 // docker secret create revprox_key domain.key => to create secret from domain.key
 // docker secret create revprox_cert domain.crt => to create secret from domain.crt
@@ -1028,3 +1027,8 @@ docker container run -t 0xyahia/angular:v3
 // docker secret ls => to get all secrets
 
 // docker stack deploy -c docker-stack.yml (fileName) seastack (appName) => to deploy stack
+//!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//! Docker Portainer
+//! install docker portainer:
+// curl -L https://downloads.portainer.io/ee2-19/portainer-agent-stack.yml -o portainer-agent-stack.yml
+// docker stack deploy -c portainer-agent-stack.yml portainer
