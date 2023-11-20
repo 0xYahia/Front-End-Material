@@ -616,7 +616,8 @@ this.renderer.setStyle(this.elementRef.nativeElement, 'background-color', 'blue'
 // not only odd, so the condition.
 //!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! 100: Building a Structural Directive
-
+// 1- create a new file with the name of the directive and the extension .directive.ts
+// or using ng cli => ng g d directive-name
 
 
 
