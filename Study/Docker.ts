@@ -1028,3 +1028,5 @@ docker container run -t 0xyahia/angular:v3
 // docker secret ls => to get all secrets
 
 // docker stack deploy -c docker-stack.yml (fileName) seastack (appName) => to deploy stack
+//!------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+//! Introduction to Kubernetes
