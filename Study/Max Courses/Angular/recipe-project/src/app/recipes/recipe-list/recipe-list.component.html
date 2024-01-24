@@ -16,7 +16,9 @@
       </div>
       <span class="pull-right">
         <img
-          [src]="recipe.imagePath"
+          [ngSrc]="recipe.imagePath"
+          width="50"
+          height="50"
           alt="{{ recipe.name }}"
           class="img-responsive"
           style="max-height: 50px;">

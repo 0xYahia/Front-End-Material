@@ -1,6 +1,6 @@
 //! Section 1 Getting Started
 //! 5: CLI Deep Dive & Troubleshooting
-//! After angular build the project, the output file vai be in dist folder
+//! After angular build the project, the output file via be in dist folder
 // html has app-root and bunch of script files:
 // inline.bundle.js / main.bundle.js / polyfills.bundle.js / vendor.bundle.js / styles.bundle.js / polyfills.bundle.js
 //!-------------------------------------------------------------------------------------------------------------------------------------------------------------------////! 7: Editing the First App
@@ -229,7 +229,7 @@
 //!-------------------------------------------------------------------------------------------------------------------------------------------------------------------//
 //! 80: Getting Access to ng-content with @ContentChild
 //! @ContentChild() to get access to ng-content and the element that the ng-content is placed on (the element that the content is projected into)
-// if i but element in app component and i pbut <ng-content></ng-content> in server element component and i want to get access to the element in app component
+// if i but element in app component and i put <ng-content></ng-content> in server element component and i want to get access to the element in app component
 // i will use @ContentChild() in server element component to get access to the element in app component
 // @ContentChild('contentParagraph') paragraph: ElementRef;
 // and i will use the element in ngAfterContentInit() lifecycle hook if i use it before ngAfterContentInit() it will be undefined or empty
