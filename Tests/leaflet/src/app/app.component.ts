@@ -43,8 +43,8 @@ export class AppComponent implements OnInit{
       googleStreets.addTo(this.map)
 
       //! Marker
-      L.marker([30.033333, 31.233334]).addTo(this.map)
-        .bindPopup('A pretty CSS popup.<br> Easily customizable.')
-        .openPopup();
-    }
+    //   L.marker([30.033333, 31.233334]).addTo(this.map)
+    //     .bindPopup('A pretty CSS popup.<br> Easily customizable.')
+    //     .openPopup();
+    // }
 }
