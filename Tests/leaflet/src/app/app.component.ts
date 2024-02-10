@@ -15,7 +15,7 @@ export class AppComponent implements OnInit{
       this.map = L.map('map').setView([30.033333, 31.233334], 10);
 
       let osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© OpenStreetMap contributors'
+        attribution: '© Roboost'
       })
 
       osm.addTo(this.map);
@@ -36,15 +36,28 @@ export class AppComponent implements OnInit{
       // DarkMatter.addTo(this.map)
 
       //! google map
-      var googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
+      let googleStreets = L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}',{
         maxZoom: 20,
         subdomains:['mt0','mt1','mt2','mt3']
       });
       googleStreets.addTo(this.map)
 
       //! Marker
-    //   L.marker([30.033333, 31.233334]).addTo(this.map)
-    //     .bindPopup('A pretty CSS popup.<br> Easily customizable.')
-    //     .openPopup();
-    // }
+        let singleMarker =  L.marker([30.033333, 31.233334])
+        singleMarker.addTo(this.map)
+        let popup = singleMarker.bindPopup('This is Cairo <br> I live in Cairo').openPopup()
+
+      //! Icon
+      let myIcon = L.icon({
+        iconUrl: 'my-icon.png',
+        iconSize: [38, 95],
+        iconAnchor: [22, 94],
+        popupAnchor: [-3, -76],
+        shadowUrl: 'my-icon-shadow.png',
+        shadowSize: [68, 95],
+        shadowAnchor: [22, 94]
+      });
+
+      L.marker([50.505, 30.57], {icon: myIcon}).addTo(this.map);
+    }
 }
