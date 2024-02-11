@@ -42,22 +42,22 @@ export class AppComponent implements OnInit{
       });
       googleStreets.addTo(this.map)
 
-      //! Marker
-        let singleMarker =  L.marker([30.033333, 31.233334])
-        singleMarker.addTo(this.map)
-        let popup = singleMarker.bindPopup('This is Cairo <br> I live in Cairo').openPopup()
-
-      //! Icon
+      //! Marker & Icon
       let myIcon = L.icon({
-        iconUrl: 'my-icon.png',
-        iconSize: [38, 95],
-        iconAnchor: [22, 94],
-        popupAnchor: [-3, -76],
-        shadowUrl: 'my-icon-shadow.png',
-        shadowSize: [68, 95],
-        shadowAnchor: [22, 94]
+        iconUrl: './assets/start-point.svg',
+        iconSize: [30, 30],
+        // iconAnchor: [22, 94],
+        // popupAnchor: [-3, -76],
+        // shadowUrl: 'my-icon-shadow.png',
+        // shadowSize: [68, 95],
+        // shadowAnchor: [22, 94]
       });
+        let singleMarker =  L.marker([30.033333, 31.233334], {icon: myIcon, draggable: true})
+        singleMarker.addTo(this.map)
+        let popup = singleMarker.bindPopup(`This is Cairo , ${singleMarker.getLatLng()}  <br> I live in Cairo`).openPopup()
 
-      L.marker([50.505, 30.57], {icon: myIcon}).addTo(this.map);
+      console.log(singleMarker.toGeoJSON())
+
+
     }
 }
