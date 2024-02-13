@@ -2,3 +2,14 @@
   width: 100%;
   height: 98VH;
 }
+
+.coordinate {
+  position: absolute;
+  bottom: 20px;
+  left: 40%;
+}
+
+.leaflet-popup-content-wrapper{
+  background: black !important;
+  color: white;
+}

@@ -128,7 +128,15 @@ export class AppComponent implements OnInit{
       //! Remove
       this.map.removeLayer(osm)
       this.map.removeLayer(singleMarker)
+      // Region Events
+      this.map.on('mouseover', ()=> {
+        console.log('your mouse over on map')
+      })
 
+      this.map.on('mousemove',  (e: any) => {
+        document.getElementsByClassName('coordinate')[0].innerHTML = `lat  ${e.latlng.lat}, lang   ${e.latlng.lng}`;
+        console.log('lat '+ e.latlng.lat, 'lang ' + e.latlng.lng)
+      })
 
     }
 }
