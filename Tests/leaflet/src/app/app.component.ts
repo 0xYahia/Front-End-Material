@@ -19,6 +19,7 @@ export class AppComponent implements OnInit{
     ngOnInit(): void {
       this.map = L.map('map').setView([30.033333, 31.233334], 10);
 
+      // Region Layer and WMS
       let osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© Roboost'
       })
@@ -65,6 +66,45 @@ export class AppComponent implements OnInit{
 
       console.log(singleMarker.toGeoJSON())
 
+      let wms = L.tileLayer.wms("http://mesonet.agron.iastate.edu/cgi-bin/wms/nexrad/n0r.cgi", {
+        layers: 'nexrad-n0r-900913',
+        format: 'image/png',
+        transparent: true,
+        attribution: "Weather data © 2012 IEM Nexrad"
+      });
+
+      // Region: GeoJson
+      // @ts-ignore
+      let pointData = L.geoJson(pointJson, {
+        onEachFeature: function (feature, layer) {
+          layer.bindPopup('<b>Name: </b>' + feature.properties.name)
+        }
+      }).addTo(this.map)
+      // @ts-ignore
+      let lineData = L.geoJson(lineJson).addTo(this.map)
+      // @ts-ignore
+      let rectData = L.geoJson(rectangleJson, {
+        onEachFeature: function (feature, layer) {
+          layer.bindPopup('<b>Name: </b>' + feature.properties.name)
+        },
+        style: {
+          fillColor: 'red',
+          fillOpacity: 1,
+          color: '#0000ff',
+          stroke: true
+
+        }
+      }).addTo(this.map)
+      // @ts-ignore
+      let polygonData = L.geoJson(polygonJson, {
+        onEachFeature: function (feature, layer) {
+          layer.bindPopup('<b>Name: </b>' + feature.properties.name)
+        },
+        style: {
+          fillColor: 'red'
+        }
+      }).addTo(this.map)
+      // Region: Layer control
       let baseMaps = {
         "OSM": osm,
         "World street map ": Esri_WorldStreetMap,
@@ -74,7 +114,12 @@ export class AppComponent implements OnInit{
 
       let overlayMaps = {
         "First Marker": singleMarker,
-        "Second Marker": secondMarker
+        "Second Marker": secondMarker,
+        "Point Data": pointData,
+        "Line Data": lineData,
+        "Rectangle Data": rectData,
+        "Polygon Data": polygonData,
+        "WMS": wms
       };
 
       // L.control.layers(baseMaps, overlayMaps, {collapsed: false}).addTo(this.map)
@@ -84,32 +129,6 @@ export class AppComponent implements OnInit{
       this.map.removeLayer(osm)
       this.map.removeLayer(singleMarker)
 
-      //! GeoJson
-      // @ts-ignore
-      L.geoJson(pointJson, {
-        onEachFeature: function (feature, layer) {
-          layer.bindPopup('<b>Name: </b>' + feature.properties.name)
-        }
-      }).addTo(this.map)
-      // @ts-ignore
-      L.geoJson(lineJson).addTo(this.map)
-      // @ts-ignore
-      L.geoJson(rectangleJson, {
-        onEachFeature: function (feature, layer) {
-          layer.bindPopup('<b>Name: </b>' + feature.properties.name)
-        },
-        style: {
-          fillColor: 'red'
-        }
-      }).addTo(this.map)
-      // @ts-ignore
-      L.geoJson(polygonJson, {
-        onEachFeature: function (feature, layer) {
-          layer.bindPopup('<b>Name: </b>' + feature.properties.name)
-        },
-        style: {
-          fillColor: 'red'
-        }
-      }).addTo(this.map)
+
     }
 }
