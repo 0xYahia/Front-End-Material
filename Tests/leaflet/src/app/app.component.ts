@@ -94,11 +94,21 @@ export class AppComponent implements OnInit{
       // @ts-ignore
       L.geoJson(lineJson).addTo(this.map)
       // @ts-ignore
-      L.geoJson(rectangleJson).addTo(this.map)
+      L.geoJson(rectangleJson, {
+        onEachFeature: function (feature, layer) {
+          layer.bindPopup('<b>Name: </b>' + feature.properties.name)
+        },
+        style: {
+          fillColor: 'red'
+        }
+      }).addTo(this.map)
       // @ts-ignore
       L.geoJson(polygonJson, {
         onEachFeature: function (feature, layer) {
           layer.bindPopup('<b>Name: </b>' + feature.properties.name)
+        },
+        style: {
+          fillColor: 'red'
         }
       }).addTo(this.map)
     }
