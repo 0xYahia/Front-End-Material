@@ -6,18 +6,18 @@ export class RecipeService {
   recipeSelected = new EventEmitter<Recipe>;
   private  recipes: Recipe[] = [
     new Recipe(
-      'A Test Recipe',
+      'Tasty schnitzel',
       'This is simply a test',
-      'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg'
+      './assets/1.jpg'
     ,
       [
         new Ingredient('Meat', 1),
         new Ingredient('French Frise', 10),
       ]),
     new Recipe(
-      'A another Recipe',
+      'Big fat burger',
       'This is simply a test',
-      'https://upload.wikimedia.org/wikipedia/commons/1/15/Recipe_logo.jpeg',
+      './assets/2.jpg',
       [
         new Ingredient('Buns', 2),
         new Ingredient('Meat', 20),
