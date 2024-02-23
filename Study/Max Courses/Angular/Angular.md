@@ -249,3 +249,50 @@ ngOnDestroy() {
   <a [routerLink]="['/servers', server.id, 'edit']" [queryParams]="{allowEdit: '1'}" fragment="loading">
     Edit
   ```
+
+### **145: Configuring the Handling of Query Parameters**
+
+#### What is queryParamsHandling and why we use it?
+
+- The queryParamsHandling option in the Angular Router.navigate() method is used to control how query parameters are handled when navigating to a new route. Here's a brief explanation:
+
+  - preserve: This option instructs Angular to preserve the query parameters from the current URL when navigating to the new route. It ensures that any query parameters present in the current URL are carried over to the destination route.
+
+  - merge: This option merges any new query parameters specified in the navigation with the existing query parameters in the current URL. If a query parameter with the same name already exists in the current URL, its value will be replaced with the new value.
+
+  - null: This option tells Angular to discard any query parameters from the current URL when navigating to the new route. It essentially clears out any existing query parameters.
+
+**The reason we use queryParamsHandling is to maintain or manipulate the query parameters during navigation. For example, if you're navigating to a new route but want to keep certain query parameters intact, you would use queryParamsHandling: 'preserve'. This ensures that the user's context, as represented by the query parameters, remains consistent across different routes.**
+
+- We can use `queryParamsHandling` property to configure the handling of query parameters.
+- We can use `preserve` value to preserve the query parameters.
+- Example:
+  ```ts
+  this.router.navigate(['/servers', id, 'edit'], {
+    queryParams: { allowEdit: '1' },
+    queryParamsHandling: 'preserve',
+  })
+  ```
+- We can use `merge` value to merge the query parameters.
+- Example:
+  ```ts
+  this.router.navigate(['/servers', id, 'edit'], {
+    queryParams: { allowEdit: '1' },
+    queryParamsHandling: 'merge',
+  })
+  ```
+
+### **146: Redirecting and Wildcard Routes**
+
+- We can use `redirectTo` property to redirect to another route.
+- We can use `pathMatch` property to match the path.
+- We can use `**` to match any route.
+- Example:
+  ```ts
+  const appRoutes: Routes = [
+    { path: '', component: HomeComponent },
+    { path: 'not-found', component: PageNotFoundComponent },
+    { path: '**', redirectTo: '/not-found' },
+  ]
+  ```
+- If user enter any route that not exist, it will redirect to `not-found` route.
