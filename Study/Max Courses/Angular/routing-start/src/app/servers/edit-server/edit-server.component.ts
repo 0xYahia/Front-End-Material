@@ -8,20 +8,20 @@ import { ServersService } from '../servers.service';
   styleUrls: ['./edit-server.component.css']
 })
 export class EditServerComponent implements OnInit {
-  server: {id: number, name: string, status: string};
+  server: { id: number, name: string, status: string };
   serverName = '';
   serverStatus = '';
 
   constructor(private serversService: ServersService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.server = this.serversService.getServer(1);
     this.serverName = this.server.name;
     this.serverStatus = this.server.status;
   }
 
-  onUpdateServer() {
-    this.serversService.updateServer(this.server.id, {name: this.serverName, status: this.serverStatus});
+  onUpdateServer(): void {
+    this.serversService.updateServer(this.server.id, { name: this.serverName, status: this.serverStatus });
   }
 
 }

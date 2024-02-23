@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 
 import { AppComponent } from './app.component';
@@ -14,9 +14,12 @@ import { ServerComponent } from './servers/server/server.component';
 import { ServersService } from './servers/servers.service';
 
 const appRoutes: Routes = [
-  {path: '', component: HomeComponent}, // localhost:4200/
-  {path: 'users', component: UserComponent}, // localhost:4200/users
-  {path: 'servers', component: ServersComponent}  // localhost:4200/servers
+  { path: '', component: HomeComponent }, // localhost:4200/
+  { path: 'users', component: UsersComponent }, // localhost:4200/users
+  { path: 'users/:id/:name', component: UserComponent }, // localhost:4200/users/1
+  { path: 'servers', component: ServersComponent },  // localhost:4200/servers
+  { path: 'servers/:id', component: ServerComponent },  // localhost:4200/servers
+  { path: 'servers/:id/edit', component: EditServerComponent }  // localhost:4200/servers/5/edit
 ];
 
 @NgModule({

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -10,12 +10,12 @@ export class HomeComponent implements OnInit {
 
   constructor(private router: Router) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
-  loadServers() {
+  loadServer(id: number): void {
     //  write your logic
-    this.router.navigate(['servers']);
+    this.router.navigate(['servers', id, 'edit'], { queryParams: { allowEdit: 1 }, fragment: 'loading' });
   }
 
 }

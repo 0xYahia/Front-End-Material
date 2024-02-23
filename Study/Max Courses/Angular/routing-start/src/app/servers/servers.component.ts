@@ -14,11 +14,11 @@ export class ServersComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.servers = this.serversService.getServers();
   }
 
-  onReload() {
+  onReload(): void {
     // this.router.navigate(['servers'], {relativeTo: this.route}) //! Now will get error
   }
 

@@ -13,12 +13,23 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "eslint-comments"],
   "rules": {
-    "indent": ["error", 2],
+    "indent": ["warn", 2],
     "linebreak-style": ["error", "windows"],
     "quotes": ["error", "single"],
     "semi": ["warn", "always"],
-    "no-var": "error"
+    "no-var": "error",
+    "@typescript-eslint/explicit-module-boundary-types": "error",
+    "@typescript-eslint/typedef": [
+      "error",
+      {
+        "parameter": true,
+        "variableDeclaration": true,
+        "propertyDeclaration": true
+      }
+    ],
+    "eslint-comments/no-unused-disable": "error",
+    "eslint-comments/disable-enable-pair": ["error", { "allowWholeFile": true }]
   }
 }

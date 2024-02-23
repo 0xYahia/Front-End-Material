@@ -1,3 +1,13 @@
+export interface Server {
+  id: number,
+  name: string,
+  status: string
+}
+
+export interface serverInfo extends Omit<Server, 'id'> {
+
+}
+
 export class ServersService {
   private servers = [
     {
@@ -17,28 +27,28 @@ export class ServersService {
     }
   ];
 
-  getServers() {
+  getServers(): Server[] {
     return this.servers;
   }
 
-  getServer(id: number) {
-    const server = this.servers.find(
+  getServer(id: number): Server {
+    const SERVER: Server = this.servers.find(
       (s) => {
         return s.id === id;
       }
     );
-    return server;
+    return SERVER;
   }
 
-  updateServer(id: number, serverInfo: {name: string, status: string}) {
-    const server = this.servers.find(
+  updateServer(id: number, serverInfo: serverInfo): void {
+    const SERVER: Server = this.servers.find(
       (s) => {
         return s.id === id;
       }
     );
-    if (server) {
-      server.name = serverInfo.name;
-      server.status = serverInfo.status;
+    if (SERVER) {
+      SERVER.name = serverInfo.name;
+      SERVER.status = serverInfo.status;
     }
   }
 }
