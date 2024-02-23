@@ -15,11 +15,18 @@ import { ServersService } from './servers/servers.service';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent }, // localhost:4200/
-  { path: 'users', component: UsersComponent }, // localhost:4200/users
-  { path: 'users/:id/:name', component: UserComponent }, // localhost:4200/users/1
-  { path: 'servers', component: ServersComponent },  // localhost:4200/servers
-  { path: 'servers/:id', component: ServerComponent },  // localhost:4200/servers
-  { path: 'servers/:id/edit', component: EditServerComponent }  // localhost:4200/servers/5/edit
+  {
+    path: 'users', component: UsersComponent, children: [
+      { path: ':id/:name', component: UserComponent }, // localhost:4200/users/1
+    ]
+  }, // localhost:4200/users
+  {
+    path: 'servers', component: ServersComponent, children: [
+      { path: ':id', component: ServerComponent },  // localhost:4200/servers
+      { path: ':id/edit', component: EditServerComponent }  // localhost:4200/servers/5/edit
+    ]
+  },  // localhost:4200/servers
+
 ];
 
 @NgModule({

@@ -206,3 +206,46 @@ ngOnDestroy() {
   <a [routerLink]="['/servers', server.id, 'edit']" [queryParams]="{allowEdit: '1'}" fragment="loading">
     Edit
   ```
+
+### **143: Setting up Child (Nested) Routes**
+
+- We can use `children` property to define child routes.
+- We can use `router-outlet` directive to load child routes.
+- Example:
+
+  ```ts
+  const appRoutes: Routes = [
+    {
+      path: 'servers',
+      component: ServersComponent,
+      children: [
+        { path: ':id', component: ServerComponent },
+        { path: ':id/edit', component: EditServerComponent },
+      ],
+    },
+    { path: 'users', component: UsersComponent },
+  ]
+  ```
+
+  ```html
+  <div class="col-xs-12 col-sm-4">
+    <!-- <app-user></app-user> -->
+    <router-outlet></router-outlet>
+  </div>
+  ```
+
+- router-outlet is a directive that tells Angular where to place the component that is loaded based on the current route. So it's a placeholder where Angular will render the component that should be displayed for the current route.
+
+### **144: Using Query Parameters - Practice**
+
+- We can use `queryParams` property to pass query parameters to the route.
+- We can use `fragment` property to pass fragment to the route.
+- Example:
+  ```ts
+  this.router.navigate(['/servers', id, 'edit'], {queryParams: {allowEdit: '1'}, fragment: 'loading'});
+  // Or
+  this.router.navigate(['edit'], {relativeTo: this.route, queryParams: {allowEdit: '1'}, fragment: 'loading'});
+  // Or In HTML
+  <a [routerLink]="['/servers', server.id, 'edit']" [queryParams]="{allowEdit: '1'}" fragment="loading">
+    Edit
+  ```
