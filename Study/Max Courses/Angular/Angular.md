@@ -296,3 +296,41 @@ ngOnDestroy() {
   ]
   ```
 - If user enter any route that not exist, it will redirect to `not-found` route.
+
+### **148: Outsourcing the Route Configuration**
+
+- We can separate the route configuration to another file and import it in `app.module.ts` file.
+- Example:
+
+  ```ts
+  // app-routing.module.ts
+  const appRoutes: Routes = [
+    { path: '', component: HomeComponent },
+    { path: 'not-found', component: PageNotFoundComponent },
+    { path: '**', redirectTo: '/not-found' },
+  ]
+
+  @NgModule({
+    imports: [RouterModule.forRoot(appRoutes)],
+    exports: [RouterModule],
+  })
+  export class AppRoutingModule {}
+
+  // app.module.ts
+  @NgModule({
+    declarations: [
+      AppComponent,
+      ServersComponent,
+      ServerComponent,
+      EditServerComponent,
+      UsersComponent,
+      UserComponent,
+      HomeComponent,
+      PageNotFoundComponent,
+    ],
+    imports: [BrowserModule, FormsModule, AppRoutingModule],
+    providers: [ServersService],
+    bootstrap: [AppComponent],
+  })
+  export class AppModule {}
+  ```
