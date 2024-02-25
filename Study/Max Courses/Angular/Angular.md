@@ -334,3 +334,115 @@ ngOnDestroy() {
   })
   export class AppModule {}
   ```
+
+### **150: Protecting Routes with canActivate**
+
+- We can use `canActivate` property to protect routes.
+- We can use `CanActivate` interface to implement the guard.
+- We can use `canActivate` method to return `true` or `false`.
+
+```ts
+import { Injectable } from '@angular/core'
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  CanActivateChild,
+  Router,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router'
+import { AuthService } from './auth.service'
+import { Observable } from 'rxjs'
+
+@Injectable()
+export class AuthGuard implements CanActivate, CanActivateChild {
+  constructor(private authService: AuthService, private router: Router) {}
+
+  //! The first way
+  canActivateFn(): CanActivateFn {
+    return (route: ActivatedRouteSnapshot, state: RouterStateSnapshot) => {
+      return this.authService.authenticated().then((authenticated: boolean) => {
+        if (authenticated) {
+          return true
+        } else {
+          this.router.navigate(['/'])
+          return false
+        }
+      })
+    }
+  }
+
+  //! The second way
+  canActivateFn: CanActivateFn = (
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ):
+    | boolean
+    | UrlTree
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree> => {
+    return this.authService.authenticated().then((authenticated: boolean) => {
+      if (authenticated) {
+        return true
+      } else {
+        this.router.navigate(['/'])
+        return false
+      }
+    })
+  }
+
+  //! The Third way
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ):
+    | boolean
+    | UrlTree
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree> {
+    return this.authService.authenticated().then((authenticated: boolean) => {
+      if (authenticated) {
+        return true
+      } else {
+        this.router.navigate(['/'])
+        return false
+      }
+    })
+  }
+}
+```
+
+### **151: Protecting Child (Nested) Routes with canActivateChild**
+
+- We can use `canActivateChild` property to protect child routes.
+- We can use `CanActivateChild` interface to implement the guard.
+- We can use `canActivateChild` method to return `true` or `false`.
+
+```ts
+import { Injectable } from '@angular/core'
+import {
+  ActivatedRouteSnapshot,
+  CanActivate,
+  CanActivateChild,
+  Router,
+  RouterStateSnapshot,
+  UrlTree,
+} from '@angular/router'
+import { AuthService } from './auth.service'
+import { Observable } from 'rxjs'
+
+@Injectable()
+export class AuthGuard implements CanActivate, CanActivateChild {
+  constructor(private authService: AuthService, private router: Router) {}
+  canActivateChild(
+    childRoute: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ):
+    | boolean
+    | UrlTree
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree> {
+    return this.canActivate(childRoute, state)
+  }
+}
+```
