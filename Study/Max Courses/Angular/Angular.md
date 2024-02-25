@@ -446,3 +446,5 @@ export class AuthGuard implements CanActivate, CanActivateChild {
   }
 }
 ```
+
+### **153: Controlling Navigation with canDeactivate**
