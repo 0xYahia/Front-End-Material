@@ -13,14 +13,37 @@
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
-  "plugins": ["@typescript-eslint"],
+  "plugins": ["@typescript-eslint", "eslint-comments"],
   "rules": {
+    "@typescript-eslint/naming-convention": [
+      "warn",
+      {
+        "selector": "default",
+        "format": ["camelCase", "PascalCase", "UPPER_CASE"]
+      },
+      {
+        "selector": "variable",
+        "format": ["camelCase", "UPPER_CASE"]
+      },
+      {
+        "selector": "parameter",
+        "format": ["camelCase"],
+        "leadingUnderscore": "allow"
+      },
+      {
+        "selector": "property",
+        "format": ["camelCase"]
+      },
+      {
+        "selector": "typeLike",
+        "format": ["PascalCase"]
+      }
+    ],
     "indent": ["warn", 2],
-    "linebreak-style": ["error", "windows"],
-    "quotes": ["error", "single"],
     "semi": ["warn", "always"],
-    "no-var": "error",
+    "no-var": "warn",
     "@typescript-eslint/explicit-module-boundary-types": "error",
+    "@typescript-eslint/no-unused-vars": "warn",
     "@typescript-eslint/typedef": [
       "error",
       {
@@ -28,6 +51,8 @@
         "variableDeclaration": true,
         "propertyDeclaration": true
       }
-    ]
+    ],
+    "eslint-comments/no-unused-disable": "warn",
+    "eslint-comments/disable-enable-pair": ["error", { "allowWholeFile": true }]
   }
 }
