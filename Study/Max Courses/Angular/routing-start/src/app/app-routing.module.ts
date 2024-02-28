@@ -8,6 +8,7 @@ import { ServerComponent } from './servers/server/server.component';
 import { EditServerComponent } from './servers/edit-server/edit-server.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { AuthGuard } from './auth-guard.service';
+import { CanDeactivateGuard } from './servers/edit-server/can-deactivate.serveice';
 
 const appRoutes: Routes = [
   { path: '', component: HomeComponent }, // localhost:4200/
@@ -22,7 +23,7 @@ const appRoutes: Routes = [
     canActivateChild: [AuthGuard],
     component: ServersComponent, children: [
       { path: ':id', component: ServerComponent },  // localhost:4200/servers
-      { path: ':id/edit', component: EditServerComponent }  // localhost:4200/servers/5/edit
+      { path: ':id/edit', component: EditServerComponent, canDeactivate: [CanDeactivateGuard] }  // localhost:4200/servers/5/edit
     ]
   },  // localhost:4200/servers
   { path: 'not-found', component: PageNotFoundComponent },
