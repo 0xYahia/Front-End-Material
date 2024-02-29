@@ -1,6 +1,4 @@
 {
-  "cSpell.words": [
-    "devkit",
-    "linebreak"
-  ]
+  "cSpell.words": ["devkit", "linebreak"],
+  "angular.enable-strict-mode-prompt": false
 }
