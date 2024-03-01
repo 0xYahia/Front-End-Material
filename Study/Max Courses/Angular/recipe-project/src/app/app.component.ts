@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
 export class AppComponent {
   featureSelected: string = 'recipe';
 
-  onNavigate(feature: string) {
+  onNavigate(feature: string): void {
     this.featureSelected = feature;
   }
 }

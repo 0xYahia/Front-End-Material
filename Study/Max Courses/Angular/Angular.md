@@ -448,3 +448,124 @@ export class AuthGuard implements CanActivate, CanActivateChild {
 ```
 
 ### **153: Controlling Navigation with canDeactivate**
+
+### **155: Passing Static Data to a Route**
+
+- We can use `data` property to pass static data to the route.
+- We can use `ActivatedRoute` service to get the static data.
+- Example:
+
+  ```ts
+  const appRoutes: Routes = [
+    {
+      path: 'servers',
+      component: ServersComponent,
+      data: { message: 'page not found!' },
+    },
+    { path: 'servers/:id', component: ServerComponent },
+  ]
+  ```
+
+  ```ts
+  // ErrorPageComponent
+  export class ServerComponent implements OnInit {
+    errorMessage: string
+
+    constructor(private route: ActivatedRoute) {}
+
+    ngOnInit() {
+      this.route.data.subscribe((data: Data) => {
+        this.errorMessage = data['message']
+      })
+    }
+  }
+  ```
+
+### **156: Resolving Dynamic Data with the resolve Guard**
+
+- We can use `resolve` property to resolve dynamic data before the route is activated.
+- We can use `Resolve` interface to implement the resolver.
+- We can use `resolve` method to return the dynamic data.
+
+```ts
+import { Injectable } from '@angular/core'
+import {
+  ActivatedRouteSnapshot,
+  Resolve,
+  RouterStateSnapshot,
+} from '@angular/router'
+import { Observable } from 'rxjs'
+import { ServersService } from './servers.service'
+
+interface Server {
+  id: number
+  name: string
+  status: string
+}
+
+@Injectable()
+export class ServerResolver implements Resolve<Server> {
+  constructor(private serversService: ServersService) {}
+
+  resolve(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<Server> | Promise<Server> | Server {
+    return this.serversService.getServer(+route.params['id'])
+  }
+}
+```
+
+```ts
+// app-routing.module.ts
+const appRoutes: Routes = [
+  {
+    path: 'servers',
+    component: ServersComponent,
+    children: [
+      {
+        path: ':id',
+        component: ServerComponent,
+        resolve: { server: ServerResolver },
+      },
+      { path: ':id/edit', component: EditServerComponent },
+    ],
+  },
+  { path: 'users', component: UsersComponent },
+]
+```
+
+```ts
+// server.component.ts
+export class ServerComponent implements OnInit {
+  server: Server
+
+  constructor(private route: ActivatedRoute) {}
+
+  ngOnInit() {
+    this.route.data.subscribe((data: Data) => {
+      this.server = data['server']
+    })
+  }
+}
+```
+
+### **157: Understanding Location Strategies**
+
+- We can use `useHash` property to use hash location strategy.
+- We can use `HashLocationStrategy` to use hash location strategy.
+- We can use `PathLocationStrategy` to use path location strategy.
+
+```ts
+// app.module.ts
+@NgModule({
+  imports: [
+    BrowserModule,
+    FormsModule,
+    AppRoutingModule,
+    RouterModule.forRoot(appRoutes, { useHash: true }),
+  ],
+  providers: [ServersService, AuthService, AuthGuard, ServerResolver],
+  bootstrap: [AppComponent],
+})
+```
