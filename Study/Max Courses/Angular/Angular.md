@@ -596,3 +596,40 @@ export class ServerComponent implements OnInit {
   })
   export class AppRoutingModule {}
   ```
+
+# **Section 13: Understanding Observables**
+
+### **173: Module Introduction**
+
+- What is an observable?
+
+  - An observable basically can be thought of as a data source, which emits data over time. This data can then be observed by any number of observers. Observers are basically the subscribers to the observable.
+
+- What is an observer?
+
+  - This actually is our code, which subscribes to the observable and listens to the data emitted by the observable.
+  - An observer is a function or an object with a next() method, which is called when new data is emitted by the observable.
+
+- There, you have three ways of handling data packages.
+  - You can handle the normal data package, which is emitted by the observable.
+  - You can handle an error package, which is emitted by the observable.
+  - You can handle a completion package, which is emitted by the observable.
+
+**Because these are three types of data packages you can receive and in this, in theses hooks, in this boxes, you could say
+your code gets executed.**
+
+- So you can determine what should happen
+  - if I receive a new data package?
+  - What should happen if I receive an error?
+  - What should happen when the observable eventually completes?
+
+So this is how the observable pattern generally works.
+
+- When we should use observables?
+
+  - And of course, you use it to handle asynchronous tasks, because all these data sources here, user events, triggered in your code or a HTTP request, are asynchronous tasks. You don't know when they will happen and you don't know how long they will take.
+
+  - So if you execute your normal application code, you don't want to wait for these events or you don't want to wait for the completion of such a HTTP request, because that would block your program, would block your logic. Therefore, we'd need methods
+    of handling such asynchronous tasks. And historically you might have used callbacks or promises and it's not necessarily bad to use them. Observables is just a different approach of handling that, a different alternative.
+
+<img src="./imgs/3.png" />
