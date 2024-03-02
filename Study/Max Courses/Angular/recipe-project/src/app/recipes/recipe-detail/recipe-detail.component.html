@@ -1,6 +1,7 @@
 <div class="row">
   <div class="col-xs-12">
-    <img ngSrc="{{recipe.imagePath}}" alt="{{recipe.name}}" class="img-responsive" width="300" height="300">
+    <img ngSrc="{{recipe.imagePath}}" width="600" height="400" style="width: auto; height: auto;" alt="{{recipe.name}}"
+      class="img-responsive">
   </div>
 </div>
 <div class="row">
@@ -11,9 +12,7 @@
 <div class="row">
   <div class="col-xs-12">
     <div class="btn-group" appDropdown>
-      <button
-        type="button"
-        class="btn btn-primary dropdown-toggle">
+      <button type="button" class="btn btn-primary dropdown-toggle">
         Manage Recipe <span class="caret"></span>
       </button>
       <ul class="dropdown-menu">
