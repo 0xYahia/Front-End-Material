@@ -569,3 +569,30 @@ export class ServerComponent implements OnInit {
   bootstrap: [AppComponent],
 })
 ```
+
+**NOTE: if we writer hard router after dynamic router angular try parse hard router as dynamic router and will get error**
+
+- Example:
+
+  ```ts
+  // app-routing.module.ts
+  const appRouting: Routes = [
+    { path: '', redirectTo: '/recipes', pathMatch: 'full' },
+    {
+      path: 'recipes',
+      component: RecipesComponent,
+      children: [
+        { path: '', component: RecipeStartComponent },
+        { path: ':id', component: RecipeDetailComponent },
+        { path: 'new', component: RecipeEditComponent }, //! Will get error we have to write it before dynamic router (id)
+        { path: ':id/edit', component: RecipeEditComponent },
+      ],
+    },
+    { path: 'shopping-list', component: ShoppingListComponent },
+  ]
+  @NgModule({
+    imports: [RouterModule.forRoot(appRouting)],
+    exports: [RouterModule],
+  })
+  export class AppRoutingModule {}
+  ```
