@@ -633,3 +633,41 @@ So this is how the observable pattern generally works.
     of handling such asynchronous tasks. And historically you might have used callbacks or promises and it's not necessarily bad to use them. Observables is just a different approach of handling that, a different alternative.
 
 <img src="./imgs/3.png" />
+
+### **176: Getting Closer to the Core of Observables**
+
+- We can use `Observable` class to create observables.
+- We can use `subscribe` method to subscribe to the observable.
+- We can use `next` method to emit data.
+- We can use `error` method to emit error.
+- We can use `complete` method to emit completion.
+
+- We use `Subscription` to unsubscribe from observables.
+
+```ts
+import { Observable } from 'rxjs'
+import { Subscription } from 'rxjs'
+
+const myObservable = new Observable((observer) => {
+  setTimeout(() => {
+    observer.next('first package')
+  }, 2000)
+  setTimeout(() => {
+    observer.next('second package')
+  }, 4000)
+  setTimeout(() => {
+    // observer.error('this does not work');
+    observer.complete()
+  }, 5000)
+})
+
+  const subscription = myObservable.subscribe(
+    (data: string) => console.log(data),
+    (error: string) => console.log(error),
+    () => console.log('completed')
+  )
+
+  ngOnDestroy() {
+    subscription.unsubscribe()
+  }
+```
