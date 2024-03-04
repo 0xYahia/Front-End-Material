@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, OperatorFunction, Subscription, interval } from 'rxjs';
+import { Observable, Subscription, interval } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
 @Component({

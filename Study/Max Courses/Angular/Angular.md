@@ -729,3 +729,140 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 }
 ```
+
+### **180: Understanding Operators**
+
+- Operators are functions that you can use to work on the observable data and transform it in some way.
+- There are many operators in RxJS, and you can use them to transform, filter, or combine the data emitted by observables.
+- Example:
+
+```ts
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Observable, Subscription, interval } from 'rxjs'
+import { filter, map } from 'rxjs/operators'
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
+})
+export class HomeComponent implements OnInit, OnDestroy {
+  private firstObSubscription: Subscription
+
+  constructor() {}
+
+  ngOnInit(): void {
+    // this.firstObSubscription = interval(1000).subscribe(count => {
+    //   console.log(count);
+    // })
+
+    const customIntervalObservable: Observable<number> = Observable.create(
+      (observer) => {
+        let count: number = 0
+        setInterval(() => {
+          observer.next(count++)
+          if (count == 3) {
+            observer.complete()
+          }
+          if (count > 3) {
+            observer.error(new Error('count greater than 3!'))
+          }
+        }, 1000)
+      }
+    )
+
+    this.firstObSubscription = customIntervalObservable
+      .pipe(
+        filter((data) => {
+          return data > 0
+        }),
+        map((data: number) => {
+          return 'Round: ' + (data + 1)
+        })
+      )
+      .subscribe(
+        (data) => {
+          console.log(data)
+        },
+        (error) => {
+          console.log(error)
+          alert(error)
+        },
+        () => {
+          console.log('Completed!')
+          alert('Completed!')
+        }
+      )
+  }
+
+  ngOnDestroy(): void {
+    this.firstObSubscription.unsubscribe()
+  }
+}
+```
+
+### **181: Subjects**
+
+- A subject is a special type of observable, which allows values to be multicasted to many observers. While plain observables are unicast (each subscribed observer owns an independent execution of the Observable), Subjects are multicast.
+- A subject is an observable and an observer at the same time. and i can use next outside the observable.
+- Example:
+
+```ts
+import { Component, OnDestroy, OnInit } from '@angular/core'
+import { Observable, Subscription, interval, Subject } from 'rxjs'
+import { filter, map } from 'rxjs/operators'
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+  styleUrls: ['./home.component.css'],
+})
+export class HomeComponent implements OnInit, OnDestroy {
+  private firstObSubscription: Subscription
+  private destroy$: Subject<boolean> = new Subject<boolean>()
+
+  constructor() {}
+
+  ngOnInit(): void {
+    const customIntervalObservable: Observable<number> = interval(1000)
+
+    this.firstObSubscription = customIntervalObservable
+      .pipe(
+        filter((data) => {
+          return data > 0
+        }),
+        map((data: number) => {
+          return 'Round: ' + (data + 1)
+        })
+      )
+      .subscribe(
+        (data) => {
+          console.log(data)
+        },
+        (error) => {
+          console.log(error)
+          alert(error)
+        },
+        () => {
+          console.log('Completed!')
+          alert('Completed!')
+        }
+      )
+
+    customIntervalObservable
+      .pipe(takeUntil(this.destroy$))
+      .subscribe((data) => {
+        console.log(data)
+      })
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next(true)
+    this.destroy$.complete()
+    this.firstObSubscription.unsubscribe()
+  }
+}
+```
+
+**NOTE: If i use @Output() dictator we should using EventEmitter you're not using subject there because the subject is not suitable for that**
+**NOTE: But if we will subscribe to event we should using Subject not EventEmitter**
