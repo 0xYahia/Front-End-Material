@@ -866,3 +866,21 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 **NOTE: If i use @Output() dictator we should using EventEmitter you're not using subject there because the subject is not suitable for that**
 **NOTE: But if we will subscribe to event we should using Subject not EventEmitter**
+
+# **Section 15: Handling Forms in Angular Apps**
+
+### **187: Why do we need Angular's help?**
+
+- Angular provides a lot of features to handle forms in a more efficient way.
+- Angular provide form as a service, so we can use it in any component.
+- we use form as a javascript or typescript object.
+
+```ts
+{
+  value: {
+    username: 'Yahia',
+    email: 'mail'
+  },
+  valid: true,
+}
+```
