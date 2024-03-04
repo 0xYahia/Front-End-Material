@@ -1,5 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Observable, Subscription, interval } from 'rxjs'
+import { Observable, OperatorFunction, Subscription, interval } from 'rxjs';
+import { filter, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-home',
@@ -7,7 +8,7 @@ import { Observable, Subscription, interval } from 'rxjs'
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  private firstObSubscription: Subscription
+  private firstObSubscription: Subscription;
 
   constructor() { }
 
@@ -16,30 +17,37 @@ export class HomeComponent implements OnInit, OnDestroy {
     //   console.log(count);
     // })
 
-    const customIntervalObservable = Observable.create(observer => {
+    const customIntervalObservable: Observable<number> = Observable.create((observer) => {
       let count: number = 0;
       setInterval(() => {
         observer.next(count++);
-        if (count == 2) {
-          observer.complete()
+        if (count == 3) {
+          observer.complete();
         }
         if (count > 3) {
-          observer.error(new Error('count greater than 3!'))
+          observer.error(new Error('count greater than 3!'));
         }
-      }, 1000)
-    })
+      }, 1000);
+    });
 
-    this.firstObSubscription = customIntervalObservable.subscribe(data => {
-      console.log(data);
-    },
-      error => {
-        console.log(error);
-        alert(error)
+
+    this.firstObSubscription = customIntervalObservable.pipe(
+      filter((data) => {
+        return data > 0;
+      }),
+      map((data: number) => {
+        return 'Round: ' + (data + 1);
+      })).subscribe(data => {
+        console.log(data);
       },
-      () => {
-        console.log('Completed!');
-        alert('Completed!')
-      })
+        error => {
+          console.log(error);
+          alert(error);
+        },
+        () => {
+          console.log('Completed!');
+          alert('Completed!');
+        });
   }
 
   ngOnDestroy(): void {
