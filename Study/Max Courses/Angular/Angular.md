@@ -947,3 +947,299 @@ export class AppComponent {
   }
 }
 ```
+
+### 193: TD Accessing the Form with @ViewChild
+
+- We can use `@ViewChild` decorator to access the form.
+- Example:
+
+```html
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+  <div id="user-data">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        ngModel
+        name="username"
+        class="form-control"
+      />
+    </div>
+    <button class="btn btn-default" type="button">Suggest an Username</button>
+    <div class="form-group">
+      <label for="email">Mail</label>
+      <input
+        type="email"
+        id="email"
+        ngModel
+        name="email"
+        class="form-control"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="secret">Secret Questions</label>
+    <select id="secret" class="form-control" ngModel name="secret">
+      <option value="pet">Your first Pet?</option>
+      <option value="teacher">Your first teacher?</option>
+    </select>
+  </div>
+  <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+```
+
+```ts
+import { Component } from '@angular/core'
+import { NgForm } from '@angular/forms'
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+  suggestUserName(): void {
+    const suggestedName: string = 'Superuser'
+  }
+
+  onSubmit(form: NgForm): void {
+    console.log(form)
+  }
+}
+```
+
+```ts
+import { Component, ViewChild } from '@angular/core'
+import { NgForm } from '@angular/forms'
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+  @ViewChild('f') signupForm: NgForm
+  suggestUserName(): void {
+    const suggestedName: string = 'Superuser'
+  }
+
+  // onSubmit(form: NgForm): void {
+  //   console.log(form);
+  // }
+
+  onSubmit(): void {
+    console.log(this.signupForm)
+  }
+}
+```
+
+### 194: TD: Adding Validation to check User Input
+
+- We can use `required` attribute to make the input required.
+- We can use `minlength` attribute to set the minimum length of the input.
+- We can use `pattern` attribute to set the pattern of the input.
+- We can use `email` attribute to set the input as email.
+
+```html
+<form (ngSubmit)="onSubmit()" #f="ngForm">
+  <div id="user-data">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        ngModel
+        name="username"
+        class="form-control"
+        required
+      />
+    </div>
+    <button class="btn btn-default" type="button">Suggest an Username</button>
+    <div class="form-group">
+      <label for="email">Mail</label>
+      <input
+        type="email"
+        id="email"
+        ngModel
+        name="email"
+        class="form-control"
+        required
+        email
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="secret">Secret Questions</label>
+    <select id="secret" class="form-control" ngModel name="secret">
+      <option value="pet">Your first Pet?</option>
+      <option value="teacher">Your first teacher?</option>
+    </select>
+  </div>
+  <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+```
+
+**NOTE: Additionally, you might also want to enable HTML5 validation (by default, Angular disables it). You can do so by adding the `ngNativeValidate` to a control in your template.**
+
+### 196: TD: Using the Form State
+
+- We can make button disabled if the form is invalid.
+- We can use ng-invalid, ng-valid, ng-dirty, ng-touched, ng-untouched, ng-pending, ng-pristine, ng-submitted classes to style the form.
+
+```html
+<button [disabled]="!f.valid" class="btn btn-primary" type="submit">
+  Submit
+</button>
+```
+
+```CSS
+.container {
+  margin-top: 30px;
+}
+
+input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+```
+
+### 197: TD: Outputting Validation Error Messages
+
+- We can use `ngModel` directive to bind the input to the form.
+
+```html
+<div class="form-group">
+  <label for="email">Mail</label>
+  <input
+    #email="ngModel"
+    type="email"
+    id="email"
+    ngModel
+    name="email"
+    class="form-control"
+    required
+    email
+  />
+  <span class="help-block" *ngIf="!email.valid && email.touched"
+    >Please enter valid email!</span
+  >
+</div>
+```
+
+### 198: TD: Set Default Values with ngModel Property Binding
+
+- We can use `ngModel` directive to bind the input to the form.
+- to using ngModel without any bindings. You can use one way binding, property binding to set a default value.
+
+```html
+<div class="form-group">
+  <label for="secret">Secret Questions</label>
+  <select
+    id="secret"
+    class="form-control"
+    [ngModel]="defaultQuestion"
+    name="secret"
+  >
+    <option value="pet">Your first Pet?</option>
+    <option value="teacher">Your first teacher?</option>
+  </select>
+</div>
+```
+
+```ts
+export class AppComponent {
+  defaultQuestion: string = 'pet'
+  // ...
+}
+```
+
+### 199: TD: Using ngModel with Two-Way Binding
+
+- We can use `ngModel` directive to bind the input to the form.
+- We can use `[(ngModel)]` directive to bind the input to the form with two-way binding.
+
+```html
+<div class="form-group">
+  <textarea
+    name="questionAnswer"
+    class="form-control"
+    [(ngModel)]="answer"
+    rows="3"
+  ></textarea>
+  <p>Your reply: {{answer}}</p>
+</div>
+```
+
+```ts
+export class AppComponent {
+  defaultQuestion: string = 'pet'
+  answer: string = ''
+  // ...
+}
+```
+
+**NOTE: You can still use ngModel with two-way binding, and with that, you saw all 3 forms**
+
+    - no binding to just tell Angular data input is a control,
+    - one-way binding to give that control a default value,
+    - and two-way binding to instantly output it or do whatever you want to do with that value.
+
+### 200: TD: Grouping Form Controls
+
+- We can use `ngModelGroup` directive to group the form controls.
+
+```html
+<div id="user-data" ngModelGroup="userData" #userData="ngModelGroup">
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input
+      #name="ngModel"
+      type="text"
+      id="username"
+      ngModel
+      name="username"
+      class="form-control"
+      required
+    />
+    <span class="help-block" *ngIf="!name.valid && name.touched"
+      >Please enter valid username!</span
+    >
+  </div>
+  <button class="btn btn-default" type="button">Suggest an Username</button>
+  <div class="form-group">
+    <label for="email">Mail</label>
+    <input
+      #email="ngModel"
+      type="email"
+      id="email"
+      ngModel
+      name="email"
+      class="form-control"
+      required
+      email
+    />
+    <span class="help-block" *ngIf="!email.valid && email.touched"
+      >Please enter valid email!</span
+    >
+  </div>
+</div>
+```
+
+- No we can use `userData` as a separate object in the form.
+
+### 201: TD: Handling Radio Buttons
+
+- We can use `ngModel` directive to bind the input to the form.
+
+```html
+<div class="radio" *ngFor="let gender of genders">
+  <label>
+    <input type="checkbox" ngModel name="gender" [value]="gender" required />
+    {{gender}}
+  </label>
+</div>
+```
+
+```ts
+genders: string[] = ['male', 'female'];
+```
