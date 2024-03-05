@@ -884,3 +884,66 @@ export class HomeComponent implements OnInit, OnDestroy {
   valid: true,
 }
 ```
+
+### **191: TD: Submitting and Using the Form**
+
+- We can use `ngForm` directive to create a template-driven form.
+- We can use `ngModel` directive to bind the input to the form.
+- We can use `ngSubmit` directive to submit the form.
+- Example:
+
+```html
+<form (ngSubmit)="onSubmit(f)" #f="ngForm">
+  <div id="user-data">
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input
+        type="text"
+        id="username"
+        ngModel
+        name="username"
+        class="form-control"
+      />
+    </div>
+    <button class="btn btn-default" type="button">Suggest an Username</button>
+    <div class="form-group">
+      <label for="email">Mail</label>
+      <input
+        type="email"
+        id="email"
+        ngModel
+        name="email"
+        class="form-control"
+      />
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="secret">Secret Questions</label>
+    <select id="secret" class="form-control" ngModel name="secret">
+      <option value="pet">Your first Pet?</option>
+      <option value="teacher">Your first teacher?</option>
+    </select>
+  </div>
+  <button class="btn btn-primary" type="submit">Submit</button>
+</form>
+```
+
+```ts
+import { Component } from '@angular/core'
+import { NgForm } from '@angular/forms'
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+  suggestUserName(): void {
+    const suggestedName: string = 'Superuser'
+  }
+
+  onSubmit(form: NgForm): void {
+    console.log(form)
+  }
+}
+```
