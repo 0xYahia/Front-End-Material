@@ -1243,3 +1243,5 @@ export class AppComponent {
 ```ts
 genders: string[] = ['male', 'female'];
 ```
+
+### 202
