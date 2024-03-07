@@ -1244,4 +1244,33 @@ export class AppComponent {
 genders: string[] = ['male', 'female'];
 ```
 
-### 202
+### 202: TD: Setting and Patching Form Values
+
+- We can use `setValue` method to set the form values.
+- We can use `patchValue` method to patch the form values.
+
+```ts
+  suggestUserName(): void {
+    const suggestedName: string = 'Superuser';
+    this.signupForm.setValue({
+      userData: {
+        username: suggestedName,
+        email: 'mohamedyahia831@gmail.com',
+      },
+      secret: 'pet',
+      questionAnswer: 'test',
+      gender: 'male',
+    });
+    //! OR
+    this.signupForm.form.patchValue({
+      userData: {
+        username: suggestedName
+      }
+    });
+  }
+```
+
+**NOTE**
+
+- Set value, to set your whole form.
+- Patch value to override parts of the form.
