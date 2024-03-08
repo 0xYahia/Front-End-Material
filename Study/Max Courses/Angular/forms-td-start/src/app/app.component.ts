@@ -11,6 +11,14 @@ export class AppComponent {
   defaultQuestion: string = 'teacher';
   answer: string = '';
   genders: string[] = ['male', 'female'];
+  user = {
+    username: '',
+    email: '',
+    secret: '',
+    questionAnswer: '',
+    gender: ''
+  };
+  submitted: boolean = false;
   suggestUserName(): void {
     const suggestedName: string = 'Superuser';
     // this.signupForm.setValue({
@@ -34,6 +42,11 @@ export class AppComponent {
   // }
 
   onSubmit(): void {
-    console.log(this.signupForm);
+    this.submitted = true;
+    this.user.username = this.signupForm.value.userData.username;
+    this.user.email = this.signupForm.value.userData.email;
+    this.user.secret = this.signupForm.value.secret;
+    this.user.questionAnswer = this.signupForm.value.questionAnswer;
+    this.user.gender = this.signupForm.value.gender;
   }
 }

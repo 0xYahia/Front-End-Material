@@ -1274,3 +1274,53 @@ genders: string[] = ['male', 'female'];
 
 - Set value, to set your whole form.
 - Patch value to override parts of the form.
+
+### 203: TD: Using Form Data
+
+```ts
+import { Component, ViewChild } from '@angular/core'
+import { NgForm } from '@angular/forms'
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent {
+  @ViewChild('f') signupForm: NgForm
+  defaultQuestion: string = 'teacher'
+  answer: string = ''
+  genders: string[] = ['male', 'female']
+  user = {
+    username: '',
+    email: '',
+    secret: '',
+    questionAnswer: '',
+    gender: '',
+  }
+  submitted: boolean = false
+
+  onSubmit(): void {
+    this.submitted = true
+    this.user.username = this.signupForm.value.userData.username
+    this.user.email = this.signupForm.value.userData.email
+    this.user.secret = this.signupForm.value.secret
+    this.user.questionAnswer = this.signupForm.value.questionAnswer
+    this.user.gender = this.signupForm.value.gender
+  }
+}
+```
+
+```html
+<hr />
+<div class="row" *ngIf="submitted">
+  <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+    <h3>Your Data</h3>
+    <p>Username: {{user.username}}</p>
+    <p>Email: {{user.email}}</p>
+    <p>Secret Question: {{user.secret}}</p>
+    <p>questionAnswer {{user.questionAnswer}}</p>
+    <p>gender: {{user.gender}}</p>
+  </div>
+</div>
+```
