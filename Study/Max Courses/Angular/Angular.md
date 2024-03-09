@@ -1307,6 +1307,8 @@ export class AppComponent {
     this.user.secret = this.signupForm.value.secret
     this.user.questionAnswer = this.signupForm.value.questionAnswer
     this.user.gender = this.signupForm.value.gender
+
+    this.signupForm.reset()
   }
 }
 ```
@@ -1324,3 +1326,5 @@ export class AppComponent {
   </div>
 </div>
 ```
+
+**NOTE: You can use the form data in the component and you can reset the form after submit**
