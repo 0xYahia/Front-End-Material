@@ -1328,3 +1328,161 @@ export class AppComponent {
 ```
 
 **NOTE: You can use the form data in the component and you can reset the form after submit**
+
+## Reactive Forms
+
+### 205: 2013 => Introduction to Reactive Forms
+
+- Reactive forms are more flexible, more scalable, and more testable.
+- Reactive forms are more suitable for complex forms.
+
+```ts
+import { Component, OnInit } from '@angular/core'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent implements OnInit {
+  genders = ['male', 'female']
+
+  signupForm: FormGroup
+
+  ngOnInit(): void {
+    this.signupForm = new FormGroup({
+      userData: new FormGroup({
+        username: new FormControl(null, Validators.required),
+        email: new FormControl(null, [Validators.required, Validators.email]),
+      }),
+      gender: new FormControl('male'),
+    })
+  }
+  onSumit(): void {
+    console.log(this.signupForm)
+  }
+}
+```
+
+```html
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+      <form [formGroup]="signupForm" (ngSubmit)="onSumit()">
+        <div formGroupName="userData">
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input
+              type="text"
+              id="username"
+              formControlName="username"
+              class="form-control"
+            />
+            <span
+              *ngIf="signupForm.get('userData.username').invalid && signupForm.get('userData.username').touched"
+              class="help-block"
+              >Enter valid username!</span
+            >
+          </div>
+          <div class="form-group">
+            <label for="email">email</label>
+            <input
+              type="text"
+              id="email"
+              formControlName="email"
+              class="form-control"
+            />
+            <span
+              *ngIf="signupForm.get('userData.email').invalid && signupForm.get('userData.email').touched"
+              class="help-block"
+              >Enter valid email!</span
+            >
+          </div>
+        </div>
+        <div class="radio" *ngFor="let gender of genders">
+          <label>
+            <input type="radio" formControlName="gender" [value]="gender" />{{
+            gender }}
+          </label>
+        </div>
+        <span
+          *ngIf="signupForm.invalid && signupForm.touched"
+          class="help-block"
+          >Enter valid data!</span
+        >
+        <button
+          [disabled]="signupForm.invalid"
+          class="btn btn-primary"
+          type="submit"
+        >
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+```
+
+### 214: Reactive: Array of Form Controls (FormArray)
+
+- We can use `FormArray` to create an array of form controls.
+- We can use `push` method to add a form control to the form array.
+
+```ts
+import { Component, OnInit } from '@angular/core'
+import {
+  AbstractControl,
+  FormArray,
+  FormArrayName,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms'
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent implements OnInit {
+  genders = ['male', 'female']
+
+  signupForm: FormGroup
+
+  ngOnInit(): void {
+    this.signupForm = new FormGroup({
+      userData: new FormGroup({
+        username: new FormControl(null, Validators.required),
+        email: new FormControl(null, [Validators.required, Validators.email]),
+      }),
+      gender: new FormControl('male'),
+      hobbies: new FormArray([]),
+    })
+  }
+  onSumit(): void {
+    console.log(this.signupForm)
+  }
+
+  onAddHobby(): void {
+    const control: FormControl = new FormControl(null, Validators.required)
+    ;(<FormArray>this.signupForm.get('hobbies')).push(control)
+  }
+
+  get controls(): AbstractControl[] {
+    return (this.signupForm.get('hobbies') as FormArray).controls
+  }
+}
+```
+
+```html
+<div formArrayName="hobbies">
+  <h4>Your Hobbies</h4>
+  <button type="button" class="btn btn-default" (click)="onAddHobby()">
+    Add hobby
+  </button>
+  <div class="form-group" *ngFor="let controlName of controls; let i = index;">
+    <input type="text" [formControlName]="i" class="form-control" />
+  </div>
+</div>
+```
