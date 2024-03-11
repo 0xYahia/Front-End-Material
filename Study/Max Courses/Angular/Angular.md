@@ -1536,3 +1536,30 @@ export class AppComponent implements OnInit {
 ```
 
 - We bind this for class in the custom validator because the caller of the function is not the class. It's the Angular framework.
+
+### 216: Reactive: Using Error Codes
+
+- We can use error codes to handle the errors in the custom validator.
+
+```html
+<div class="form-group">
+  <label for="username">Username</label>
+  <input
+    type="text"
+    id="username"
+    formControlName="username"
+    class="form-control"
+  />
+  <div
+    *ngIf="signupForm.get('userData.username').invalid && signupForm.get('userData.username').touched"
+    class="help-block"
+  >
+    <span *ngIf="signupForm.get('userData.username').errors['required']"
+      >This filed is required!</span
+    >
+    <span *ngIf="signupForm.get('userData.username').errors['nameIsForbidden']"
+      >This is invalid name!</span
+    >
+  </div>
+</div>
+```
