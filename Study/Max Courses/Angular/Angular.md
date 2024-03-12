@@ -1563,3 +1563,131 @@ export class AppComponent implements OnInit {
   </div>
 </div>
 ```
+
+### 217: Reactive: Creating a Custom Async Validator
+
+- We can use `async` validator to create a custom async validator.
+
+```ts
+import { Component, OnInit } from '@angular/core'
+import {
+  AbstractControl,
+  FormArray,
+  FormArrayName,
+  FormControl,
+  FormGroup,
+  Validators,
+} from '@angular/forms'
+import { Observable } from 'rxjs'
+
+@Component({
+  selector: 'app-root',
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.css'],
+})
+export class AppComponent implements OnInit {
+  genders = ['male', 'female']
+
+  signupForm: FormGroup
+  forbiddenUsernames = ['Yahia', 'Mohamed']
+
+  ngOnInit(): void {
+    this.signupForm = new FormGroup({
+      userData: new FormGroup({
+        username: new FormControl(null, [
+          Validators.required,
+          this.forbiddenNames.bind(this),
+        ]),
+        email: new FormControl(
+          null,
+          [Validators.required, Validators.email],
+          this.forbiddenEmails
+        ),
+      }),
+      gender: new FormControl('male'),
+      hobbies: new FormArray([]),
+    })
+  }
+
+  // Async Validator
+  forbiddenEmails(
+    control: FormControl
+  ):
+    | Promise<null | { forbiddenEmail: boolean }>
+    | Observable<null | { forbiddenEmail: boolean }> {
+    const promise: Promise<null | { forbiddenEmail: boolean }> =
+      new Promise<null | { forbiddenEmail: boolean }>((resolve) => {
+        setTimeout(() => {
+          if (control.value === 'mohamedyahia831@gmail.com') {
+            resolve({ forbiddenEmail: true })
+          } else {
+            resolve(null)
+          }
+        }, 1500)
+      })
+    return promise
+  }
+}
+```
+
+```html
+<div class="form-group">
+  <label for="email">email</label>
+  <input type="text" id="email" formControlName="email" class="form-control" />
+  <div
+    *ngIf="signupForm.get('userData.email').invalid && signupForm.get('userData.email').touched"
+    class="help-block"
+  >
+    <span *ngIf="signupForm.get('userData.email').errors['required']"
+      >This filed is required!</span
+    >
+    <span *ngIf="signupForm.get('userData.email').errors['forbiddenEmail']"
+      >This is invalid email!</span
+    >
+  </div>
+</div>
+```
+
+### 218: Reactive: Reacting to Status or Value Changes
+
+- We can use `valueChanges` method to listen to the value changes in the form.
+- We can use `statusChanges` method to listen to the status changes in the form.
+
+```ts
+this.signupForm.valueChanges.subscribe((value) => {
+  console.log(value)
+})
+
+this.signupForm.statusChanges.subscribe((status) => {
+  console.log(status)
+})
+```
+
+### 219: Reactive: Setting and Patching Form Values
+
+- We can use `setValue` method to set the form values (override the whole form).
+- We can use `patchValue` method to patch the form values (override parts of the form).
+- We can pass object to reset to reset specific values.
+
+```ts
+    this.signupForm.setValue({
+      'userData': {
+        'username': 'Yahia',
+        'email': 'Yahia@test.com'
+      },
+      'gender': 'male',
+      'hobbies': []
+    });
+
+    this.signupForm.patchValue({
+      'userData': {
+        'username': 'Yahia 2',
+      },
+    });
+  }
+  onSumit(): void {
+    console.log(this.signupForm);
+    this.signupForm.reset({
+      'gender': 'male',
+    });
+```
