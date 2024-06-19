@@ -19,7 +19,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
   editMode: boolean = false;
   editItemIndex: number;
   editableItem: Ingredient;
-  @ViewChild('f') form: NgForm;
+  @ViewChild('f', { static: false }) form: NgForm;
 
 
 
@@ -28,9 +28,11 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     this.subscription = this.shoppingListService.startEditing$.subscribe((index: number) => {
       this.editItemIndex = index;
       this.editMode = true;
+
       this.editableItem = this.shoppingListService.getIngredient(index);
       this.form.setValue({
-        name: this
+        name: this.editableItem.name,
+        amount: this.editableItem.amount
       });
     });
   }
@@ -45,7 +47,11 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     const newIngredient: Ingredient = new Ingredient(value.name, value.amount);
 
     // this.ingredientAdded.emit(newIngredient);
-    this.shoppingListService.addIngredient(newIngredient);
+    if (this.editMode) {
+      this.shoppingListService.updateIngredient(this.editItemIndex, newIngredient);
+    } else {
+      this.shoppingListService.addIngredient(newIngredient);
+    }
 
     //! Another solution
     // this._shoppingListService.ingredient.emit(newIngredient)
