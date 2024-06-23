@@ -13,6 +13,7 @@ export class RecipeEditComponent implements OnInit {
   id: number;
   editMood: boolean = false;
   recipeForm: FormGroup;
+  recipe: Recipe;
   constructor(
     private route: ActivatedRoute,
     private recipeService: RecipeService,
@@ -34,12 +35,12 @@ export class RecipeEditComponent implements OnInit {
     const recipeIngredients: FormArray = new FormArray([]);
 
     if (this.editMood) {
-      const recipe: Recipe = this.recipeService.getRecipeById(this.id);
-      recipeName = recipe.name;
-      recipeImagePath = recipe.imagePath;
-      recipeDescription = recipe.description;
-      if (recipe['ingredients']) {
-        for (const ingredient of recipe.ingredients) {
+      this.recipe = this.recipeService.getRecipeById(this.id);
+      recipeName = this.recipe.name;
+      recipeImagePath = this.recipe.imagePath;
+      recipeDescription = this.recipe.description;
+      if (this.recipe['ingredients']) {
+        for (const ingredient of this.recipe.ingredients) {
           recipeIngredients.push(
             new FormGroup({
               'name': new FormControl(ingredient.name, Validators.required),
@@ -91,5 +92,9 @@ export class RecipeEditComponent implements OnInit {
 
   onDeleteIngredient(index: number): void {
     (<FormArray>this.recipeForm.get('ingredients')).removeAt(index);
+  }
+
+  onDeleteAllIngredients(): void {
+    (<FormArray>this.recipeForm.get('ingredients')).clear();
   }
 }
