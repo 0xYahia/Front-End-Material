@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Params } from '@angular/router';
 import { RecipeService } from '../recipe.service';
 import { Recipe } from '../recipe.model';
@@ -22,7 +22,7 @@ export class RecipeEditComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.id = +params['id'];
       this.editMood = params['id'] != null;
-      this.initForm()
+      this.initForm();
     });
   }
 
@@ -30,7 +30,7 @@ export class RecipeEditComponent implements OnInit {
     let recipeName: string = '';
     let recipeImagePath: string = '';
     let recipeDescription: string = '';
-    let recipeIngredients = new FormArray([])
+    const recipeIngredients: FormArray = new FormArray([]);
 
     if (this.editMood) {
       const recipe: Recipe = this.recipeService.getRecipeById(this.id);
@@ -38,7 +38,7 @@ export class RecipeEditComponent implements OnInit {
       recipeImagePath = recipe.imagePath;
       recipeDescription = recipe.description;
       if (recipe['ingredients']) {
-        for (let ingredient of recipe.ingredients) {
+        for (const ingredient of recipe.ingredients) {
           recipeIngredients.push(
             new FormGroup({
               'name': new FormControl(ingredient.name, Validators.required),
@@ -47,7 +47,7 @@ export class RecipeEditComponent implements OnInit {
                 Validators.pattern(/^[1-9]+[0-9]*$/)
               ]),
             })
-          )
+          );
         }
       }
     }
@@ -60,12 +60,16 @@ export class RecipeEditComponent implements OnInit {
     });
   }
 
-  get controls() {
-    return (<FormArray>this.recipeForm.get('ingredients')).controls
+  get controls(): AbstractControl[] {
+    return (<FormArray>this.recipeForm.get('ingredients')).controls;
   }
 
   onSubmit(): void {
-    console.log(this.recipeForm);
+    if (this.editMood) {
+      this.recipeService.updateRecipe(this.id, this.recipeForm.value);
+    } else {
+      this.recipeService.addRecipe(this.recipeForm.value);
+    }
   }
   onAddIngredient(): void {
     (<FormArray>this.recipeForm.get('ingredients')).push(
@@ -76,6 +80,6 @@ export class RecipeEditComponent implements OnInit {
           Validators.pattern(/^[1-9]+[0-9]*$/)
         ]),
       })
-    )
+    );
   }
 }
