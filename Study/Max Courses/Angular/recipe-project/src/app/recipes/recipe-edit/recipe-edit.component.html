@@ -62,8 +62,8 @@
           <button type="button" class="btn btn-success" (click)="onAddIngredient()">Add Ingredient</button>
         </div>
         <div class="col-xs-3">
-          <button [disabled]="!recipe.ingredients" type="button" class="btn btn-danger"
-            (click)="onDeleteAllIngredients()">Delete All Ingredient</button>
+          <button [disabled]="!recipe.ingredients || recipe.ingredients.length === 0" type="button"
+            class="btn btn-danger" (click)="onDeleteAllIngredients()">Delete All Ingredient</button>
         </div>
       </div>
     </form>
