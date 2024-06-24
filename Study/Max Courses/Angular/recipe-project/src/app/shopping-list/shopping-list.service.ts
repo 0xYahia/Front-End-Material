@@ -1,10 +1,10 @@
-import { Subject } from "rxjs";
+import { Subject } from "rxjs/Subject";
 import { Ingredient } from "../shared/ingredient.model";
 
 
 export class ShoppingListService {
   // ingredient = new EventEmitter<Ingredient>
-  ingredientChanged$ = new Subject<Ingredient[]>;
+  ingredientChanged$ = new Subject<Ingredient[]>();
   startEditing$: Subject<number> = new Subject<number>();
   private ingredients: Ingredient[] = [
     new Ingredient('Apples', 5),
