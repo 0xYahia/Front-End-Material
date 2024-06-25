@@ -1691,3 +1691,8 @@ this.signupForm.statusChanges.subscribe((status) => {
       'gender': 'male',
     });
 ```
+
+## Section 34: Making Http Requests [Angular < 16]
+#### 573: The Anatomy of an Http Request
+
+<img src="./imgs/4.png" />
