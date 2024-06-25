@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { Observable, map } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -13,27 +15,52 @@ import { FormsModule } from '@angular/forms';
 export class AppComponent implements OnInit {
   loadedPosts = [];
 
-  constructor(private http: HttpClient) { }
-
-  ngOnInit() { }
+  constructor(private http: HttpClient, private afs: AngularFirestore) { }
+  ngOnInit() {
+    this.fetchPosts()
+  }
 
   onCreatePost(postData: { title: string; content: string }) {
     // Send Http request
+    console.log(postData);
     this.http
       .post(
-        'https://ng-complete-guide-c56d3.firebaseio.com/posts.json',
+        'https://ng-complete-guide-31259-default-rtdb.firebaseio.com/posts.json',
         postData
-      )
-      .subscribe(responseData => {
+      ).subscribe(responseData => {
         console.log(responseData);
       });
+    // const postId = this.afs.createId();
+    // console.log(postId);
+    // this.afs.collection('/posts').add(postData);
   }
 
   onFetchPosts() {
     // Send Http request
+    // this.afs.collection('/posts').valueChanges().subscribe(posts => {
+    //   console.log(posts);
+    // });
+    this.fetchPosts()
   }
 
   onClearPosts() {
     // Send Http request
+  }
+
+  private fetchPosts(): void {
+    this.http.get('https://ng-complete-guide-31259-default-rtdb.firebaseio.com/posts.json').pipe(
+      map((responseData: any) => {
+        const postArr = [];
+        for (const key in responseData) {
+          if (responseData.hasOwnProperty(key)) {
+            postArr.push({ ...responseData[key], id: key })
+          }
+        }
+        return postArr;
+      })
+
+    ).subscribe(posts => {
+      console.log(posts);
+    })
   }
 }
