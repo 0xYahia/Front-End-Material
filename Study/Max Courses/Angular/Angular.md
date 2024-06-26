@@ -1696,3 +1696,5 @@ this.signupForm.statusChanges.subscribe((status) => {
 #### 573: The Anatomy of an Http Request
 
 <img src="./imgs/4.png" />
+
+### Note: If we not subscribe to the observable the request will not send.
