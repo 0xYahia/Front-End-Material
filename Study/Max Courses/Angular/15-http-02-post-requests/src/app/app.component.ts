@@ -1,68 +1,90 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ErrorHandler, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { Observable, map } from 'rxjs';
+import { catchError, map, of } from 'rxjs';
 
 import { Post } from './post.model';
+import { CommonModule } from '@angular/common';
+import { PostService } from './post.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
   standalone: true,
-  imports: [FormsModule]
+  imports: [FormsModule, CommonModule]
 })
 export class AppComponent implements OnInit {
-  loadedPosts = [];
+  loadedPosts: Post[] = [];
+  isFetching: boolean = false;
 
-  constructor(private http: HttpClient, private afs: AngularFirestore) { }
+  constructor(private http: HttpClient, private postService: PostService) { }
   ngOnInit() {
-    this.fetchPosts()
+    this.onFetchPosts()
+    console.log(this.loadedPosts);
   }
 
   onCreatePost(postData: { title: string; content: string }) {
-    // Send Http request
     console.log(postData);
-    this.http
-      .post<{ name: string }>(
-        'https://ng-complete-guide-31259-default-rtdb.firebaseio.com/posts.json',
-        postData
-      ).subscribe(responseData => {
-        console.log(responseData);
-      });
-    // const postId = this.afs.createId();
-    // console.log(postId);
-    // this.afs.collection('/posts').add(postData);
+    this.postService.onCreateOrSavePost(postData).subscribe(responseData => {
+      console.log(responseData);
+    });
+    this.onFetchPosts()
   }
 
   onFetchPosts() {
-    // Send Http request
-    // this.afs.collection('/posts').valueChanges().subscribe(posts => {
-    //   console.log(posts);
-    // });
-    this.fetchPosts()
+    this.postService.fetchPosts().pipe(
+      map(responseData => {
+        const postArr: Post[] = []
+        for (const key in responseData) {
+          if (responseData.hasOwnProperty(key)) {
+            postArr.push({ ...responseData[key], id: key })
+          }
+        }
+        return postArr
+      })
+    ).subscribe((posts) => {
+      this.isFetching = false;
+      this.loadedPosts = posts
+    })
   }
 
   onClearPosts() {
     // Send Http request
   }
 
-  private fetchPosts(): void {
-    this.http.get<{ [key: string]: Post }>('https://ng-complete-guide-31259-default-rtdb.firebaseio.com/posts.json').pipe(
-      map(responseData => {
-        const postArr: Post[] = [];
-        for (const key in responseData) {
-          if (responseData.hasOwnProperty(key)) {
-            postArr.push({ ...responseData[key], id: key })
-          }
-        }
-        return postArr;
-      })
+  // private fetchPosts(): void {
+  //   this.isFetching = true;
+  //   this.http.get<{ [key: string]: Post }>('https://ng-complete-guide-31259-default-rtdb.firebaseio.com/posts.json').pipe(
+  //     map(responseData => {
+  //       const postArr: Post[] = [];
+  //       for (const key in responseData) {
+  //         if (responseData.hasOwnProperty(key)) {
+  //           postArr.push({ ...responseData[key], id: key })
+  //         }
+  //       }
+  //       return postArr;
+  //     }),
+  //     catchError((error: ErrorHandler) => {
+  //       console.error('Error fetching posts:', error)
+  //       return of([]);
+  //     })
 
-    ).subscribe(posts => {
-      console.log(posts);
-    })
-  }
+  //   ).subscribe(
+  //     // {
+  //     //   next: (posts) => {
+  //     //     this.loadedPosts = posts
+  //     //     console.log(this.loadedPosts);
+  //     //   },
+  //     //   error: (error) => {
+  //     //     console.error('Error fetching posts:', error)
+  //     //     this.loadedPosts = []
+  //     //   }
+  //     // }
+  //     (posts) => {
+  //       this.isFetching = false;
+  //       this.loadedPosts = posts
+  //     }
+  //   )
+  // }
 }
