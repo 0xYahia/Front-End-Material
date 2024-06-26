@@ -26,24 +26,14 @@ export class AppComponent implements OnInit {
 
   onCreatePost(postData: { title: string; content: string }) {
     console.log(postData);
-    this.postService.onCreateOrSavePost(postData).subscribe(responseData => {
-      console.log(responseData);
-    });
-    this.onFetchPosts()
+    this.postService.onCreateOrSavePost(postData).subscribe(() => {
+      this.onFetchPosts()
+    })
   }
 
   onFetchPosts() {
-    this.postService.fetchPosts().pipe(
-      map(responseData => {
-        const postArr: Post[] = []
-        for (const key in responseData) {
-          if (responseData.hasOwnProperty(key)) {
-            postArr.push({ ...responseData[key], id: key })
-          }
-        }
-        return postArr
-      })
-    ).subscribe((posts) => {
+    this.isFetching = true;
+    this.postService.fetchPosts().subscribe((posts) => {
       this.isFetching = false;
       this.loadedPosts = posts
     })
@@ -51,6 +41,9 @@ export class AppComponent implements OnInit {
 
   onClearPosts() {
     // Send Http request
+    this.postService.deleteAllPosts().subscribe(() => {
+      this.loadedPosts = []
+    })
   }
 
   // private fetchPosts(): void {
