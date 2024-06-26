@@ -48,8 +48,13 @@
           <p>{{post.content}}</p>
         </li>
         } @empty {
-        @if (isFetching) {
+        @if (isFetching && !error) {
         <p>Loading...</p>
+        } @else if (isFetching && error) {
+        <div class="alert alert-danger">
+          <h3>An Error Occurred!</h3>
+          <p>{{error}}</p>
+        </div>
         } @else {
         <p>No posts available!</p>
         }
