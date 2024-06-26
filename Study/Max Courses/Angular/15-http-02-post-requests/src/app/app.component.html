@@ -50,10 +50,11 @@
         } @empty {
         @if (isFetching && !error) {
         <p>Loading...</p>
-        } @else if (isFetching && error) {
+        } @else if (!isFetching && error) {
         <div class="alert alert-danger">
           <h3>An Error Occurred!</h3>
           <p>{{error}}</p>
+          <button class="btn btn-danger" (click)="onHandlerError()">Oky!</button>
         </div>
         } @else {
         <p>No posts available!</p>

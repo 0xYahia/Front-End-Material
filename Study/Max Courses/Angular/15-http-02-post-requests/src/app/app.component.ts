@@ -1,7 +1,7 @@
-import { ChangeDetectorRef, Component, ErrorHandler, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, ErrorHandler, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { catchError, map, of } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 import { Post } from './post.model';
 import { CommonModule } from '@angular/common';
@@ -14,21 +14,24 @@ import { PostService } from './post.service';
   standalone: true,
   imports: [FormsModule, CommonModule]
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   loadedPosts: Post[] = [];
   isFetching: boolean = false;
-  error: string = '';
+
+  error: string | null = null;
+  errorSub: Subscription = new Subscription;
   constructor(private http: HttpClient, private postService: PostService) { }
   ngOnInit() {
     this.onFetchPosts()
     console.log(this.loadedPosts);
+    this.errorSub = this.postService.error.subscribe(errorMessage => {
+      this.error = errorMessage
+    })
   }
 
   onCreatePost(postData: { title: string; content: string }) {
     console.log(postData);
-    this.postService.onCreateOrSavePost(postData).subscribe(() => {
-      this.onFetchPosts()
-    })
+    this.postService.onCreateOrSavePost(postData)
   }
 
   onFetchPosts() {
@@ -38,10 +41,15 @@ export class AppComponent implements OnInit {
       this.loadedPosts = posts
     },
       error => {
+        this.isFetching = false;
         this.error = error.error.error
         console.log(error);
       }
     )
+  }
+
+  onHandlerError(): void {
+    this.error = null;
   }
 
   onClearPosts() {
@@ -85,4 +93,8 @@ export class AppComponent implements OnInit {
   //     }
   //   )
   // }
+
+  ngOnDestroy(): void {
+    this.errorSub.unsubscribe()
+  }
 }
