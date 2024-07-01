@@ -4,7 +4,7 @@ import { Post } from "./post.model";
 import { Observable, Subject, catchError, map, tap, throwError } from "rxjs";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class PostService {
   constructor(private http: HttpClient) { }
@@ -32,10 +32,13 @@ export class PostService {
     return this.http.get<{ [key: string]: Post }>('https://ng-complete-guide-31259-default-rtdb.firebaseio.com/posts.json'
       , {
         headers: new HttpHeaders({ 'Custom-Header': 'Hello' }),
-        params: searchParam
+        params: searchParam,
+        responseType: 'json' // by default
+        // responseType: 'blob'
+        // responseType: 'arraybuffer'
       }
     ).pipe(
-      map(responseData => {
+      map((responseData: any) => {
         const postArr: Post[] = []
         for (const key in responseData) {
           if (responseData.hasOwnProperty(key)) {
@@ -53,7 +56,7 @@ export class PostService {
   deleteAllPosts(): Observable<any> {
     return this.http.delete('https://ng-complete-guide-31259-default-rtdb.firebaseio.com/posts.json',
       {
-        observe: 'events'
+        observe: 'events',
       }
     ).pipe(
       tap(event => {
