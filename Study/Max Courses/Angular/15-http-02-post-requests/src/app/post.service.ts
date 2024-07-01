@@ -28,12 +28,12 @@ export class PostService {
   fetchPosts(): Observable<any> {
     let searchParam = new HttpParams()
     searchParam = new HttpParams().append('print', 'pretty')
-    searchParam = new HttpParams().append('custom', 'key')
+    // searchParam = new HttpParams().append('custom', 'key')
     return this.http.get<{ [key: string]: Post }>('https://ng-complete-guide-31259-default-rtdb.firebaseio.com/posts.json'
       , {
         headers: new HttpHeaders({ 'Custom-Header': 'Hello' }),
         params: searchParam,
-        responseType: 'json' // by default
+        // responseType: 'json' // by default
         // responseType: 'blob'
         // responseType: 'arraybuffer'
       }
