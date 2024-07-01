@@ -23,7 +23,6 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient, private postService: PostService) { }
   ngOnInit() {
     this.onFetchPosts()
-    console.log(this.loadedPosts);
     this.errorSub = this.postService.error.subscribe(errorMessage => {
       this.error = errorMessage
     })
