@@ -1,7 +1,8 @@
-import { HttpClient, HttpEventType, HttpHeaders, HttpParams } from "@angular/common/http";
+import { HttpClient, HttpContext, HttpEventType, HttpHeaders, HttpParams } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Post } from "./post.model";
 import { Observable, Subject, catchError, map, tap, throwError } from "rxjs";
+import { CACHING_ENABLED } from "../environment/environment";
 
 @Injectable({
   providedIn: 'root',
@@ -33,6 +34,7 @@ export class PostService {
       , {
         headers: new HttpHeaders({ 'Custom-Header': 'Hello' }),
         params: searchParam,
+        context: new HttpContext().set(CACHING_ENABLED, false)
         // responseType: 'json' // by default
         // responseType: 'blob'
         // responseType: 'arraybuffer'

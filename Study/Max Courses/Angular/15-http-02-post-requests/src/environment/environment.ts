@@ -1,3 +1,5 @@
+import { HttpContextToken } from "@angular/common/http";
+
 export const environment = {
   production: false,
   firebaseConfig: {
@@ -7,6 +9,7 @@ export const environment = {
     storageBucket: "ng-complete-guide-31259.appspot.com",
     messagingSenderId: "562264461698",
     appId: "1:562264461698:web:44eafc82bae627f4033f9b",
-    measurementId: "G-2VZRG9XSGG"
+    measurementId: "G-2VZRG9XSGG",
   }
 }
+export const CACHING_ENABLED = new HttpContextToken<boolean>(() => true);
