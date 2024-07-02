@@ -8,11 +8,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AngularFireModule } from '@angular/fire/compat';
 import { environment } from '../environment/environment';
 import { AuthInterceptorService } from './auth-interceptor.service';
+import { LoggingInterceptorService } from './logging-interceptor.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes), provideHttpClient(
-      withInterceptors([AuthInterceptorService])
+      withInterceptors([AuthInterceptorService, LoggingInterceptorService])
     ),
     importProvidersFrom(FormsModule, BrowserModule, AngularFireModule.initializeApp(environment.firebaseConfig))
   ],
