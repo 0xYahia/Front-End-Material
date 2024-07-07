@@ -4,30 +4,35 @@ import { Ingredient } from "../shared/ingredient.model";
 import { ShoppingListService } from "../shopping-list/shopping-list.service";
 import { Subject } from "rxjs/Subject";
 import { HttpClient } from "@angular/common/http";
+import { map } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 @Injectable()
 export class RecipeService {
   // recipeSelected = new Subject<Recipe>;
   recipesChanged$ = new Subject<Recipe[]>();
-  private recipes: Recipe[] = [
-    new Recipe(
-      'Tasty schnitzel',
-      'This is simply a test',
-      './assets/1.jpg'
-      ,
-      [
-        new Ingredient('Meat', 1),
-        new Ingredient('French Frise', 10),
-      ]),
-    new Recipe(
-      'Big fat burger',
-      'This is simply a test',
-      './assets/2.jpg',
-      [
-        new Ingredient('Buns', 2),
-        new Ingredient('Meat', 20),
-      ])
-  ];
+  // private recipes: Recipe[] = [
+  //   new Recipe(
+  //     'Tasty schnitzel',
+  //     'This is simply a test',
+  //     './assets/1.jpg'
+  //     ,
+  //     [
+  //       new Ingredient('Meat', 1),
+  //       new Ingredient('French Frise', 10),
+  //     ]),
+  //   new Recipe(
+  //     'Big fat burger',
+  //     'This is simply a test',
+  //     './assets/2.jpg',
+  //     [
+  //       new Ingredient('Buns', 2),
+  //       new Ingredient('Meat', 20),
+  //     ])
+  // ];
+
+
+  private recipes: Recipe[] = [];
 
   constructor(
     private shoppingListService: ShoppingListService,
@@ -75,9 +80,12 @@ export class RecipeService {
       });
   }
 
-  fetchRecipe(): void {
-    this.http.get<Recipe[]>('https://ng-cours-recipe-book-ea560-default-rtdb.firebaseio.com/recipes.json').subscribe(recipes => {
-      this.setRecipe(recipes);
-    });
+  fetchRecipe(): Observable<Recipe[]> {
+    return this.http.get<Recipe[]>('https://ng-cours-recipe-book-ea560-default-rtdb.firebaseio.com/recipes.json')
+      .pipe(map(recipes => {
+        return recipes?.map(recipe => {
+          return { ...recipe, ingredient: recipe.ingredients ? recipe.ingredients : [] };
+        });
+      }));
   }
 }
