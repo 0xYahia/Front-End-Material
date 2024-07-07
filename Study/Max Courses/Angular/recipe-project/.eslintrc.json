@@ -39,7 +39,7 @@
         "format": ["PascalCase"]
       }
     ],
-    "indent": ["warn", 2],
+    "indent": ["off", 2],
     "semi": ["warn", "always"],
     "no-var": "warn",
     "@typescript-eslint/explicit-module-boundary-types": "error",

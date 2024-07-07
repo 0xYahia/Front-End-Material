@@ -10,7 +10,8 @@ import { Observable } from "rxjs";
 export class RecipeResolverService implements Resolve<Recipe[]> {
   constructor(private recipeService: RecipeService) { }
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Recipe[]> {
-    return this.recipeService.fetchRecipe();
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Recipe[]> | Recipe[] {
+    const recipes: Recipe[] = this.recipeService.get();
+    return recipes.length === 0 ? this.recipeService.fetchRecipe() : recipes;
   }
 }

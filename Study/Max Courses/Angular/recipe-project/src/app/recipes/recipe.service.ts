@@ -4,7 +4,7 @@ import { Ingredient } from "../shared/ingredient.model";
 import { ShoppingListService } from "../shopping-list/shopping-list.service";
 import { Subject } from "rxjs/Subject";
 import { HttpClient } from "@angular/common/http";
-import { map } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
 import { Observable } from "rxjs";
 
 @Injectable()
@@ -86,6 +86,10 @@ export class RecipeService {
         return recipes?.map(recipe => {
           return { ...recipe, ingredient: recipe.ingredients ? recipe.ingredients : [] };
         });
-      }));
+      }),
+        tap(recipes => {
+          this.setRecipe(recipes);
+        })
+      );
   }
 }
