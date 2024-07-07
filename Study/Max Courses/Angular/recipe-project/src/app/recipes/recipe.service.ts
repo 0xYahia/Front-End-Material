@@ -4,7 +4,6 @@ import { Ingredient } from "../shared/ingredient.model";
 import { ShoppingListService } from "../shopping-list/shopping-list.service";
 import { Subject } from "rxjs/Subject";
 import { HttpClient } from "@angular/common/http";
-import { Observable } from "rxjs";
 
 @Injectable()
 export class RecipeService {
@@ -40,6 +39,11 @@ export class RecipeService {
     return this.recipes.slice();
   }
 
+  setRecipe(recipes: Recipe[]): void {
+    this.recipes = recipes;
+    this.recipesChanged$.next(this.recipes.slice());
+  }
+
   addIngredientsToShoppingList(ingredients: Ingredient[]): void {
     this.shoppingListService.addIngredients(ingredients);
   }
@@ -69,5 +73,11 @@ export class RecipeService {
       .subscribe(response => {
         console.log(response);
       });
+  }
+
+  fetchRecipe(): void {
+    this.http.get<Recipe[]>('https://ng-cours-recipe-book-ea560-default-rtdb.firebaseio.com/recipes.json').subscribe(recipes => {
+      this.setRecipe(recipes);
+    });
   }
 }
