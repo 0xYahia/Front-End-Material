@@ -1698,3 +1698,7 @@ this.signupForm.statusChanges.subscribe((status) => {
 <img src="./imgs/4.png" />
 
 ### Note: If we not subscribe to the observable the request will not send.
+
+## Section 36: Authentication & Route Protection in Angular
+#### 606: How Authentication Works
+<img src="./imgs/5.png" />
