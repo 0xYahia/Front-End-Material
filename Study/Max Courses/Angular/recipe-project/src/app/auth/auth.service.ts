@@ -4,10 +4,13 @@ import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 
 
-interface AuthResponseData {
+export interface AuthResponseData {
   idToken: string;
+  email: string;
   refreshToken: string;
   expiresIn: string;
+  localId: string;
+  registered?: boolean;
 }
 
 
@@ -18,7 +21,7 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   signup(email: string, password: string): Observable<AuthResponseData> {
-    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithCustomToken?key=AIzaSyAOiGURv7rFHhAdGOZbAHmLZm5BSdubhK4',
+    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAOiGURv7rFHhAdGOZbAHmLZm5BSdubhK4',
       {
         email: email,
         password: password,
@@ -36,4 +39,16 @@ export class AuthService {
       return throwError(errorMessage);
     }));
   }
+
+  login(email: string, password: string): Observable<AuthResponseData> {
+    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAOiGURv7rFHhAdGOZbAHmLZm5BSdubhK4',
+      {
+        email: email,
+        password: password,
+        returnSecureToken: true
+      }
+    );
+  }
+
+
 }
