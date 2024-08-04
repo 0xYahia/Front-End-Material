@@ -3,9 +3,10 @@ import { Injectable } from "@angular/core";
 import { Ingredient } from "../shared/ingredient.model";
 import { ShoppingListService } from "../shopping-list/shopping-list.service";
 import { Subject } from "rxjs/Subject";
-import { HttpClient } from "@angular/common/http";
-import { map, tap } from "rxjs/operators";
+import { HttpClient, HttpParams } from "@angular/common/http";
+import { exhaustMap, map, take, tap } from "rxjs/operators";
 import { Observable } from "rxjs";
+import { AuthService } from "../auth/auth.service";
 
 @Injectable()
 export class RecipeService {
@@ -36,7 +37,8 @@ export class RecipeService {
 
   constructor(
     private shoppingListService: ShoppingListService,
-    private http: HttpClient
+    private http: HttpClient,
+    private authService: AuthService
   ) {
   }
 
@@ -81,15 +83,20 @@ export class RecipeService {
   }
 
   fetchRecipe(): Observable<Recipe[]> {
-    return this.http.get<Recipe[]>('https://ng-cours-recipe-book-ea560-default-rtdb.firebaseio.com/recipes.json')
-      .pipe(map(recipes => {
+    return this.authService.user.pipe(take(1), exhaustMap(user => {
+      return this.http.get<Recipe[]>('https://ng-cours-recipe-book-ea560-default-rtdb.firebaseio.com/recipes.json',
+        {
+          params: new HttpParams().set('auth', user.token)
+        }
+      );
+    }),
+      map(recipes => {
         return recipes?.map(recipe => {
           return { ...recipe, ingredient: recipe.ingredients ? recipe.ingredients : [] };
         });
       }),
-        tap(recipes => {
-          this.setRecipe(recipes);
-        })
-      );
+      tap(recipes => {
+        this.setRecipe(recipes);
+      }));
   }
 }
