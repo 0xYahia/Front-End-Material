@@ -39,6 +39,7 @@
         "format": ["PascalCase"]
       }
     ],
+    "@typescript-eslint/no-explicit-any": "off",
     "indent": ["off", 2],
     "semi": ["warn", "always"],
     "no-var": "warn",
