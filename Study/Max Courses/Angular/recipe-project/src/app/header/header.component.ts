@@ -28,4 +28,8 @@ export class HeaderComponent implements OnInit {
   onFetchData(): void {
     this.recipeService.fetchRecipe().subscribe();
   }
+
+  onLogout(): void {
+    this.authService.logout();
+  }
 }
