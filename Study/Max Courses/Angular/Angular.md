@@ -1719,3 +1719,44 @@ this.signupForm.statusChanges.subscribe((status) => {
 
 **Example for Dynamic component loader**
 ```html
+  <ng-template appPlaceholder></ng-template>
+```
+
+```ts
+  @ViewChild('appPlaceholder') alertHost: PlaceHolderDirective;
+
+  constructor(private componentFactoryResolver: ComponentFactoryResolver) {}
+
+  // Old Way using ComponentFactoryResolver
+  showErrorAlert(message: string): void {
+    //! this work in JS not in angular
+    // const alertCmp:AlertComponent = new AlertComponent();
+    //! this work with angular after angular 13
+    const alertCmpFactory: any = this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
+    const hostViewContainerRef: ViewContainerRef = this.alertHost?.viewContainerRef;
+    hostViewContainerRef.clear();
+
+    const componentRef: any = hostViewContainerRef.createComponent(alertCmpFactory);
+
+    componentRef.instance.message = message;
+
+    this.closeSub = componentRef.instance.close.subscribe(() => {
+      this.closeSub.unsubscribe;
+      hostViewContainerRef.clear();
+    });
+  }
+
+  // New Way using without ComponentFactoryResolver
+  showErrorAlert(message: string): void {
+    const hostViewContainerRef: ViewContainerRef = this?.alertHost?.viewContainerRef;
+    hostViewContainerRef?.clear();
+    const componentRef: ComponentRef<AlertComponent> = hostViewContainerRef?.createComponent(AlertComponent);
+    componentRef.instance.message = message;
+
+    this.closeSub = componentRef.instance.close.subscribe(() => {
+      this.closeSub.unsubscribe;
+      hostViewContainerRef?.clear();
+    });
+  }
+  }
+```
