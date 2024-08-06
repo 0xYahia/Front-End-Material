@@ -1702,3 +1702,20 @@ this.signupForm.statusChanges.subscribe((status) => {
 ## Section 36: Authentication & Route Protection in Angular
 #### 606: How Authentication Works
 <img src="./imgs/5.png" />
+
+
+## Section 37: Dynamic Components
+#### 630: Understanding the different Approaches
+**What are Dynamic Component**
+&rarr; Loaded Programmatically
+- there are two approaches to load components dynamically
+  - ngIf
+  - Dynamic component loader
+
+**Example for ngIf**
+```html
+  <app-alert *ngIf="error" [message]="error" (close)="onHandleError()"></app-alert>
+```
+
+**Example for Dynamic component loader**
+```html
