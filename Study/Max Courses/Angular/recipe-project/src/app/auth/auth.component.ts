@@ -11,7 +11,7 @@ import { PlaceHolderDirective } from "../shared/placeholder.directive";
   selector: 'auth-app',
   templateUrl: './auth.component.html',
 })
-export class AuthComponent implements OnDestroy {
+export class AuthComponent {
   isLoginMode: boolean = true;
   isLoading: boolean = false;
   error: null | string = null;
@@ -88,7 +88,7 @@ export class AuthComponent implements OnDestroy {
   //   });
   // }
 
-  ngOnDestroy(): void {
-    this.closeSub.unsubscribe();
-  }
+  // ngOnDestroy(): void {
+  //   this.closeSub.unsubscribe();
+  // }
 }
