@@ -1760,3 +1760,11 @@ this.signupForm.statusChanges.subscribe((status) => {
   }
   }
 ```
+
+## Section 38: Angular Modules & Optimizing Angular Apps
+#### 640: What are Angular Modules
+- Angular Modules are used to organize the application into cohesive blocks of functionality.
+- this module contain components, directives, pipes, services, and other modules.
+
+#### 641: Analyzing the AppModule
+**Note &rarr; When you import module in another module you can use all components, directives, pipes, services, and other modules was exported from this module.**
