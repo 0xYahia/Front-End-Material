@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from '../app-routing.module';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { RecipeRoutingModule } from './recipe-routing.module';
+import { SharedModule } from '../shared/shared.module';
 
 
 @NgModule({
@@ -23,7 +24,7 @@ import { RecipeRoutingModule } from './recipe-routing.module';
     RecipeEditComponent,
   ],
   imports: [
-    CommonModule,
+    SharedModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
