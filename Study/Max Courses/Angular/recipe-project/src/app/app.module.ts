@@ -19,13 +19,13 @@ import { AuthInterceptor } from './auth/auth-interceptor.service';
 import { AlertComponent } from './shared/alert/alert.component';
 import { PlaceHolderDirective } from './shared/placeholder.directive';
 import { RecipeModule } from './recipes/recipe.module';
+import { ShoppingListModule } from './shopping-list/shopping-list.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    ShoppingListComponent,
-    ShoppingEditComponent,
+
     DropdownDirective,
     AuthComponent,
     AlertComponent,
@@ -40,7 +40,8 @@ import { RecipeModule } from './recipes/recipe.module';
     AppRoutingModule,
     LoadingSpinnerComponent,
     LoadingSpinnerComponent,
-    RecipeModule
+    RecipeModule,
+    ShoppingListModule
   ],
   providers: [ShoppingListService, RecipeService, {
     provide: HTTP_INTERCEPTORS,

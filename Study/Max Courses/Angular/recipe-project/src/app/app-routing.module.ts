@@ -1,14 +1,11 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
-import { ShoppingListComponent } from "./shopping-list/shopping-list.component";
 import { AuthComponent } from "./auth/auth.component";
 
 
 const appRouting: Routes = [
   { path: '', redirectTo: '/recipes', pathMatch: "full" },
-
-  { path: 'shopping-list', component: ShoppingListComponent },
   { path: 'auth', component: AuthComponent }
 ];
 
@@ -16,7 +13,4 @@ const appRouting: Routes = [
   imports: [RouterModule.forRoot(appRouting)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {
-
-
-}
+export class AppRoutingModule { }
