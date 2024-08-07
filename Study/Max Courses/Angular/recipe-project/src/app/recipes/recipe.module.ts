@@ -10,18 +10,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from '../app-routing.module';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { RecipeRoutingModule } from './recipe-routing.module';
 
 
 @NgModule({
   declarations: [
-    RecipesComponent,
-    RecipeListComponent,
-    RecipeDetailComponent,
-    RecipeItemComponent,
-    RecipeStartComponent,
-    RecipeEditComponent,
-  ],
-  exports: [
     RecipesComponent,
     RecipeListComponent,
     RecipeDetailComponent,
@@ -36,6 +29,16 @@ import { CommonModule, NgOptimizedImage } from '@angular/common';
     HttpClientModule,
     NgOptimizedImage,
     AppRoutingModule,
-  ]
+    RecipeRoutingModule
+  ],
+  exports: [
+    RecipesComponent,
+    RecipeListComponent,
+    RecipeDetailComponent,
+    RecipeItemComponent,
+    RecipeStartComponent,
+    RecipeEditComponent,
+  ],
+
 })
 export class RecipeModule { }
