@@ -78,7 +78,6 @@ export class RecipeService {
     const recipes: Recipe[] = this.get();
     this.http.put('https://ng-cours-recipe-book-ea560-default-rtdb.firebaseio.com/recipes.json', recipes)
       .subscribe(response => {
-        console.log(response);
       });
   }
 

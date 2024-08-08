@@ -41,10 +41,8 @@ export class AuthComponent {
       this.router.navigate(['./recipes']);
     }
     authObs?.subscribe(res => {
-      console.log(res);
       this.isLoading = false;
     }, (errorMessage) => {
-      console.log(errorMessage);
       this.error = errorMessage;
       // this.showErrorAlert(errorMessage);
       this.isLoading = false;
