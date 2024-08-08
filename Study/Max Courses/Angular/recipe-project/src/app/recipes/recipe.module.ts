@@ -29,7 +29,6 @@ import { SharedModule } from '../shared/shared.module';
     ReactiveFormsModule,
     HttpClientModule,
     NgOptimizedImage,
-    AppRoutingModule,
     RecipeRoutingModule
   ],
   exports: [
