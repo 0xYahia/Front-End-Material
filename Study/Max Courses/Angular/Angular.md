@@ -1768,3 +1768,27 @@ this.signupForm.statusChanges.subscribe((status) => {
 
 #### 641: Analyzing the AppModule
 **Note &rarr; When you import module in another module you can use all components, directives, pipes, services, and other modules was exported from this module.**
+
+#### 653: Preloading Lazy-Loaded Routes
+- Preloading lazy-loaded routes is a technique to load lazy-loaded routes in the background after the initial load of the application.
+- This can improve the performance of the application by reducing the time it takes to load the lazy-loaded routes when the user navigates to them.
+
+```ts
+import { NgModule } from "@angular/core";
+import { PreloadAllModules, RouterModule, Routes } from "@angular/router";
+
+
+
+const appRouting: Routes = [
+  { path: '', redirectTo: '/recipes', pathMatch: "full" },
+  { path: 'recipes', loadChildren: () => import('./recipes/recipe.module').then(m => m.RecipeModule) },
+  { path: 'shopping-list', loadChildren: () => import('./shopping-list/shopping-list.module').then(m => m.ShoppingListModule) },
+  { path: 'auth', loadChildren: () => import('./auth/Auth.module').then(m => m.AuthModule) },
+];
+
+@NgModule({
+  imports: [RouterModule.forRoot(appRouting, { preloadingStrategy: PreloadAllModules })],
+  exports: [RouterModule]
+})
+export class AppRoutingModule { }
+```
