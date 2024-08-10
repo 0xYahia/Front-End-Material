@@ -1792,3 +1792,18 @@ const appRouting: Routes = [
 })
 export class AppRoutingModule { }
 ```
+#### 655: Loading Services Differently
+- You can use `providedIn` property in the `@Injectable` decorator to load services differently.
+- You can use `root` to load the service with the root injector.
+- You can use `any` to load the service with the lazy-loaded module injector.
+- You can use `platform` to load the service with the platform injector.
+
+```ts
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthService {
+  // ...
+}
+```
+<img src="./imgs/6.png" />
