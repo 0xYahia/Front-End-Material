@@ -1807,3 +1807,5 @@ export class AuthService {
 }
 ```
 <img src="./imgs/6.png" />
+
+**Note** &rarr; If you use `providedIn: 'root'` and import the service in appModule and lazy-loaded module the service will be a singleton service. and make own instance in module imported lazy-loaded module for example shared module and this is bug.
