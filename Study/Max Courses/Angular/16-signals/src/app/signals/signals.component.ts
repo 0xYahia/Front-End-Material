@@ -1,5 +1,5 @@
 import { NgFor } from '@angular/common';
-import { Component, computed, Signal, signal, WritableSignal } from '@angular/core';
+import { Component, computed, effect, Signal, signal, WritableSignal } from '@angular/core';
 
 @Component({
   selector: 'app-signals',
@@ -12,6 +12,10 @@ export class SignalsComponent {
   counter: WritableSignal<number> = signal(0);
 
   doubleCounter: Signal<number> = computed(() => this.counter() * 2);
+
+  constructor() {
+    effect(() => console.log(this.counter() * 5))
+  }
 
   increment() {
     console.log('INCREMENT');
