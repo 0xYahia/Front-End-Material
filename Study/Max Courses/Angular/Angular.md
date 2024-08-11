@@ -1823,3 +1823,17 @@ export class AuthService {
   - don't need to check all components for changes
   - more efficient and faster than classic change detection
   - smaller bundle size
+
+#### 672: Reading & updating Signals values
+**Note** &rarr; Signals return WritableSignal and ReadableSignal
+**NOTE** &rarr; computed signal is a signal that depends on other signals, and it's value is computed based on the values of the other signals and not writable signals
+
+#### Computed signals are both lazily evaluated and memoized
+- doubleCount's derivation function does not run to calculate its value until the first time you read doubleCount. The calculated value is then cached, and if you read doubleCount again, it will return the cached value without recalculating.
+
+- If you then change count, Angular knows that doubleCount's cached value is no longer valid, and the next time you read doubleCount - its new value will be calculated.
+
+- As a result, you can safely perform computationally expensive derivations in computed signals, such as filtering arrays.
+
+#### Computed signals are not writable signals
+- You cannot directly assign values to a computed signal. That is,
