@@ -1837,3 +1837,6 @@ export class AuthService {
 
 #### Computed signals are not writable signals
 - You cannot directly assign values to a computed signal. That is,
+
+## Section 41: NgRx for state management
+#### 679: What is NgRx?
