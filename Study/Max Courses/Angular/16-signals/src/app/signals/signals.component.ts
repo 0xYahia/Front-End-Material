@@ -8,18 +8,26 @@ import { Component, computed, Signal, signal, WritableSignal } from '@angular/co
   imports: [NgFor],
 })
 export class SignalsComponent {
-  actions: string[] = [];
+  actions: WritableSignal<string[]> = signal<string[]>([]);
   counter: WritableSignal<number> = signal(0);
 
   doubleCounter: Signal<number> = computed(() => this.counter() * 2);
 
   increment() {
-    this.counter.update(oldCounter => oldCounter + 1);
-    this.actions.push('INCREMENT');
+    console.log('INCREMENT');
+    // this.counter.update(oldCounter => oldCounter + 1);
+    //! Update in old array
+    this.counter.set(this.counter() + 1)
+    // this.actions.push('INCREMENT');
+    this.actions.mutate(oldActions => oldActions.push('INCREMENT'))
   }
 
   decrement() {
-    this.counter.update(oldCounter => oldCounter - 1);
-    this.actions.push('DECREMENT');
+    if (this.counter() === 0) return;
+    console.log('DECREMENT');
+    this.counter.update((oldCounter) => oldCounter - 1);
+    // this.actions.push('DECREMENT');
+    //! this act as mutate because i edit in current array
+    this.actions.update(oldActions => [...oldActions, 'DECREMENT'])
   }
 }
