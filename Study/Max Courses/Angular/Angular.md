@@ -1809,3 +1809,17 @@ export class AuthService {
 <img src="./imgs/6.png" />
 
 **Note** &rarr; If you use `providedIn: 'root'` and import the service in appModule and lazy-loaded module the service will be a singleton service. and make own instance in module imported lazy-loaded module for example shared module and this is bug.
+
+## Section 40: Angular Signals
+#### 669: Signals: What & Why?
+##### Classic change detection vs Signals
+- Classic change detection
+  - Angular checks all components for changes
+  - Angular checks all components for changes
+  - Angular updates the DOM
+  - use external library like `zone.js` to detect changes in the application so it's not good for performance and big bundle size.
+- Signals
+  - with signals, you can subscribe to changes in the application
+  - don't need to check all components for changes
+  - more efficient and faster than classic change detection
+  - smaller bundle size
