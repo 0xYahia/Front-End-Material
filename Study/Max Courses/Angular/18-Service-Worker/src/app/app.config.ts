@@ -17,9 +17,6 @@ export const appConfig: ApplicationConfig = {
       //! or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    provideHttpClient(), provideServiceWorker('ngsw-worker.js', {
-      enabled: !isDevMode(),
-      registrationStrategy: 'registerWhenStable:30000'
-    })
+    provideHttpClient()
   ]
 };
