@@ -20,10 +20,10 @@ describe('AppComponent', () => {
     expect(app.title).toEqual('TapTag');
   });
 
-  // it('should render title', () => {
-  //   const fixture: ComponentFixture<any> = TestBed.createComponent(AppComponent);
-  //   fixture.detectChanges();
-  //   const compiled: HTMLElement = fixture.nativeElement as HTMLElement;
-  //   expect(compiled.querySelector('h1')?.textContent).toContain('Hello, TapTag');
-  // });
+  it('should render title', () => {
+    const fixture: ComponentFixture<any> = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled: HTMLElement = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, TapTag');
+  });
 });

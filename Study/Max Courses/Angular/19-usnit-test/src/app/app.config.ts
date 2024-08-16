@@ -3,7 +3,6 @@ import { provideRouter } from '@angular/router';
 import { provideServiceWorker } from '@angular/service-worker';
 
 import { routes } from './app.routes';
-import { provideHttpClient } from '@angular/common/http';
 
 
 export const appConfig: ApplicationConfig = {
@@ -17,6 +16,5 @@ export const appConfig: ApplicationConfig = {
       //! or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    provideHttpClient()
   ]
 };

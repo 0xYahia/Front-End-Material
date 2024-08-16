@@ -1,27 +1,11 @@
-import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-
-import { Post } from './post.model';
-import { PostComponent } from './post/post.component';
-import { CommonModule } from '@angular/common';
-
+import { UsersComponent } from './users/users.component';
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, PostComponent, CommonModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
+  standalone: true,
 })
 export class AppComponent {
-  title: string = 'TapTag';
-  posts: Post[] = [];
-
-  constructor(private http: HttpClient) { }
-
-  ngOnInit(): void {
-    this.http
-      .get<Post[]>('https://jsonplaceholder.typicode.com/posts')
-      .subscribe(fetchedPosts => (this.posts = fetchedPosts));
-  }
+  title = 'TapTag';
 }
