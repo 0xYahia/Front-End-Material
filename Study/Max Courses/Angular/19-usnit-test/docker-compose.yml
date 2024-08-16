@@ -1,0 +1,15 @@
+services:
+  roboost-dev-docs:
+    container_name: roboost-dev-docs_container
+    build: .
+    image: roboost-dev-docs_image:v1
+    ports:
+      - 80:80
+    expose:
+      - 80
+    networks:
+        - internalnet
+
+networks:
+  internalnet:
+    driver: bridge
