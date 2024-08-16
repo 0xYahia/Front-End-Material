@@ -33,7 +33,7 @@
     {
       "name": "posts",
       "urls": [
-        "https://jsonplaceholder.typicode.com/posts"
+        "https://jsonplaceholder.typicode.com/**"
       ],
       "cacheConfig": {
         "maxSize": 5,
