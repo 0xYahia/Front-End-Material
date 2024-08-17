@@ -1,5 +1,5 @@
 /* tslint:disable:no-unused-variable */
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, fakeAsync, TestBed, tick } from '@angular/core/testing';
 import { UsersComponent } from './user.component';
 import { UserService } from './user.service';
 import { DataService } from '../shared/data.service';
@@ -75,4 +75,15 @@ describe('UsersComponent', () => {
       expect(app.data).toBe('Data');
     });
   });
+
+  it('shouldn\'t fetch data successfully if not called asynchronously', fakeAsync(() => {
+    const fixture: ComponentFixture<UsersComponent> = TestBed.createComponent(UsersComponent);
+    const app: UsersComponent = fixture.componentInstance;
+    dataService = TestBed.inject(DataService);
+
+    const spy: any = spyOn(dataService, 'getDetails').and.returnValue(Promise.resolve('Data'))
+    fixture.detectChanges();
+    tick();
+    expect(app.data).toBe('Data');
+  }));
 });
