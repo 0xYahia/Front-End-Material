@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "fir-testing-26082": {
+      "hosting": {
+        "20-angular-config": [
+          "fir-testing-26082"
+        ]
+      }
+    }
+  }
+}
