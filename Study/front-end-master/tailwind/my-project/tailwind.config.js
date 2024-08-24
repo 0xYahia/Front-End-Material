@@ -2,7 +2,36 @@
 export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primary: {
+          dark: '#CC00CC',
+          light: '#FF00CC',
+          DEFAULT: 'rebeccapurple',
+        },
+        mandy: {
+          50: '#fef2f3',
+          100: '#fde6e7',
+          200: '#fbd0d5',
+          300: '#f7aab2',
+          400: '#f27a8a',
+          500: '#ea546c',
+          600: '#d5294d',
+          700: '#b31d3f',
+          800: '#961b3c',
+          900: '#811a39',
+          950: '#48091a',
+        },
+      },
+      // colors(theme) {
+      //   return {
+      //     primary: {
+      //       ...theme.colors.purple,
+      //       DEFAULT: theme.colors.purple[500],
+      //     },
+      //   };
+      // },
+    },
   },
   plugins: [],
 }
