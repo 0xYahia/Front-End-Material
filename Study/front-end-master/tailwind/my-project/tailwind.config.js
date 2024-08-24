@@ -9,6 +9,20 @@ export default {
           light: '#FF00CC',
           DEFAULT: 'rebeccapurple',
         },
+        'forest-green': {
+          50: '#f3faf3',
+          100: '#e3f5e3',
+          200: '#c9e9c9',
+          300: '#9ed79f',
+          400: '#6cbc6d',
+          500: '#489f49',
+          600: '#388539',
+          700: '#2e672f',
+          800: '#285329',
+          900: '#234424',
+          950: '#0f2411',
+        },
+
         mandy: {
           50: '#fef2f3',
           100: '#fde6e7',
