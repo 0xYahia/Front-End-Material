@@ -82,3 +82,17 @@
 ##### Policies in IAM Service:
 
 - Policies: A policy is a document that defines one or more permissions. and can be attached to a user, group, or role. maybe grant or deny permission.
+
+##### What is principle?
+
+- any role or user send request to AWS service.
+- the principle is the entity that is making the request.
+
+**NOTE: When any principle send request**
+
+- IAM Service will check the permission of the principle.
+  - if the principle has permission (Authentication) the request will be accepted.
+  - What need this principle to do the request? (Authorization)
+  - if the principle has no permission (Authorization) the request will be denied.
+  - if the principle need do two request. and does not have permission for one of them. all request will be denied.
+  - if the principle need to do tow actions one of them is denied. and the other is allowed to the same resource. the request will be denied. otherwise, the order of the request will be accepted.
