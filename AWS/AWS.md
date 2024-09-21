@@ -58,3 +58,5 @@
 #### 04- Shared Responsibility Model
 
 <img src="./img/03.jpg">
+
+#### 06- IAM Service Introduction
