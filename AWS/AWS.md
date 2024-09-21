@@ -60,3 +60,25 @@
 <img src="./img/03.jpg">
 
 #### 06- IAM Service Introduction
+
+#### 07- IAM Resources
+
+**Wheat is ARN ?**
+
+- Amazon Resource Name (ARN) is a unique identifier that unambiguously identifies a resource.
+
+##### Users Groups in IAM Service:
+
+- Groups: A collection of users. Each user in the group will inherit the permission of the group.
+
+##### Users in IAM Service:
+
+- Users: A user is an entity that you create in AWS to represent the person or service that uses it. can give it directly permission. or add it to group. to inherit the permission of the group.
+
+##### Roles in IAM Service:
+
+- Roles: A role is an entity that has its own permission. and can be assumed by another entity. like user, service, VM, or application.
+
+##### Policies in IAM Service:
+
+- Policies: A policy is a document that defines one or more permissions. and can be attached to a user, group, or role. maybe grant or deny permission.
