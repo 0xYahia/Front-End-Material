@@ -96,3 +96,5 @@
   - if the principle has no permission (Authorization) the request will be denied.
   - if the principle need do two request. and does not have permission for one of them. all request will be denied.
   - if the principle need to do tow actions one of them is denied. and the other is allowed to the same resource. the request will be denied. otherwise, the order of the request will be accepted.
+
+#### 08 – Setup AWS CLI – Prerequisites and Environment
