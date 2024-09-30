@@ -1,14 +1,18 @@
 import { Component } from '@angular/core';
+import { UserInfoComponent } from './user-info/user-info.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
+  imports: [UserInfoComponent],
   template: `
     <section class="menu">🏠 Home</section>
     <section class="main">
       <h1>Metrics and Figures Dashboard</h1>
       <section class="content">
-        <article class="tile"></article>
+        <article class="tile">
+          <app-user-info />
+        </article>
         <article class="tile">
           <img src="/assets/noun-pie-chart-6331100-C462DD.png" height="300" />
         </article>
