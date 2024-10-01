@@ -7,11 +7,11 @@ import { ListingComponent } from './listing/listing.component';
   standalone: true,
   imports: [ListingComponent],
   template: `
-    <h1>Saved Cars {{ carList.length }}</h1>
+    <h1>Saved Cars {{ savedCarList.length }}</h1>
     <section class="container">
       <!-- This article element represents and entire listing -->
        @for (carEntry of carList; track carEntry) {
-         <app-listing [car]="carEntry" />
+         <app-listing (saveCar)="handleCarSaved($event)" [car]="carEntry" />
        }
       <!-- end car listing markup -->
     </section>
@@ -54,4 +54,9 @@ export class AppComponent {
       transmission: 'Automatic',
     },
   ];
+
+  handleCarSaved(car: Car) {
+    console.log({ car });
+    this.savedCarList.push(car)
+  }
 }
