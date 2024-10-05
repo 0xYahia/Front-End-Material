@@ -5,5 +5,11 @@ describe('Create a New Item', () => {
     cy.visit('/jetsetter')
   })
 
-  it('should', () => {})
+  it('should have a form', () => {
+    cy.get('form').should('exist')
+  })
+
+  it('should contain word "Add Item"', () => {
+    cy.contains('Add Item')
+  })
 });
