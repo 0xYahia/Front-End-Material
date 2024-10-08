@@ -78,7 +78,11 @@ describe('Basic Practice', () => {
   });
 
   describe('Mark all as unpacked', () => {
-    it('should empty out the "Packed" list', () => {});
+    it('should empty out the "Packed" list', () => {
+      cy.get('[data-test="items-packed"] > ul.s-vF8tIk32PFgu > li.s-vF8tIk32PFgu >').each(($item, index => {
+        cy.wrap($item).find(`#item-${index}`).uncheck()
+      }))
+    });
 
     it('should empty have all of the items in the "Unpacked" list', () => {});
   });
