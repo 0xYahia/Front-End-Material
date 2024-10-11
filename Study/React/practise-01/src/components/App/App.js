@@ -1,6 +1,6 @@
 import style from './App.module.css'
 import Card from '../Card/Card'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 
 const App = () => {
 
@@ -25,6 +25,10 @@ const App = () => {
     },
   ])
 
+  const inputEl = useRef(null)
+
+  const [cardToggle, setCardToggle] = useState(true)
+
   const deleteHandler = (e, id) => {
     // const newBoys = state.filter((_, index) => (id !== index))
     // setState(newBoys)
@@ -32,15 +36,26 @@ const App = () => {
     setState((prevState) => {
       return prevState.filter((_, index) => (index !== id))
     })
-    console.log('inside', state);
   }
-  console.log('outside', state);
+
+  const print = () => {
+    console.log(inputEl.current.value);
+  }
+
+  const focus = () => {
+    inputEl.current.focus()
+  }
 
   return (
     <>
       <div className={style.mainContainer}>
         <h1>Boys Data</h1>
-        <Card userList={state} type="boys" deleteHandler={deleteHandler} />
+        <button style={{marginBottom: '20px'}} onClick={() => setCardToggle(!cardToggle)} >{cardToggle ? 'Hide Named': 'Show Names' }</button>
+        <div>
+          <input type="text" style={{marginBottom: '20px', marginRight: '20px'}} ref={inputEl} onChange={print} />
+          <button onClick={focus} >Click To Focus</button>
+        </div>
+        {cardToggle ?  <Card userList={state} type="boys" deleteHandler={deleteHandler} /> : '' }
       </div>
     </>
   )
