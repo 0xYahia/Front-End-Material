@@ -24,7 +24,7 @@ import App from "./components/App/App";
 const root = ReactDom.createRoot(document.getElementById('root'))
 // root.render(React.createElement('div', {}, React.createElement('h1', {style: {color: 'red'}}, 'Hello World')))
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <App />
-  </React.StrictMode>
+  // </React.StrictMode>
 )
