@@ -19,7 +19,7 @@
 
 import React from "react";
 import ReactDom from 'react-dom/client'
-import App from "./components/App/App";
+import App from "./App/App";
 
 const root = ReactDom.createRoot(document.getElementById('root'))
 // root.render(React.createElement('div', {}, React.createElement('h1', {style: {color: 'red'}}, 'Hello World')))

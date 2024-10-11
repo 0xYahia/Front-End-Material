@@ -1,16 +1,15 @@
-
 import style from './Card.module.css'
-const Card = ({userList, type, deleteHandler}) => {
-  const card = userList.map((el, index) => (
-    <div className={style.cardWrapper} key={index} style={{background: type ==='girls' ? 'pink' : 'green' }} >
-      <div>Name: {el.name}</div>
-      <div>Age: {el.age}</div>
-      <div>Address: {el.address}</div>
-      <div>Phone: {el.phone}</div>
-      <div className={style.deleteBtn} onClick={(e) => deleteHandler(e, index)} >x</div>
-  </div>
-  ))
-  return card
+
+const Card = ({id, name, age, address, phone, type, deleteHandler}) => {
+  return (
+    <div className={style.cardWrapper} style={{background: type ==='female' ? 'pink' : 'green' }} >
+      <div>Name: {name}</div>
+      <div>Age: {age}</div>
+      <div>Address: {address}</div>
+      <div>Phone: {phone}</div>
+      <div className={style.deleteBtn} onClick={(e) => deleteHandler(e, id)} >x</div>
+    </div>
+  );
 }
 
 export default Card;

@@ -1,13 +1,14 @@
 import { useState } from 'react'
 import style from './Filter.module.css'
 
-const Filter = () => {
+const Filter = ({filtration}) => {
 
   const [filter, setFilter] = useState('')
 
   const filterHandler = (e) => {
     const filterValue = e.target.value;
     setFilter(filterValue)
+    filtration(filterValue)
   }
   return (
     <div>
