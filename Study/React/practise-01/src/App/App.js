@@ -2,6 +2,7 @@ import '../index.css'
 import { useRef, useState } from 'react'
 import Filter from '../components/Filter/Filter'
 import CardList from '../components/CardList/CardList'
+import Modal from '../components/Modal/Modal'
 
 const App = () => {
 
@@ -77,7 +78,8 @@ const App = () => {
   return (
     <>
       <div className="mainContainer">
-        <h1>Boys Data</h1>
+        <Modal />
+        <h1>Boys List</h1>
         <button style={{marginBottom: '20px'}} onClick={() => setCardToggle(!cardToggle)} >{cardToggle ? 'Hide Named': 'Show Names' }</button>
         {/* <div>
           <input type="text" style={{marginBottom: '20px', marginRight: '20px'}} ref={inputEl} onChange={print} />
