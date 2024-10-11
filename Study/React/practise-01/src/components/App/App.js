@@ -1,6 +1,7 @@
 import style from './App.module.css'
 import Card from '../Card/Card'
 import { useRef, useState } from 'react'
+import Filter from '../Filter/Filter'
 
 const App = () => {
 
@@ -51,10 +52,11 @@ const App = () => {
       <div className={style.mainContainer}>
         <h1>Boys Data</h1>
         <button style={{marginBottom: '20px'}} onClick={() => setCardToggle(!cardToggle)} >{cardToggle ? 'Hide Named': 'Show Names' }</button>
-        <div>
+        {/* <div>
           <input type="text" style={{marginBottom: '20px', marginRight: '20px'}} ref={inputEl} onChange={print} />
           <button onClick={focus} >Click To Focus</button>
-        </div>
+        </div> */}
+        <Filter />
         {cardToggle ?  <Card userList={state} type="boys" deleteHandler={deleteHandler} /> : '' }
       </div>
     </>
