@@ -1,16 +1,16 @@
 import { createPortal } from 'react-dom';
 import style from './Modal.module.css'
 
-const Backdrop = () => <div className={style.backDrop}></div>
+const Backdrop = ({close}) => <div className={style.backDrop} onClick={close} ></div>
 const Overlay = () => <div className={style.overlay}></div>
 
 
-const Modal = () => {
+const Modal = ({show, closeModal}) => {
   return (
     <>
-      {createPortal(
+      {show && createPortal(
         <>
-          <Backdrop />
+          <Backdrop close={closeModal} />
           <Overlay />
         </>,
         document.getElementById('modal')

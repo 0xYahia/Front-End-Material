@@ -40,11 +40,10 @@ const App = () => {
       type: 'female'
     },
   ])
-
   const inputEl = useRef(null)
-
   const [cardToggle, setCardToggle] = useState(true)
   const [filter, setFilter] = useState('')
+  const [showModal, setShowModal] = useState(false)
 
   const deleteHandler = (e, id) => {
     console.log(id);
@@ -78,15 +77,18 @@ const App = () => {
   return (
     <>
       <div className="mainContainer">
-        <Modal />
+        <Modal show={showModal} closeModal={() => setShowModal(false)} />
         <h1>Boys List</h1>
-        <button style={{marginBottom: '20px'}} onClick={() => setCardToggle(!cardToggle)} >{cardToggle ? 'Hide Named': 'Show Names' }</button>
+        <div style={{display: 'flex', marginBottom: '20px'}}>
+          <button className='btn' style={{marginRight: '20px'}} onClick={() => setCardToggle(!cardToggle)} >{cardToggle ? 'Hide Named': 'Show Names' }</button>
+          <button  className='btn' onClick={() => setShowModal(true)} > Show Modal</button>
+        </div>
         {/* <div>
           <input type="text" style={{marginBottom: '20px', marginRight: '20px'}} ref={inputEl} onChange={print} />
           <button onClick={focus} >Click To Focus</button>
         </div> */}
         <Filter filtration={filtration} />
-        {cardToggle ?  <CardList userList={namesHandler()} deleteHandler={deleteHandler} /> : '' }
+        {cardToggle &&  <CardList userList={namesHandler()} deleteHandler={deleteHandler} /> }
       </div>
     </>
   )
