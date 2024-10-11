@@ -1,15 +1,35 @@
+import  './App.css'
+import Card from './Card'
+
 const App = () => {
-  const pStyles = {color: 'red', marginTop: '100px'}
-  const myName = 'Ahmed';
-  const names = ['Mohamed', 'Yahia', 'Ahmed']
+
+  const users = [
+    {
+      name: 'Yahia',
+      age: 27,
+      address: 'Cairo',
+      phone: '0102702567'
+    },
+    {
+      name: 'Ahmed',
+      age: 30,
+      address: 'Cairo',
+      phone: '0102702567'
+    },
+    {
+      name: 'Sayed',
+      age: 33,
+      address: 'Cairo',
+      phone: '0102702567'
+    },
+  ]
+
+
+
   return (
     <>
-      <h1 style={pStyles} >Hello World</h1>
-      <div>
-        <p>{myName === 'Yahia' ? 'Hello Yahia' : 'Hello there'}</p>
-        <div>Named: {names.map(el => (
-          <p>{el}</p>
-        ))}</div>
+      <div className="mainContainer">
+        <Card userList={users} />
       </div>
     </>
   )
