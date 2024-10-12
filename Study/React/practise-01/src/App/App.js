@@ -57,6 +57,10 @@ const App = () => {
     })
   }
 
+  const addUserHandler = (data) => {
+    console.log(data);
+  }
+
   // const print = () => {
   //   console.log(inputEl.current.value);
   // }
@@ -95,7 +99,7 @@ const App = () => {
         {cardToggle &&  <CardList userList={namesHandler()} deleteHandler={deleteHandler} /> }
       </div>
       <Modal show={showModal} closeModal={() => setShowModal(false)}>
-        <AddUser />
+        <AddUser addUserHandler={addUserHandler} />
       </Modal>
     </>
   )
