@@ -3,6 +3,7 @@ import { useRef, useState } from 'react'
 import Filter from '../components/Filter/Filter'
 import CardList from '../components/CardList/CardList'
 import Modal from '../components/Modal/Modal'
+import Button from '../components/Layout/Buttons'
 
 const App = () => {
 
@@ -80,7 +81,10 @@ const App = () => {
         <Modal show={showModal} closeModal={() => setShowModal(false)} />
         <h1>Boys List</h1>
         <div style={{display: 'flex', marginBottom: '20px'}}>
-          <button className='btn' style={{marginRight: '20px'}} onClick={() => setCardToggle(!cardToggle)} >{cardToggle ? 'Hide Named': 'Show Names' }</button>
+          <Button style={{marginRight: '20px'}} onClick={() => setCardToggle(!cardToggle)}>
+              {cardToggle ? 'Hide Names': 'Show Names' }
+          </Button>
+          {/* <button className='btn' style={{marginRight: '20px'}} onClick={() => setCardToggle(!cardToggle)} >{cardToggle ? 'Hide Named': 'Show Names' }</button> */}
           <button  className='btn' onClick={() => setShowModal(true)} > Show Modal</button>
         </div>
         {/* <div>

@@ -20,3 +20,12 @@
   font-size: 15px;
   outline: none;
 }
+
+.btn {
+  background: #5cb85c;
+  color: white;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
