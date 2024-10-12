@@ -21,7 +21,23 @@ const AddUser = ({addUserHandler}) => {
   }
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    addUserHandler(formData)
+    addUserHandler({
+      id: Math.round(Math.random() * 100),
+      name: formData.name,
+      age: formData.age,
+      address: formData.address,
+      phone: formData.phone,
+      gender: formData.gender
+    });
+
+    setFormData({name: '',
+      age:'',
+      address: '',
+      phone: '',
+      gender: ''}
+    )
+
+
   }
   return (
     <Form onSubmit={onSubmitHandler} >
@@ -49,7 +65,7 @@ const AddUser = ({addUserHandler}) => {
         </select>
     </Form.Controller>
     <div style={{marginTop: '20px'}}>
-      <Button type='submit' style={{marginRight: '20px'}}>Save</Button>
+      <Button type={'submit'} style={{marginRight: '20px'}}>Save</Button>
       <Button type={'reset'} >Reset</Button>
     </div>
   </Form>
