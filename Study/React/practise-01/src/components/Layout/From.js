@@ -1,7 +1,6 @@
 import style from './From.module.css'
 
 const Controller = (props) => {
-  console.log(props);
   return (
     <div className={style.control}>{props.children}</div>
   );
@@ -10,7 +9,7 @@ const Controller = (props) => {
 
 const From = (props) => {
   return (
-    <form>{props.children}</form>
+    <form onSubmit={props.onSubmit} >{props.children}</form>
   )
 }
 

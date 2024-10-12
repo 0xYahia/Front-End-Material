@@ -1,9 +1,10 @@
 import '../index.css'
 import { useRef, useState } from 'react'
-import Filter from '../components/Filter/Filter'
 import CardList from '../components/CardList/CardList'
 import Modal from '../components/Modal/Modal'
 import Button from '../components/Layout/Buttons'
+import AddUser from '../components/AddUser/AddUser'
+import FilterInput from '../components/FilterInput/FilterInput'
 
 const App = () => {
 
@@ -78,8 +79,7 @@ const App = () => {
   return (
     <>
       <div className="mainContainer">
-        <Modal show={showModal} closeModal={() => setShowModal(false)} />
-        <h1>Boys List</h1>
+        <h1>List of Data</h1>
         <div style={{display: 'flex', marginBottom: '20px'}}>
           <Button style={{marginRight: '20px'}} onClick={() => setCardToggle(!cardToggle)}>
               {cardToggle ? 'Hide Names': 'Show Names' }
@@ -91,9 +91,12 @@ const App = () => {
           <input type="text" style={{marginBottom: '20px', marginRight: '20px'}} ref={inputEl} onChange={print} />
           <button onClick={focus} >Click To Focus</button>
         </div> */}
-        <Filter filtration={filtration} />
+        <FilterInput filtration={filtration} />
         {cardToggle &&  <CardList userList={namesHandler()} deleteHandler={deleteHandler} /> }
       </div>
+      <Modal show={showModal} closeModal={() => setShowModal(false)}>
+        <AddUser />
+      </Modal>
     </>
   )
 }
