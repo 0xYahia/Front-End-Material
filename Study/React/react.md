@@ -26,3 +26,22 @@ export default Card;
 ### Controlled vs Uncontrolled Component
 - Controlled Component: The value of the input field is controlled by the state of the component.
 - Uncontrolled Component: The value of the input field is not controlled by the state of the component. It is controlled by the DOM itself. using ref attribute.
+
+
+### What is useEffect?
+- useEffect is a hook that allows you to perform side effects in your functional components.
+- It is similar to componentDidMount, componentDidUpdate, and componentWillUnmount in class components.
+- useEffect is called after the component is rendered to the DOM.
+- useEffect is used to fetch data, update the DOM, and perform other side effects.
+- useEffect is called after every render of the component.
+- useEffect can be called conditionally by passing a second argument to useEffect.
+- useEffect can return a cleanup function that will be called before the component is removed from the DOM.
+
+#### useEffect withouth dependency
+```jsx
+useEffect(() => {
+  console.log('useEffect without dependency');
+})
+```
+
+- It will run after first render and every re-render.

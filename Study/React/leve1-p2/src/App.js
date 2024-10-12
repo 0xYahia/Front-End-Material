@@ -5,9 +5,17 @@ function App() {
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
 
+  // useEffect(() => {
+  //   if (name && phone) {
+  //     console.log('use effect on time');
+  //   }
+  // }, [name, phone])
+
+  //! User effect without dependency array
   useEffect(() => {
-    console.log('use effect on time');
-  }, [])
+      console.log('use effect on time');
+
+  })
 
   console.log('render');
   return (
