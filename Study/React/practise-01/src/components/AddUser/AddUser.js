@@ -2,7 +2,7 @@ import Form from '../Layout/From';
 import Button from '../Layout/Buttons';
 import { useState } from 'react';
 
-const AddUser = ({addUserHandler}) => {
+const AddUser = ({addUserHandler, closeModal}) => {
   const [formData, setFormData] = useState({
     name: '',
     age:'',
@@ -10,6 +10,7 @@ const AddUser = ({addUserHandler}) => {
     phone: '',
     gender: ''
   })
+
 
   const formHandler = (e) => {
     const key = e.target.id;
@@ -36,8 +37,7 @@ const AddUser = ({addUserHandler}) => {
       phone: '',
       gender: ''}
     )
-
-
+    closeModal()
   }
   return (
     <Form onSubmit={onSubmitHandler} >
@@ -60,6 +60,7 @@ const AddUser = ({addUserHandler}) => {
     <Form.Controller>
         <label htmlFor="gender">Gender</label>
         <select name='gender' id='gender' onChange={formHandler} value={formData.gender}  >
+          <option>Choices gender</option>
           <option>Male</option>
           <option>Female</option>
         </select>
