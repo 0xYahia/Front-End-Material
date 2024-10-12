@@ -1,16 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import axios from 'axios'
+import usePrevState from "./hooks/usePrevState";
 export default function App() {
   const [term, setTerm] = useState('react')
   const [result, setResult] = useState([])
-  const termUseRef = useRef()
 
-
-  useEffect(() => {
-    termUseRef.current = term
-  })
-
-  const prevTerm = termUseRef.current
+  const prevTerm = usePrevState(term)
   console.log('prevTerm', prevTerm);
 
   useEffect(() => {
