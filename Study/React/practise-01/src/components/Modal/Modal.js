@@ -1,17 +1,28 @@
 import { createPortal } from 'react-dom';
 import style from './Modal.module.css'
+import Controller from '../Layout/Controller';
 
-const Backdrop = ({close}) => <div className={style.backDrop} onClick={close} ></div>
-const Overlay = () => <div className={style.overlay}></div>
-
+const Backdrop = ({close, show}) => <div className={`${style.backDrop} ${show ? style.showBackDrop : ''}`} onClick={close} ></div>
+const Overlay = ({show}) => {
+  return (
+  <div className={`${style.overlay} ${show ? style.showOverlay: ''}`}>
+    <form>
+      <Controller>
+          <label htmlFor="name">Name</label>
+          <input type="name" placeholder='Enter Name' />
+      </Controller>
+    </form>
+  </div>
+  )
+}
 
 const Modal = ({show, closeModal}) => {
   return (
     <>
-      {show && createPortal(
+      {createPortal(
         <>
-          <Backdrop close={closeModal} />
-          <Overlay />
+          <Backdrop close={closeModal} show={show} />
+          <Overlay show={show} />
         </>,
         document.getElementById('modal')
       )}
