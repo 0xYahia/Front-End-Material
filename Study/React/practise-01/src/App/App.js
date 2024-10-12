@@ -47,10 +47,7 @@ const App = () => {
   const [filter, setFilter] = useState('')
   const [showModal, setShowModal] = useState(false)
 
-  const addUserHandler = (data) => setState((prevState) => {
-    // debugger
-    return [...prevState, data]
-  })
+  const addUserHandler = (data) => setState((prevState) =>  [...prevState, data])
 
 
   const deleteHandler = (e, id) => {
