@@ -1,52 +1,72 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import axios from 'axios'
 export default function App() {
   const [term, setTerm] = useState('react')
+  const [debounceSearch, setDebounceSearch] = useState(term)
   const [result, setResult] = useState([])
-  const termUseRef = useRef()
 
+
+  // useEffect(() => {
+  //   const search = async () => {
+  //     const response = await axios.get('https://www.mediawiki.org/w/api.php' , {
+  //       params: {
+  //         action: 'query',
+  //         list: 'search',
+  //         origin: '*',
+  //         format: 'json',
+  //         srsearch: term
+  //       }
+  //     })
+
+  //     setResult(response.data.query.search)
+  //   }
+
+  //   if(!result.length) {
+  //     if(term) {
+  //       search()
+  //     }
+  //   } else {
+  //     const debounce = setTimeout(() => {
+  //       if (term) {
+  //         search()
+  //       }
+  //     }, 1000)
+
+  //     return () => {
+  //       clearTimeout(debounce)
+  //     }
+  //   }
+
+  // }, [term, result.length])
 
   useEffect(() => {
-    termUseRef.current = term
-  })
+    const timeOut = setTimeout(() => {
+      console.log('first effect');
+      setDebounceSearch(term)
+    }, 800)
 
-  const prevTerm = termUseRef.current
-  console.log('prevTerm', prevTerm);
+    return () => clearInterval(timeOut)
+  } , [term])
 
   useEffect(() => {
-    const search = async () => {
+    console.log('second effect');
+      const search = async () => {
       const response = await axios.get('https://www.mediawiki.org/w/api.php' , {
         params: {
           action: 'query',
           list: 'search',
           origin: '*',
           format: 'json',
-          srsearch: term
+          srsearch: debounceSearch
         }
       })
-
       setResult(response.data.query.search)
     }
 
-    if(!result.length) {
-      if(term) {
-        search()
-      }
-    }  else if (prevTerm !== term) {
-      const debounce = setTimeout(() => {
-        if (term) {
-          search()
-        }
-      }, 1000)
-
-      return () => {
-        clearTimeout(debounce)
-      }
+    if (debounceSearch) {
+      search()
     }
-
-  }, [term, result.length, prevTerm])
-
-
+  }, [debounceSearch])
 
   const fetchResult = result.map((el, index) => {
     return (
