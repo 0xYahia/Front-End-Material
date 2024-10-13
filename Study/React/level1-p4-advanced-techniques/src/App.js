@@ -1,21 +1,26 @@
 import './App.css'
-import Button from './components/Button'
-import ButtonGroup from './components/ButtonGroup'
+import List from './components/List'
+import ShapeOne from './components/ShapeOne'
+import ShapeTwo from './components/ShapeTwo'
 
 const App = () => {
-  const callBackFun = (content) => {
-    console.log(content)
-  }
+  const userData = [
+    { id: 1, name: 'yahia', email: 'yahia@gmail.coom', age: 27 },
+    { id: 2, name: 'ahmed', email: 'ahmed@gmail.coom', age: 29 },
+    { id: 3, name: 'wafaa', email: 'Sayed@gmail.coom', age: 30 },
+    { id: 4, name: 'safaa', email: 'Mohamed@gmail.coom', age: 31 },
+  ]
+
   return (
     <div className='App'>
-      <Button callBackFun={callBackFun} color='red'>
-        Single
-      </Button>
+      <List items={userData}>
+        <ShapeOne />
+      </List>
+      <List items={userData}>
+        <ShapeTwo />
+      </List>
 
-      <ButtonGroup>
-        <Button callBackFun={callBackFun}>First</Button>
-        <Button callBackFun={callBackFun}>Second</Button>
-      </ButtonGroup>
+      <ShapeOne item={userData[0]} />
     </div>
   )
 }

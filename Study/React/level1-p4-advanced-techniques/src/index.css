@@ -29,3 +29,54 @@ code {
   border-radius: 5px;
   cursor: pointer;
 }
+
+.list {
+  display: flex;
+  flex-direction: row;
+}
+
+.shapeOne {
+  width: 100px;
+  height: 100px;
+  background: #93b7be;
+  border: 1px solid #554348;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shapeOne ul {
+  margin: 0;
+  padding: 0;
+}
+
+.shapeOne li {
+  list-style-type: none;
+}
+
+.shapeTwo {
+  width: 100px;
+  height: 100px;
+  background: #93b7be;
+  border: 1px solid #554348;
+  border-radius: 5px;
+  width: 100px;
+  height: 100px;
+  margin-left: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.shapeTwo ul {
+  margin: 0;
+  padding: 0;
+}
+
+.shapeTwo li {
+  list-style-type: none;
+}
