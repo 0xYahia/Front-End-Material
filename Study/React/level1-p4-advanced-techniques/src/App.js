@@ -1,10 +1,15 @@
 import './App.css'
-
+import Button from './components/Button'
+import ButtonGroup from './components/ButtonGroup'
 
 const App = () => {
   return (
     <div className='App'>
-    <h1>Hello</h1>
+      <Button color='red'>Single</Button>
+
+      <ButtonGroup>
+        <Button>First</Button>
+      </ButtonGroup>
     </div>
   )
 }
