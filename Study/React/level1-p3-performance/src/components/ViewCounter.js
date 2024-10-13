@@ -1,8 +1,11 @@
+import '../App.css'
+
 const ViewCounter = ({ num, increment }) => {
+  console.log('view counter component');
   return (
-    <div>
+    <div className='viewCounter'>
       <button onClick={increment}>+</button>
-      <p>{num}</p>
+      <div>{num}</div>
     </div>
   )
 }

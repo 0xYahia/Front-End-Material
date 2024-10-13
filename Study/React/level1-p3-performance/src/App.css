@@ -1,5 +1,9 @@
 .App {
   text-align: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .App-logo {
@@ -35,4 +39,25 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+.viewCounter {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border: 1px solid black;
+  padding: 20px;
+  width: 100px;
+  height: 100px;
+}
+
+.viewText {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  border: 1px solid black;
+  padding: 20px;
+  width: 200px;
+  height: 100px;
 }
