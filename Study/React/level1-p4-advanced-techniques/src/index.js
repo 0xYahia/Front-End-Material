@@ -18,7 +18,7 @@
 
 import React from 'react'
 import ReactDom from 'react-dom/client'
-import App from './App'
+import App from './ContextEx/App'
 
 const root = ReactDom.createRoot(document.getElementById('root'))
 // root.render(React.createElement('div', {}, React.createElement('h1', {style: {color: 'red'}}, 'Hello World')))
