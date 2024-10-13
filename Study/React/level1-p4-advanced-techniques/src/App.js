@@ -3,12 +3,18 @@ import Button from './components/Button'
 import ButtonGroup from './components/ButtonGroup'
 
 const App = () => {
+  const callBackFun = (content) => {
+    console.log(content)
+  }
   return (
     <div className='App'>
-      <Button color='red'>Single</Button>
+      <Button callBackFun={callBackFun} color='red'>
+        Single
+      </Button>
 
       <ButtonGroup>
-        <Button>First</Button>
+        <Button callBackFun={callBackFun}>First</Button>
+        <Button callBackFun={callBackFun}>Second</Button>
       </ButtonGroup>
     </div>
   )

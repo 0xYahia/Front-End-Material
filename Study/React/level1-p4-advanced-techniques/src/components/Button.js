@@ -5,7 +5,7 @@ const Button = ({ color, customClasses, callBackFun, children }) => {
     <div
       className={`${customClasses ? 'button ' + customClasses : 'button'}`}
       style={{ color: color }}
-      onClick={callBackFun}
+      onClick={() => callBackFun(children)}
     >
       {children}
     </div>

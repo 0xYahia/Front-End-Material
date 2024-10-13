@@ -1,21 +1,30 @@
 import React from 'react'
 
 const ButtonGroup = ({ children }) => {
-  const text = children.props.children
-  const callBackFun = () => {
-    console.log('click')
-  }
-  const cloneElement = React.cloneElement(
-    children,
-    {
-      color: 'red',
-      customClasses: 'group',
-      callBackFun,
-    },
-    text
-  )
+  // const cloneElement = React.cloneElement(
+  //   children,
+  //   {
+  //     color: 'red',
+  //     customClasses: 'group',
+  //     callBackFun,
+  //   },
+  //   text
+  // )
 
-  return <div>{cloneElement}</div>
+  const cloneElements = React.Children.map(children, (child) => {
+    const text = child.props.children
+    return React.cloneElement(
+      child,
+      {
+        color: 'red',
+        customClasses: 'group',
+        callBackFun: child.props.callBackFun,
+      },
+      text
+    )
+  })
+
+  return <div>{cloneElements}</div>
 }
 
 export default ButtonGroup
