@@ -20,6 +20,7 @@ const ViewText = ({text, ageHandler}) => {
       <button onClick={ageHandler}>age</button>
       <p>the included text:</p>
       <Text>{text.name}</Text>
+      <Text>{text.age}</Text>
     </div>
   )
 }

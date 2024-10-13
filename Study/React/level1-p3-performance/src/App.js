@@ -6,10 +6,11 @@ import ViewText from './components/ViewText'
 
 const App = () => {
   const [count, setCount] = useState(0)
+  const [user, setUser] = useState({name: 'yahia'})
   // const name = 'yahia'
   const name = useMemo(() => {
-    return {name:'yahia'}
-  } , [])
+    return user
+  } , [user])
 
   const increment = () => {
     setCount((prev) => prev + 1)
@@ -20,7 +21,15 @@ const App = () => {
   // }
   const ageHandler = useCallback(() => {
     console.log('age');
+    setUser((prevState=> {
+      if(prevState.age) {
+        return prevState
+      } else {
+        return {...prevState, age: 27}
+      }
+    }))
   }, [])
+
 
   return (
     <div className='App'>
