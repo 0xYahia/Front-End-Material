@@ -55,3 +55,7 @@ useEffect(() => {
 =================================================================================================
 
 # The Ultimate React Course 2024: React, Next.js, Redux & More
+
+### What is JSX?
+
+- JSX stands for JavaScript XML. It is a syntax extension for JavaScript. It is used with React to describe what the UI should look like. JSX produces React “elements”. JSX is not a necessity to write React applications, but it makes the code more readable and easier to write.
