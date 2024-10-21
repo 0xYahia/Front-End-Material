@@ -1,5 +1,8 @@
-import React from 'react'
-import Pizza from './Pizza'
+import React, { useEffect } from 'react'
+import Header from './Header'
+import Menu from './Menu'
+import Footer from './Footer'
+import './index.css'
 
 const pizzaData = [
   {
@@ -47,13 +50,17 @@ const pizzaData = [
 ]
 
 export default function App() {
+  const [pizzas, setPizzas] = React.useState([])
+
+  useEffect(() => {
+    setPizzas(pizzaData)
+  }, [])
+
   return (
-    <div>
-      {pizzaData.length > 0 ? (
-        pizzaData.map((el, index) => <Pizza pizza={el} key={index} />)
-      ) : (
-        <p>Not there any pizza</p>
-      )}
+    <div className='container'>
+      <Header />
+      <Menu pizzaList={pizzas} />
+      <Footer />
     </div>
   )
 }
