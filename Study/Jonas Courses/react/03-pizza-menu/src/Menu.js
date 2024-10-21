@@ -1,27 +1,31 @@
 import './index.css'
+import Pizza from './Pizza'
 
 const Menu = ({ pizzaList }) => {
   console.log(pizzaList)
+  const pizza = pizzaList
+  const numPizzas = pizza.length
 
   return (
     <main className='menu'>
       <h2>Our menu</h2>
-      <ul className='pizzas'>
-        {pizzaList.length > 0 ? (
-          pizzaList.map((el, index) => (
-            <li key={index} className='pizza'>
-              <img src={el.photoName} alt={el.name} />
-              <div>
-                <h3>{el.name}</h3>
-                <p>{el.ingredients}</p>
-                <span>{el.price}</span>
-              </div>
-            </li>
-          ))
-        ) : (
-          <li className='pizzas='>Not there any pizza</li>
-        )}
-      </ul>
+      {numPizzas > 0 ? (
+        <>
+          <p>
+            Authentic Italian cuisine. 6 creative dishes to choose from. All
+            from out stone oven, all organic, all delicious.
+          </p>
+          <ul className='pizzas'>
+            {pizza.length > 0
+              ? pizza.map((pizza, index) => (
+                  <Pizza pizzaObj={pizza} key={index} />
+                ))
+              : null}
+          </ul>
+        </>
+      ) : (
+        <p>We're still working on our menu. Please come back later :)</p>
+      )}
     </main>
   )
 }
