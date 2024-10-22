@@ -1,61 +1,56 @@
 import { useState } from 'react'
-import './index.css'
-
-const messages = [
-  'Learn React ⚛️',
-  'Apply for jobs 💼',
-  'Invest your new income 🤑',
-]
-
 function App() {
   const [step, setStep] = useState(1)
-  const [isOpen, setIsOpen] = useState(true)
+  const [count, setCount] = useState(0)
+  const date = new Date('Oct 22 2024')
+  date.setDate(date.getDate() + count)
 
-  function handlePrev() {
-    if (step > 1) setStep(step - 1)
+  function handlePrevStep() {
+    setStep((curStep) => curStep - 1)
   }
 
-  function handleNext() {
-    if (step < 3) setStep(step + 1)
+  function handleNextStep() {
+    setStep((curStep) => curStep + 1)
+  }
 
-    //! None correct
-    // step = step + 1
-    // console.log(step)
+  function handlePrevCount() {
+    setCount((curCount) => curCount - step)
+  }
+
+  function handleNextCount() {
+    setCount((curCount) => curCount + step)
   }
 
   return (
-    <>
-      <button className='close' onClick={() => setIsOpen(!isOpen)}>
-        &times;
-      </button>
-      {isOpen && (
-        <div className='steps'>
-          <div className='numbers'>
-            <div className={step >= 1 ? 'active' : ''}>1</div>
-            <div className={step >= 2 ? 'active' : ''}>2</div>
-            <div className={step >= 3 ? 'active' : ''}>3</div>
-          </div>
-          <p className='message'>
-            Step {step}: {messages[step - 1]}
-          </p>
+    <div
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        flexDirection: 'column',
+      }}
+    >
+      <div>
+        <button onClick={handlePrevStep}>-</button>
+        <span>Step: {step}</span>
+        <button onClick={handleNextStep}>+</button>
+      </div>
+      <div>
+        <button onClick={handlePrevCount}>-</button>
+        <span>Count: {count}</span>
+        <button onClick={handleNextCount}>+</button>
+      </div>
 
-          <div className='buttons'>
-            <button
-              onClick={handlePrev}
-              style={{ background: '#7950f2', color: '#fff' }}
-            >
-              Previous
-            </button>
-            <button
-              onClick={handleNext}
-              style={{ background: '#7950f2', color: '#fff' }}
-            >
-              Next
-            </button>
-          </div>
-        </div>
-      )}
-    </>
+      <div>
+        <span>
+          {count === 0
+            ? 'Today is'
+            : count > 0
+            ? `${count} days from today is`
+            : `${Math.abs(count)} days ago was`}
+        </span>
+        <span>Today is {date.toDateString()}</span>
+      </div>
+    </div>
   )
 }
 
