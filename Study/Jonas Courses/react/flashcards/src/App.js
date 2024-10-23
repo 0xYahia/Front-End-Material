@@ -50,7 +50,7 @@ const questions = [
 ]
 
 function FlashCards() {
-  const [selectedId, setSelectedId] = useState(questions)
+  const [selectedId, setSelectedId] = useState(null)
 
   const handleToggle = (itemId) => {
     setSelectedId(selectedId === itemId ? null : itemId)
