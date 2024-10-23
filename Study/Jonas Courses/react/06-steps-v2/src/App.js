@@ -5,20 +5,17 @@ function App() {
   const date = new Date('Oct 22 2024')
   date.setDate(date.getDate() + count)
 
-  function handlePrevStep() {
-    setStep((curStep) => curStep - 1)
-  }
-
-  function handleNextStep() {
-    setStep((curStep) => curStep + 1)
-  }
-
   function handlePrevCount() {
     setCount((curCount) => curCount - step)
   }
 
   function handleNextCount() {
     setCount((curCount) => curCount + step)
+  }
+
+  function handleReset() {
+    setCount(0)
+    setStep(1)
   }
 
   return (
@@ -30,13 +27,23 @@ function App() {
       }}
     >
       <div>
-        <button onClick={handlePrevStep}>-</button>
-        <span>Step: {step}</span>
-        <button onClick={handleNextStep}>+</button>
+        <input
+          type='range'
+          value={step}
+          onChange={(e) => setStep(+e.target.value)}
+          step={1}
+          min={0}
+          max={20}
+        />
+        <span>{step}</span>
       </div>
       <div>
         <button onClick={handlePrevCount}>-</button>
-        <span>Count: {count}</span>
+        <input
+          type='text'
+          value={count}
+          onChange={(e) => setCount(+e.target.value)}
+        />
         <button onClick={handleNextCount}>+</button>
       </div>
 
@@ -50,6 +57,11 @@ function App() {
         </span>
         <span>Today is {date.toDateString()}</span>
       </div>
+      {count !== 0 || step !== 1 ? (
+        <div>
+          <button onClick={handleReset}>Reset</button>
+        </div>
+      ) : null}
     </div>
   )
 }
