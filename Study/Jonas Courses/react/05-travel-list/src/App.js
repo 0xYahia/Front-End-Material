@@ -1,35 +1,10 @@
 import { useState } from 'react'
 
 function App() {
-  return (
-    <>
-      <Logo />
-      <Form />
-    </>
-  )
-}
+  const [items, setItem] = useState([])
 
-export default App
-
-function Logo() {
-  return <h1>🏝️ Far Away 🧳</h1>
-}
-function Form() {
-  const [items, setItem] = useState([
-    { id: 1, description: 'Passports', quantity: 2, packed: false },
-    { id: 2, description: 'Socks', quantity: 12, packed: false },
-  ])
-
-  const [formState, setFormState] = useState({
-    description: '',
-    quantity: 1,
-  })
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    if (formState.description === '') return
-    console.log(items)
-    setItem([...items, { id: Date.now(), ...formState, packed: false }])
+  function handleAddItem(item) {
+    setItem((items) => [...items, { id: Date.now(), ...item, packed: false }])
   }
 
   const handleDelete = (itemId) => {
@@ -55,7 +30,6 @@ function Form() {
 
   const handleSort = (e) => {
     const sortBy = e.target.value ? e.target.value : 'input'
-    console.log(sortBy)
     let sortedItems = [...items]
     if (sortBy === 'description') {
       sortedItems.sort((a, b) => a.description.localeCompare(b.description))
@@ -64,6 +38,39 @@ function Form() {
     }
 
     setItem(sortedItems)
+  }
+  return (
+    <>
+      <Logo />
+      <Form handleAddItem={handleAddItem} />
+      <PackingList
+        items={items}
+        handleDelete={handleDelete}
+        onCheckboxChange={onCheckboxChange}
+        handleClear={handleClear}
+        handleSort={handleSort}
+      />
+      <Status items={items} />
+    </>
+  )
+}
+
+export default App
+
+function Logo() {
+  return <h1>🏝️ Far Away 🧳</h1>
+}
+function Form({ handleAddItem }) {
+  const [formState, setFormState] = useState({
+    description: '',
+    quantity: 1,
+  })
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (formState.description === '') return
+    const newItem = formState
+    handleAddItem(newItem)
   }
 
   return (
@@ -95,14 +102,6 @@ function Form() {
           <button>ADD</button>
         </form>
       </div>
-      <PackingList
-        items={items}
-        handleDelete={handleDelete}
-        onCheckboxChange={onCheckboxChange}
-        handleClear={handleClear}
-        handleSort={handleSort}
-      />
-      <Status items={items} />
     </>
   )
 }
